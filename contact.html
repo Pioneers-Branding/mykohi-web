@@ -68,7 +68,7 @@
             transform: translateY(40px);
         }
 
-        
+
 
         .section-reveal.visible {
             opacity: 1;
@@ -89,9 +89,17 @@
             opacity: 0;
             animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
         @keyframes reveal {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -128,9 +136,29 @@
                     class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">About</a>
                 <a href="marketing.html"
                     class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Marketing</a>
-                <a href="practice-development.html"
-                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Practice
-                    Dev</a>
+                <div class="relative group">
+                    <button
+                        class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all flex items-center gap-1">
+                        Practice Dev
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <a href="practice-development.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Practice
+                            Dev Overview</a>
+                        <a href="clinic-assessment.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Clinic
+                            Assessment</a>
+                    </div>
+                </div>
+                <a href="strategic-advisory.html"
+                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Strategic
+                    Advisory</a>
 
                 <div class="relative group">
                     <button
@@ -144,14 +172,8 @@
                     </button>
                     <div
                         class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                        <a href="treatment-fund.html"
-                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Treatment
-                            Fund</a>
                         <a href="media.html"
                             class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Media</a>
-                        <a href="clinic-assessment.html"
-                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Clinic
-                            Assessment</a>
                         <a href="blog.html"
                             class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Blog
                             Page</a>
@@ -333,8 +355,8 @@
                         <h2 class="text-2xl font-display font-bold text-slate-900 mb-2">Send Us a Message</h2>
                         <p class="text-slate-500 mb-8">Fill out the form below and we'll get back to you as soon as
                             possible.</p>
-
-                        <form class="space-y-6">
+                        <form accept-charset='UTF-8' action='https://app.formester.com/forms/LRWJorU4c/submissions'
+                            method='POST' class="space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 mb-2">First Name *</label>
@@ -382,7 +404,7 @@
                                     <label
                                         class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-brand-300 hover:bg-brand-50 transition-all">
                                         <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
-                                        <span class="text-sm text-slate-700">Practice Dev</span>
+                                        <span class="text-sm text-slate-700">Consulting</span>
                                     </label>
                                     <label
                                         class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-brand-300 hover:bg-brand-50 transition-all">
@@ -515,12 +537,13 @@
         </div>
     </section>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-[#0a0f1d] text-white border-t border-white/10 pt-20 pb-10 relative overflow-hidden">
         <!-- Abstract Background Glows -->
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-0 right-[20%] w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-0 left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-0 left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]">
+            </div>
         </div>
 
         <div class="max-w-[1400px] mx-auto px-6 relative z-10">
@@ -529,17 +552,28 @@
                 <div class="lg:col-span-4">
                     <a href="index.html" class="inline-block mb-6">
                         <!-- Using the Blue variant because it stays visible but is iconic, or we can use the same logo with brightness-0 invert filter to make it pure white -->
-                        <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95" alt="MyKohi Logo" class="h-16 brightness-0 invert opacity-90">
+                        <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                            alt="MyKohi Logo" class="h-16 brightness-0 invert opacity-90">
                     </a>
                     <p class="text-slate-400 leading-relaxed mb-6 font-light max-w-sm">
-                        Empowering the next generation of mental health care with elite operational and marketing intelligence. We bridge the gap between clinical excellence and strategic growth.
+                        Empowering the next generation of mental health care with elite operational and marketing
+                        intelligence. We bridge the gap between clinical excellence and strategic growth.
                     </p>
                     <div class="flex items-center gap-4">
-                        <a href="https://www.linkedin.com/company/mykohi" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                        <a href="https://www.linkedin.com/company/mykohi" target="_blank"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
                         </a>
-                        <a href="mailto:Info@mykohi.com" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <a href="mailto:Info@mykohi.com"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -550,9 +584,18 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Company</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="index.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Home</span></a></li>
-                            <li class="group"><a href="about.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">About Us</span></a></li>
-                            <li class="group"><a href="contact.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Contact</span></a></li>
+                            <li class="group"><a href="index.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Home</span></a></li>
+                            <li class="group"><a href="about.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">About Us</span></a></li>
+                            <li class="group"><a href="contact.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Contact</span></a></li>
                         </ul>
                     </div>
 
@@ -560,9 +603,25 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Services</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="marketing.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Marketing</span></a></li>
-                            <li class="group"><a href="practice-development.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Practice Dev</span></a></li>
-                            <li class="group"><a href="clinic-assessment.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Assessment</span></a></li>
+                            <li class="group"><a href="marketing.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Marketing</span></a></li>
+                            <li class="group"><a href="practice-development.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Practice Dev</span></a>
+                            </li>
+                            <li class="group"><a href="strategic-advisory.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Strategic
+                                        Advisory</span></a></li>
+                            <li class="group"><a href="clinic-assessment.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Assessment</span></a>
+                            </li>
                         </ul>
                     </div>
 
@@ -570,10 +629,18 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">More</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="treatment-fund.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Fund</span></a></li>
-                            <li class="group"><a href="media.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Media</span></a></li>
-                            <li class="group"><a href="blog.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Blog</span></a></li>
-                            <li class="group"><a href="mergers-acquisitions.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">M&amp;A</span></a></li>
+                            <li class="group"><a href="media.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Media</span></a></li>
+                            <li class="group"><a href="blog.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Blog</span></a></li>
+                            <li class="group"><a href="mergers-acquisitions.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">M&amp;A</span></a></li>
                         </ul>
                     </div>
 
@@ -583,15 +650,27 @@
                         <ul class="space-y-5">
                             <li>
                                 <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Phone</div>
-                                <a href="tel:18334695644" class="text-white hover:text-brand-400 font-mono text-sm transition-colors flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <a href="tel:18334695644"
+                                    class="text-white hover:text-brand-400 font-mono text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                        </path>
+                                    </svg>
                                     1-833-4MY-KOHI
                                 </a>
                             </li>
                             <li>
                                 <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Email</div>
-                                <a href="mailto:Info@mykohi.com" class="text-white hover:text-brand-400 text-sm transition-colors flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <a href="mailto:Info@mykohi.com"
+                                    class="text-white hover:text-brand-400 text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
                                     Info@mykohi.com
                                 </a>
                             </li>
@@ -603,7 +682,7 @@
             <!-- Bottom Bar -->
             <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-slate-500 text-sm">
-                    &copy; 2026 MyKohi Consulting. All Rights Reserved.
+                    &copy; 2026 MyKohi, LLC. All Rights Reserved.
                 </p>
                 <div class="flex items-center gap-6">
                     <p class="text-slate-500 text-sm">Designed for Excellence.</p>
@@ -611,7 +690,7 @@
             </div>
         </div>
     </footer>
-<!-- Scroll Animations -->
+    <!-- Scroll Animations -->
     <script>
         const observerOptions = {
             threshold: 0.1,
