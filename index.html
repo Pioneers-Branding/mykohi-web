@@ -137,9 +137,39 @@
             opacity: 0;
             animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
         @keyframes reveal {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logo-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .logo-track {
+            animation: logo-scroll 45s linear infinite;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-fade-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
         }
     </style>
 </head>
@@ -176,8 +206,7 @@
                 <a href="marketing.html"
                     class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Marketing</a>
                 <a href="practice-development.html"
-                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Practice
-                    Dev</a>
+                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Consulting</a>
 
                 <div class="relative group">
                     <button
@@ -202,6 +231,9 @@
                         <a href="blog.html"
                             class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Blog
                             Page</a>
+                        <a href="mergers-acquisitions.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Mergers
+                            &amp; Acquisitions</a>
                     </div>
                 </div>
             </div>
@@ -210,7 +242,7 @@
                 <a href="tel:18334695644" class="hidden xl:flex flex-col items-end mr-2 group">
                     <span
                         class="text-[10px] uppercase tracking-wider font-bold text-slate-400 group-hover:text-brand-600 transition-colors">CALL
-                        NOW ON</span>
+                        NOW </span>
                     <span class="font-mono font-bold text-sm text-slate-900">1-833-4MY-KOHI</span>
                 </a>
                 <a href="contact.html"
@@ -227,23 +259,12 @@
 
     <!-- Hero Section -->
     <section
-        class="relative pt-28 md:pt-32 lg:pt-24 pb-12 md:pb-16 lg:pb-10 flex items-center overflow-hidden min-h-[calc(100vh-5rem)] md:min-h-0">
+        class="relative pt-28 md:pt-32 lg:pt-24 pb-12 md:pb-16 lg:pb-20 overflow-hidden min-h-[calc(100vh-5rem)] md:min-h-0">
         <div
             class="max-w-[1500px] mx-auto px-4 sm:px-6 grid lg:grid-cols-12 md:gap-8 md:gap-12 lg:gap-16 items-center relative z-10">
             <!-- Left Content -->
             <div class="lg:col-span-7 space-y-6 md:space-y-8 lg:space-y-10 animate-reveal">
-                <div
-                    class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-brand-200 bg-brand-50/50 backdrop-blur-sm shadow-sm">
-                    <span class="relative flex h-2 w-2">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                    </span>
-                    <span
-                        class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-700 font-mono">Accepting
-                        New
-                        Partners for Q1 2026</span>
-                </div>
+
 
                 <h1
                     class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl font-display font-extrabold leading-[0.95] tracking-tight">
@@ -291,28 +312,49 @@
                         Get a quote
                     </a>
                 </div>
-
-                <div
-                    class="pt-4 md:pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-xs md:text-sm font-medium">
-                    <span>Trusted by:</span>
-                    <div class="flex flex-wrap gap-4 md:gap-6 ">
-                        <span class="text-slate-900 font-display font-bold text-base md:text-lg"><img
-                                src="https://res.cloudinary.com/de4kw1t2i/image/upload/v1759944699/karmatms_rp4lkn.png"
-                                alt="" class="h-12 bg-purple-800 p-2 rounded-lg"></span>
-                        <span class="text-slate-900 font-display font-bold text-base md:text-lg"><img
-                                src="https://www.optionspa.com/wp-content/uploads/2022/04/OPTIONS-ADDICTION-RECOVERY.png"
-                                alt="" class="h-10"></span>
-                        <span class="text-slate-900 font-display font-bold text-base md:text-lg"><img
-                                src="https://turnwell.com/wp-content/uploads/2025/04/cropped-turnwell-mental-health-logo-768x251.png"
-                                alt="" class="h-10 "></span>
-                    </div>
-                </div>
             </div>
 
             <!-- Right Visual -->
             <div class="lg:col-span-5 w-full md:mt-8 lg:mt-0">
                 <img src="home2.png" alt="TMS Marketing Dashboard"
                     class="rounded-2xl md:rounded-3xl scale-110 object-cover">
+            </div>
+        </div>
+
+        <!-- Full-Width Trusted By Logo Carousel -->
+        <div class="max-w-[1500px] mx-auto px-4 sm:px-6 mt-10 md:mt-16 pt-8 md:pt-10 border-t border-slate-200">
+            <p class="text-center text-xs md:text-sm uppercase tracking-[0.3em] text-slate-500 font-medium mb-6 md:mb-8">Trusted by Leading Practices</p>
+        </div>
+        <div class="logo-fade-mask overflow-hidden">
+            <div class="flex items-center gap-10 md:gap-14 lg:gap-16 w-max logo-track py-2">
+                <!-- Set 1 -->
+                <img src="https://globecoreinc.com/assets/globecore_logo-removebg-preview.png" alt="GlobeCore" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://cdn.prod.website-files.com/65773589c411ef66c988a4f9/65773589c411ef66c988a540_TRANSPARENT%20(SIDE)%20(2).png" alt="TMS" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://resiliencymbmedicine.com/assets/images/logo/resiliency-new-logo.webp" alt="Resiliency" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://cdn.providence.org/asset/GtV28qX0x6P0DfEBf7sJ7w10/project/psjh/providence/socal/images/logos/providence-logo-svg/svg?h=38&iar=0&w=200&rev=3f439a997f8142a3906a5e99e27a8b4b&hash=116C8657600BE12BB61DC2895EF69434" alt="Providence" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://res.cloudinary.com/de4kw1t2i/image/upload/v1768218653/HarmonyNeurocare-PrimaryLogo-Color_p88yte.png" alt="Harmony Neurocare" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://www.brainsway.com/wp-content/uploads/2021/04/BrainsWay-2021-logo_full-color_black-name-1-e1619462194423.png" alt="BrainsWay" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://ml.globenewswire.com/Resource/Download/cb7ef5ca-e58c-4320-b63b-f7759ce4b851" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnmSmnsZSKDcY0OOez5gVsku38a2fs1J_sA&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQXemXslgPXWkLXBiFlr3TP3u8yI7erYEoaQ&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWDVl8x_qTy17iUXUm8ILyzx4AWnJdcWSKWg&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk1BXOhwHtGCWTOkWa6Fl-F1GVolw9BzuNQA&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTl-iCNcqC-TEEpJuzvMLge3SzwDTppGoumQ&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqwr2qFmuN5QCXIOD0V296uIUwBTIE5GYSBg&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <!-- Set 2 (duplicate for seamless loop) -->
+                <img src="https://globecoreinc.com/assets/globecore_logo-removebg-preview.png" alt="GlobeCore" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://cdn.prod.website-files.com/65773589c411ef66c988a4f9/65773589c411ef66c988a540_TRANSPARENT%20(SIDE)%20(2).png" alt="TMS" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://resiliencymbmedicine.com/assets/images/logo/resiliency-new-logo.webp" alt="Resiliency" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://cdn.providence.org/asset/GtV28qX0x6P0DfEBf7sJ7w10/project/psjh/providence/socal/images/logos/providence-logo-svg/svg?h=38&iar=0&w=200&rev=3f439a997f8142a3906a5e99e27a8b4b&hash=116C8657600BE12BB61DC2895EF69434" alt="Providence" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://res.cloudinary.com/de4kw1t2i/image/upload/v1768218653/HarmonyNeurocare-PrimaryLogo-Color_p88yte.png" alt="Harmony Neurocare" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://www.brainsway.com/wp-content/uploads/2021/04/BrainsWay-2021-logo_full-color_black-name-1-e1619462194423.png" alt="BrainsWay" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://ml.globenewswire.com/Resource/Download/cb7ef5ca-e58c-4320-b63b-f7759ce4b851" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnmSmnsZSKDcY0OOez5gVsku38a2fs1J_sA&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQXemXslgPXWkLXBiFlr3TP3u8yI7erYEoaQ&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWDVl8x_qTy17iUXUm8ILyzx4AWnJdcWSKWg&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk1BXOhwHtGCWTOkWa6Fl-F1GVolw9BzuNQA&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTl-iCNcqC-TEEpJuzvMLge3SzwDTppGoumQ&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqwr2qFmuN5QCXIOD0V296uIUwBTIE5GYSBg&s" alt="Partner" class="h-9 md:h-12 lg:h-14 w-auto object-contain shrink-0" loading="lazy">
             </div>
         </div>
     </section>
@@ -340,14 +382,14 @@
             <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Content
                 Creation</span>
             <span class="text-2xl font-display font-bold text-white/50 mx-8 uppercase tracking-widest">★</span>
-            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">On;ine
+            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Online
                 Reputation</span>
             <span class="text-2xl font-display font-bold text-white/50 mx-8 uppercase tracking-widest">★</span>
-            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Email
-                Marketing</span>
+            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Digital
+                Creatives</span>
             <span class="text-2xl font-display font-bold text-white/50 mx-8 uppercase tracking-widest">★</span>
-            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Email
-                Marketing</span>
+            <span class="text-2xl font-display font-bold text-white/20 mx-8 uppercase tracking-widest">Website
+                Development</span>
             <span class="text-2xl font-display font-bold text-white/50 mx-8 uppercase tracking-widest">★</span>
         </div>
     </div>
@@ -380,8 +422,9 @@
                             </div>
                             <h3 class="text-3xl font-display font-bold text-slate-900 mb-4">Patient Acquisition Engine
                             </h3>
-                            <p class="text-slate-500 leading-relaxed max-w-sm">We deploy high-intent campaigns across
-                                search and social specifically tuned to TMS & Spravato nuances. We filter for qualified
+                            <p class="text-slate-500 leading-relaxed max-w-sm">We drive qualified patient leads using
+                                targeted search and social campaigns, expertly tailored to the unique nuances of
+                                TMS and Spravato therapies. We filter for qualified
                                 candidates, not just tire-kickers.</p>
                         </div>
                         <a href="#"
@@ -392,9 +435,9 @@
                     <div
                         class="absolute right-0 bottom-0 w-1/2 h-full bg-gradient-to-l from-brand-50 via-white to-transparent opacity-50 z-0">
                     </div>
-                    <img src="https://i.pinimg.com/1200x/12/13/c8/1213c899397cb54dbba55ff5787140b1.jpg"
+                    <!-- <img src="phone.jpg"
                         class="absolute right-0 bottom-0 w-1/2 h-2/4 object-cover rounded-tl-[2rem] translate-x-10 translate-y-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-700  "
-                        alt="Analytics">
+                        alt="Analytics"> -->
                 </div>
 
                 <!-- Tall Feature -->
@@ -413,17 +456,18 @@
                         </div>
                         <h3 class="text-2xl font-display font-bold mb-4">Operations &<br />Efficiency</h3>
                         <p class="text-slate-400 text-sm leading-relaxed mb-6">Front-desk scripting, intake
-                            optimization, and EMR consulting. We fix the leaky bucket.</p>
+                            optimization, and EMR/CRM consulting. We fix the leaky bucket.</p>
 
                         <div class="mt-8 space-y-3">
                             <div class="flex items-center gap-3 text-sm text-slate-300">
                                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Intake Training
                             </div>
                             <div class="flex items-center gap-3 text-sm text-slate-300">
-                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Billing Review
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Mystery Patient Call &
+                                Review
                             </div>
                             <div class="flex items-center gap-3 text-sm text-slate-300">
-                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> EMR Setup
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Referral Network Strategy
                             </div>
                         </div>
                     </div>
@@ -634,30 +678,34 @@
                     <div class="relative z-10">
                         <div
                             class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20 group-hover:scale-110 transition-transform duration-500">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20" stroke="#ffffff"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
                             </svg>
                         </div>
 
-                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Content Marketing</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Educate and convert with expertly crafted
-                            content. From blog posts to patient guides, we create resources that answer questions and
-                            build trust.</p>
+                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Website Development and
+                            Management</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Engage and convert with expertly
+                            engineered websites. From responsive designs to secure hosting, we create digital
+                            experiences that drive traffic and build trust.</p>
 
                         <ul class="space-y-2 mb-6">
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-teal-500"></div>
-                                Medical Blog Writing
+                                Custom Website Design
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-teal-500"></div>
-                                Patient Education Materials
+                                Ongoing Maintenance & Security
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-teal-500"></div>
-                                Video Content Production
+                                Performance & SEO Optimization
                             </li>
                         </ul>
 
@@ -683,30 +731,35 @@
                     <div class="relative z-10">
                         <div
                             class="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-rose-500/20 group-hover:scale-110 transition-transform duration-500">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                </path>
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M4.46814 17.5319C5.62291 19.7154 7.92876 20.5 12 20.5C17.6255 20.5 19.8804 19.002 20.3853 14.3853M4.46814 17.5319C3.77924 16.2292 3.5 14.4288 3.5 12C3.5 5.5 5.5 3.5 12 3.5C18.5 3.5 20.5 5.5 20.5 12C20.5 12.8745 20.4638 13.6676 20.3853 14.3853M4.46814 17.5319L7.58579 14.4142C8.36684 13.6332 9.63317 13.6332 10.4142 14.4142L10.5858 14.5858C11.3668 15.3668 12.6332 15.3668 13.4142 14.5858L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20.3853 14.3853M10.691 8.846C10.691 9.865 9.864 10.692 8.845 10.692C7.827 10.692 7 9.865 7 8.846C7 7.827 7.827 7 8.845 7C9.864 7 10.691 7.827 10.691 8.846Z"
+                                        stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </g>
                             </svg>
                         </div>
 
-                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Email Marketing</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Nurture leads and retain patients with
-                            personalized email campaigns. HIPAA-compliant automation that keeps your practice
-                            top-of-mind.</p>
+                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Digital Creatives</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Captivate and inspire with visually
+                            stunning designs. From brand identities to social media graphics, we create
+                            eye-catching assets that communicate your message and build trust.</p>
 
                         <ul class="space-y-2 mb-6">
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
-                                Automated Drip Campaigns
+                                Brand Identity & Logo Design
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
-                                Newsletter Management
+                                Social Media Graphics
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
-                                Patient Re-engagement
+                                Ad & Campaign Visuals
                             </li>
                         </ul>
 
@@ -732,29 +785,39 @@
                     <div class="relative z-10">
                         <div
                             class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-500">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                                </path>
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M11.9976 10.2119C11.2978 9.43279 10.1309 9.22321 9.25414 9.93666C8.37738 10.6501 8.25394 11.843 8.94247 12.6868C9.33119 13.1632 10.2548 13.9983 10.9854 14.6353C11.3319 14.9374 11.5051 15.0884 11.7147 15.1503C11.8934 15.203 12.1018 15.203 12.2805 15.1503C12.4901 15.0884 12.6633 14.9374 13.0098 14.6353C13.7404 13.9983 14.664 13.1632 15.0527 12.6868C15.7413 11.843 15.6329 10.6426 14.7411 9.93666C13.8492 9.23071 12.6974 9.43279 11.9976 10.2119Z"
+                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path
+                                        d="M11.3586 20.683C11.5639 20.79 11.6666 20.8435 11.809 20.8712C11.92 20.8928 12.08 20.8928 12.191 20.8712C12.3334 20.8435 12.4361 20.79 12.6414 20.683C14.54 19.6937 20 16.4611 20 12V8.21759C20 7.41808 20 7.01833 19.8692 6.6747C19.7537 6.37113 19.566 6.10027 19.3223 5.88552C19.0465 5.64243 18.6722 5.50207 17.9236 5.22134L12.5618 3.21067C12.3539 3.13271 12.25 3.09373 12.143 3.07827C12.0482 3.06457 11.9518 3.06457 11.857 3.07827C11.75 3.09373 11.6461 3.13271 11.4382 3.21067L6.0764 5.22134C5.3278 5.50207 4.9535 5.64243 4.67766 5.88552C4.43398 6.10027 4.24627 6.37113 4.13076 6.6747C4 7.01833 4 7.41808 4 8.21759V12C4 16.4611 9.45996 19.6937 11.3586 20.683Z"
+                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </g>
                             </svg>
                         </div>
 
-                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Analytics & Reporting</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Data-driven decisions, not guesswork. We
-                            track every metric that matters and provide crystal-clear reports on your marketing ROI.</p>
+                        <h3 class="text-2xl font-display font-bold text-slate-900 mb-3">Reputation Management</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">Protect and elevate with strategic online
+                            monitoring. From review generation to crisis management, we cultivate a
+                            positive brand image that inspires confidence and builds trust.</p>
 
                         <ul class="space-y-2 mb-6">
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
-                                Custom Dashboard Setup
+                                Review Generation & Monitoring
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
-                                Conversion Tracking
+                                Crisis Response Management
                             </li>
                             <li class="flex items-center gap-2 text-xs text-slate-600">
                                 <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
-                                Monthly Performance Reports
+                                Brand Sentiment Analysis
                             </li>
                         </ul>
 
@@ -782,7 +845,7 @@
                     </div>
                     <a href="#contact"
                         class="shrink-0 px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-brand-600/30 hover:shadow-brand-600/50">
-                        Schedule Strategy Call
+                        Schedule a Strategy Call
                     </a>
                 </div>
             </div>
@@ -844,8 +907,7 @@
                     <div
                         class="group relative bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col sm:flex-row gap-8 items-start">
                         <div class="w-32 h-32 shrink-0 rounded-2xl overflow-hidden relative">
-                            <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/blob-acc93cc.png/:/cr=t:15.29%25,l:0%25,w:100%25,h:56.22%25/rs=w:365,h:365,cg:true/qt=q:30"
-                                alt="Brian Goldbeck"
+                            <img src="brian.png" alt="Brian Goldbeck"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <div>
@@ -873,17 +935,21 @@
                     <!-- Member Card 3 - Compact -->
                     <div class="grid sm:grid-cols-2 gap-8">
                         <div
-                            class="bg-white rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
-                            <div class="flex items-center gap-4 mb-4">
+                            class="bg-white rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all border border-slate-100 group flex flex-row">
+                            <div class=" mb-4">
                                 <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Subject.png/:/cr=t:0%25,l:0%25,w:100%25,h:87.7%25/rs=w:365,h:365,cg:true/qt=q:30"
-                                    alt="Stephanie Goldbeck" class="w-16 h-16 rounded-full object-cover">
-                                <div>
-                                    <h3 class="font-bold text-slate-900">Stephanie Goldbeck</h3>
-                                    <p class="text-xs text-purple-600 font-bold uppercase">COO & CMO</p>
-                                </div>
+                                    alt="Stephanie Goldbeck" class="min-w-32 h-32 rounded-full object-cover">
+
                             </div>
-                            <p class="text-sm text-slate-500">Operational perfectionist ensuring your campaigns
-                                encompass the full patient journey.</p>
+                            <div class="max-w-[250px] ml-6">
+                                <div>
+                                    <h3 class="font-bold text-xl text-slate-900 font-mono">Stephanie Goldbeck</h3>
+                                    <p class="text-sm text-purple-600 font-mono font-bold uppercase">Chief Operating
+                                        Officer & CMO</p>
+                                </div>
+                                <p class="text-xs mt-4 text-slate-500">Operational perfectionist ensuring your campaigns
+                                    encompass the full patient journey.</p>
+                            </div>
                         </div>
                         <div
                             class="bg-white rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
@@ -891,8 +957,9 @@
                                 <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/1924e638ed9987025721ce64e233774a.png/:/cr=t:9.59%25,l:15.75%25,w:70.42%25,h:51.21%25/rs=w:365,h:365,cg:true,m/qt=q:30"
                                     alt="Mae Ann Mitchell" class="w-16 h-16 rounded-full object-cover">
                                 <div>
-                                    <h3 class="font-bold text-slate-900">Mae Ann Mitchell</h3>
-                                    <p class="text-xs text-teal-600 font-bold uppercase">Coordinator</p>
+                                    <h3 class="font-bold font-mono text-xl text-slate-900">Mae Ann Mitchell</h3>
+                                    <p class="text-xs text-teal-600 font-bold uppercase">Marketing & Operations
+                                        Coordinator</p>
                                 </div>
                             </div>
                             <p class="text-sm text-slate-500">The glue of our operations, ensuring seamless
@@ -1154,10 +1221,9 @@
                     <div
                         class="rounded-[2rem] overflow-hidden shadow-xl border border-slate-200 h-[530px] bg-slate-100">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3524.4847799999997!2d-82.45699999999999!3d27.945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c4e0e0000001%3A0x1!2s700%20S%20Harbour%20Island%20Blvd%2C%20Tampa%2C%20FL%2033602!5e0!3m2!1sen!2sus!4v1234567890"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3524.8046074912277!2d-82.45337889999999!3d27.938634699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2c5dcf5d81aa5%3A0x96c3f17808719c41!2sMyKohi%20-%20Mental%20Health%20Consulting%20%26%20Marketing!5e0!3m2!1sen!2sin!4v1781182650442!5m2!1sen!2sin"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            class="grayscale hover:grayscale-0 transition-all duration-500">
+                            referrerpolicy="no-referrer-when-downgrade" class=" transition-all duration-500">
                         </iframe>
                     </div>
                 </div>
@@ -1190,7 +1256,7 @@
             <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
                 <a href="https://d5jy4m04.na1.hs-sales-engage.com/Ctc/5I+23284/d5JY4M04/JkM2-6qcW6N1vHY6lZ3kLW44DLfQ8FY70XN4skwkvVR5fYW8VP91F4qPlMXW4D15q71NzQWYW5sNHpg1Bmn8fW7KTYD557nZ7qW4QhMxp8c4q79W1VxHff8z3_MRW1q72cb3BHJdnW353_HB4PZ8l1W3ZcDsq2hYG4rW3gc4r35S76DsW86jXQZ7lNsg5W1-D_vc7zKlFLW84--tw1vRhkwW3mxpwM7CJ80GW4-8TyT2KlN2jW92w69h7hmDmJW6Zq_vq7DRnThW7Dt_tk673GSqMKRqSfXxLvfW8sCNgg1gjqt_f4Xy3jR04"
                     class="px-12 py-5 bg-brand-600 hover:bg-brand-500 text-white rounded-full font-bold text-lg shadow-[0_0_50px_rgba(14,165,233,0.4)] hover:shadow-[0_0_70px_rgba(14,165,233,0.6)] transition-all transform hover:-translate-y-1">
-                    Book Executive Consultation
+                    Book an Executive Consultation
                 </a>
                 <div class="flex items-center gap-3 text-sm">
                     <span class="text-slate-500">or call</span>
@@ -1209,12 +1275,13 @@
         </div>
     </section>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-[#0a0f1d] text-white border-t border-white/10 pt-20 pb-10 relative overflow-hidden">
         <!-- Abstract Background Glows -->
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div class="absolute top-0 right-[20%] w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-0 left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-0 left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]">
+            </div>
         </div>
 
         <div class="max-w-[1400px] mx-auto px-6 relative z-10">
@@ -1223,17 +1290,28 @@
                 <div class="lg:col-span-4">
                     <a href="index.html" class="inline-block mb-6">
                         <!-- Using the Blue variant because it stays visible but is iconic, or we can use the same logo with brightness-0 invert filter to make it pure white -->
-                        <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95" alt="MyKohi Logo" class="h-16 brightness-0 invert opacity-90">
+                        <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                            alt="MyKohi Logo" class="h-16 brightness-0 invert opacity-90">
                     </a>
                     <p class="text-slate-400 leading-relaxed mb-6 font-light max-w-sm">
-                        Empowering the next generation of mental health care with elite operational and marketing intelligence. We bridge the gap between clinical excellence and strategic growth.
+                        Empowering the next generation of mental health care with elite operational and marketing
+                        intelligence. We bridge the gap between clinical excellence and strategic growth.
                     </p>
                     <div class="flex items-center gap-4">
-                        <a href="https://www.linkedin.com/company/mykohi" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                        <a href="https://www.linkedin.com/company/mykohi" target="_blank"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
                         </a>
-                        <a href="mailto:Info@mykohi.com" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <a href="mailto:Info@mykohi.com"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -1244,9 +1322,18 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Company</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="index.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Home</span></a></li>
-                            <li class="group"><a href="about.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">About Us</span></a></li>
-                            <li class="group"><a href="contact.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Contact</span></a></li>
+                            <li class="group"><a href="index.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Home</span></a></li>
+                            <li class="group"><a href="about.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">About Us</span></a></li>
+                            <li class="group"><a href="contact.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Contact</span></a></li>
                         </ul>
                     </div>
 
@@ -1254,9 +1341,21 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Services</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="marketing.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Marketing</span></a></li>
-                            <li class="group"><a href="practice-development.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Practice Dev</span></a></li>
-                            <li class="group"><a href="clinic-assessment.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Assessment</span></a></li>
+                            <li class="group"><a href="marketing.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Marketing</span></a></li>
+                            <li class="group"><a href="practice-development.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Practice Development
+                                        Consulting</span></a>
+                            </li>
+                            <li class="group"><a href="clinic-assessment.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Assessment</span></a>
+                            </li>
                         </ul>
                     </div>
 
@@ -1264,9 +1363,22 @@
                     <div>
                         <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">More</h4>
                         <ul class="space-y-3">
-                            <li class="group"><a href="treatment-fund.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Fund</span></a></li>
-                            <li class="group"><a href="media.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Media</span></a></li>
-                            <li class="group"><a href="blog.html" class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span class="group-hover:translate-x-3 transition-transform">Blog</span></a></li>
+                            <li class="group"><a href="treatment-fund.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Fund</span></a></li>
+                            <li class="group"><a href="media.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Media</span></a></li>
+                            <li class="group"><a href="blog.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Blog</span></a></li>
+                            <li class="group"><a href="mergers-acquisitions.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">M&amp;A</span></a></li>
                         </ul>
                     </div>
 
@@ -1276,15 +1388,27 @@
                         <ul class="space-y-5">
                             <li>
                                 <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Phone</div>
-                                <a href="tel:18334695644" class="text-white hover:text-brand-400 font-mono text-sm transition-colors flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <a href="tel:18334695644"
+                                    class="text-white hover:text-brand-400 font-mono text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                        </path>
+                                    </svg>
                                     1-833-4MY-KOHI
                                 </a>
                             </li>
                             <li>
                                 <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Email</div>
-                                <a href="mailto:Info@mykohi.com" class="text-white hover:text-brand-400 text-sm transition-colors flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <a href="mailto:Info@mykohi.com"
+                                    class="text-white hover:text-brand-400 text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
                                     Info@mykohi.com
                                 </a>
                             </li>
