@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | MyKohi</title>
+    <meta name="description" content="Thank you for contacting MyKohi. We'll be in touch soon.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            teal: '#14b8a6',
+                            rose: '#f43f5e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #0ea5e9 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-900 antialiased overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-brand-200/30 to-purple-200/30 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-teal-200/30 to-blue-200/30 rounded-full blur-[80px]"></div>
+    </div>
+
+    <main class="min-h-screen flex items-center justify-center px-6 py-20">
+        <div class="relative z-10 max-w-3xl w-full">
+            <div class="bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-[2rem] p-10 sm:p-14">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 mb-6 mx-auto">
+                        <span class="text-brand-700 font-mono font-bold uppercase tracking-widest text-xs">Thank You</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-display font-bold text-slate-900 mb-4 leading-tight">
+                        Your message has been received.
+                    </h1>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                        A MyKohi team member will review your request and reach out shortly. We appreciate you taking the
+                        first step toward practice transformation.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 rounded-3xl border border-slate-200 p-8">
+                    <div class="text-center mb-6">
+                        <p class="text-sm uppercase tracking-[0.28em] font-semibold text-slate-500">Explore more</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-3">Helpful pages</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                        <a href="index.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Home</a>
+                        <a href="about.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">About</a>
+                        <a href="marketing.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Marketing</a>
+                        <a href="practice-development.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Practice Dev</a>
+                        <a href="clinic-assessment.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Clinic Assessment</a>
+                        <a href="strategic-advisory.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Strategic Advisory</a>
+                        <a href="treatment-fund.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Treatment Fund</a>
+                        <a href="media.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Media</a>
+                        <a href="blog.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Blog</a>
+                        <a href="mergers-acquisitions.html" class="rounded-2xl border border-slate-200 bg-white py-4 px-4 text-slate-800 font-medium hover:border-brand-300 hover:bg-brand-50 transition-all">Mergers & Acquisitions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
