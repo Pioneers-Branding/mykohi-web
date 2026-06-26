@@ -221,13 +221,13 @@
                         With Us</span>
                     <span class="font-mono font-bold text-sm text-slate-900">1-833-4MY-KOHI</span>
                 </a>
-                <a href="#contact"
+                <a href="contact.html"
                     class="group relative px-6 md:px-8 py-3 bg-slate-900 text-white rounded-full font-bold overflow-hidden shadow-2xl shadow-brand-900/20 hover:scale-[1.02] transition-transform duration-300 text-center">
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-brand-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     </div>
                     <span class="relative z-10 flex items-center justify-center gap-3">
-                        Call Now
+                        Contact Us
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -358,151 +358,283 @@
     </script>
 
     
-    <!-- Article Header Hero -->
-    <section class="pt-32 pb-12 relative overflow-hidden">
-        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
-            <div class="max-w-3xl">
-                <a href="blog.html" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-700 transition-colors mb-6 group">
-                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                    Back to Blog
-                </a>
-                
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-100 mb-6">
-                    <span class="text-brand-700 font-mono font-bold uppercase tracking-wider text-xs">AI & Technology</span>
+    <!-- Reading Progress Bar -->
+    <div class="fixed top-20 left-0 w-full h-1 bg-slate-100/50 z-50 pointer-events-none">
+        <div id="reading-progress" class="h-full bg-brand-500 w-0 transition-all duration-75"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="pt-36 pb-16 relative overflow-hidden">
+        <!-- Grid + Glow Background -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-brand-200/30 to-blue-200/30 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-slate-200/30 to-blue-200/30 rounded-full blur-[80px]"></div>
+        </div>
+
+        <div class="max-w-[900px] mx-auto px-6 relative z-10 text-center">
+
+            <!-- Category Badge -->
+            <div class="mb-6">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 text-brand-700 font-mono font-bold uppercase tracking-widest text-xs">
+                    AI &amp; Technology
+                </span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 leading-tight">
+                The Future of Mental Health Treatment - TMS &amp; Neuromodulation
+            </h1>
+
+            <!-- Author & Date -->
+            <div class="flex items-center justify-center gap-6 text-sm text-slate-500 font-medium">
+                <div class="flex items-center gap-2">
+                    <span>By Dr. Karan Narwal</span>
                 </div>
-                
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 leading-tight">
-                    The Future of Mental Health Treatment - TMS & Neuromodulation
-                </h1>
-                
-                <div class="flex items-center gap-6 text-sm text-slate-500 font-medium">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold text-xs">
-                            KN
-                        </div>
-                        <span>By Dr. Karan Narwal</span>
-                    </div>
-                    <div class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
-                    <span>February 25, 2025</span>
-                </div>
+                <div class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
+                <span>February 25, 2025</span>
             </div>
         </div>
     </section>
 
-    <!-- Main Content Grid -->
-    <section class="pb-24 relative z-10">
-        <div class="max-w-[1200px] mx-auto px-6">
-            <div class="grid lg:grid-cols-12 gap-12">
-                <!-- Left: Article Content -->
-                <article class="lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-8 md:p-12 shadow-xl shadow-slate-100/50">
-                    <!-- Featured Image -->
-                    <div class="aspect-[21/9] rounded-2xl overflow-hidden bg-slate-100 mb-10">
-                        <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1200&auto=format&fit=crop&q=80" alt="The Future of Mental Health Treatment - TMS & Neuromodulation" class="w-full h-full object-cover">
-                    </div>
+    <!-- Main Content Reader Layout -->
+    <section class="py-20 relative z-10 bg-white">
+        <div class="max-w-[1140px] mx-auto px-6">
+            
+            <div class="grid lg:grid-cols-[260px_1fr] gap-12 items-start">
+                
+                <!-- Left Column: Sticky TOC (Desktop only) -->
+                <aside class="hidden lg:block sticky top-28 self-start">
                     
-                    <!-- Content -->
-                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-6">
-                        <p class='text-slate-600 leading-relaxed'>TMS Therapy - The Future of Mental Health
-By Dr. Karan Narwal</p>
+            <!-- Desktop Sticky Table of Contents -->
+            <nav class="toc-sidebar space-y-4 max-h-[calc(100vh-160px)] overflow-y-auto pr-4 select-none">
+                <span class="text-[10px] font-mono font-bold text-brand-600 uppercase tracking-widest block">On This Page</span>
+                <ul class="relative space-y-1 border-l border-slate-200 pl-4 list-none m-0">
+                                        <li>
+                        <a href="#why-are-tms-and-neuromodulation-based-therapy-gaining-momentum" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">
+                            Why are TMS and Neuromodulation-based therapy gaining momentum?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#1-rising-demand-for-alternative-and-effective-treatments" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">
+                            1. Rising Demand for Alternative and Effective Treatments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#2-broader-insurance-coverage-and-reimbursement" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">
+                            2. Broader Insurance Coverage and Reimbursement
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#3-acceptance-in-psychiatry-technological-advancements" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">
+                            3. Acceptance in Psychiatry & Technological Advancements
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#preparing-your-practice-for-neuromodulation" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">
+                            Preparing Your Practice for Neuromodulation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#operational-considerations-for-tms" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">
+                            Operational Considerations for TMS:
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+                </aside>
+                
+                <!-- Right Column: Article Content & Author/CTA Card -->
+                <div>
+                    <!-- Article Thumbnail Image -->
+                    <div class="mb-8 rounded-2xl overflow-hidden aspect-[16/9] shadow-lg border border-slate-100 relative">
+                        <img src="img/the-future-of-mental-health-treatment.webp" alt="The Future of Mental Health Treatment - TMS & Neuromodulation" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Article Body -->
+                    <article class="prose prose-slate max-w-[800px] text-slate-700 leading-relaxed space-y-8 text-base md:text-lg">
+                        
+            <!-- Mobile/Tablet Table of Contents (Inline) -->
+            <div class="lg:hidden bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8 max-w-md">
+                <span class="text-[10px] font-mono font-bold text-brand-600 uppercase tracking-widest block mb-2">On This Page</span>
+                <h4 class="font-display font-bold text-slate-900 text-base mb-3">Table of Contents</h4>
+                <ul class="space-y-2 border-l-2 border-slate-200 pl-4 list-none m-0">
+                                        <li>
+                        <a href="#why-are-tms-and-neuromodulation-based-therapy-gaining-momentum" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">
+                            Why are TMS and Neuromodulation-based therapy gaining momentum?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#1-rising-demand-for-alternative-and-effective-treatments" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">
+                            1. Rising Demand for Alternative and Effective Treatments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#2-broader-insurance-coverage-and-reimbursement" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">
+                            2. Broader Insurance Coverage and Reimbursement
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#3-acceptance-in-psychiatry-technological-advancements" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">
+                            3. Acceptance in Psychiatry & Technological Advancements
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#preparing-your-practice-for-neuromodulation" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">
+                            Preparing Your Practice for Neuromodulation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#operational-considerations-for-tms" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">
+                            Operational Considerations for TMS:
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+                        <p class='text-slate-600 leading-relaxed text-lg first-letter:float-left first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-brand-600 first-letter:mr-3 first-letter:mt-1 first-letter:leading-none'>TMS Therapy - The Future of Mental Health By Dr. Karan Narwal</p>
 <p class='text-slate-600 leading-relaxed'>It’s one of those moments in history where a pivotal moment takes place. Where the nonconventional becomes the conventional. Where literally energy creates a movement. And no, I’m not talking about the Eagles winning the SuperBowl. That is something we aren’t surprised by. It’s a psychiatric Renaissance and we are here for it. I’m talking about neuromodulation for Mental Health, specifically Transcranial Magnetic Stimulation therapy, Transcranial Pulse Stimulation, Vagus Nerve Stimulation, and Transcranial Direct Current Stimulation.</p>
 <p class='text-slate-600 leading-relaxed'>Transcranial Magnetic Stimulation (TMS) and other neuromodulation-based therapies are becoming more mainstream than ever before. With substantial evidence of clinical and research based validation, broader insurance coverage, and a growing demand for alternative treatments beyond traditional medication, TMS is positioned as a key player in the future of psychiatric care.</p>
 <p class='text-slate-600 leading-relaxed'>Is it possible that we have reached the era where the “DaVincis” (Sir Anthony Barkers) and “Michelangelos” (Nolan Williams) of neuromodulation in psychiatry have brought forward this technology and its utilization? Heck yeah. And it’s only going to get more exciting, eye opening and available. So for mental health clinics looking to expand their offerings, adding TMS can be a game-changer but operational readiness is essential for success. You have to have the right tools, the right canvas, and the right artist. You have to have the right pieces, the right team and the right mindset to do this.</p>
-<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Why are TMS and Neuromodulation-based therapy gaining momentum?</h3>
-<h4 class='text-xl font-display font-bold text-slate-900 mt-6 mb-3'>1. Rising Demand for Alternative and Effective Treatments
-TMS has been FDA-approved for major and treatment resistant depression since 2008, but its adoption has surged in recent years as more patients seek drug-free and non-invasive options. As the trials support the efficacy and lack of side effects, there is noticeable durability and response to treatment that psychopharmacological approaches fail to achieve.</h4>
+<h3 id='why-are-tms-and-neuromodulation-based-therapy-gaining-momentum' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Why are TMS and Neuromodulation-based therapy gaining momentum?</h3>
+<h4 id='1-rising-demand-for-alternative-and-effective-treatments' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>1. Rising Demand for Alternative and Effective Treatments</h4>
+<p class='text-slate-600 leading-relaxed'>TMS has been FDA-approved for major and treatment resistant depression since 2008, but its adoption has surged in recent years as more patients seek drug-free and non-invasive options. As the trials support the efficacy and lack of side effects, there is noticeable durability and response to treatment that psychopharmacological approaches fail to achieve.</p>
 <p class='text-slate-600 leading-relaxed'>As research continues to support its effectiveness in conditions like OCD, anxiety, PTSD, and even chronic pain, the scope of its application is rapidly expanding. There’s this natural or organic context with TMS, with this understanding that based on treatment protocol and location, we can potentially treat many conditions and symptoms with effective TMS Therapy.</p>
-<h4 class='text-xl font-display font-bold text-slate-900 mt-6 mb-3'>2. Broader Insurance Coverage and Reimbursement
-Initially, insurance coverage for TMS was limited. I remember that stone age. Faxing every piece of documentation, providing 10+ pages of collateral for a prior auth, and having to screen a population that can benefit from TMS but only being able to treat those with 5+ medication history.</h4>
+<h4 id='2-broader-insurance-coverage-and-reimbursement' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>2. Broader Insurance Coverage and Reimbursement</h4>
+<p class='text-slate-600 leading-relaxed'>Initially, insurance coverage for TMS was limited. I remember that stone age. Faxing every piece of documentation, providing 10+ pages of collateral for a prior auth, and having to screen a population that can benefit from TMS but only being able to treat those with 5+ medication history.</p>
 <p class='text-slate-600 leading-relaxed'>Today, however, most major insurers cover TMS for treatment-resistant depression and are expanding coverage for other indications. This shift is lowering barriers to patient access and making it a more financially viable option for clinics. Requirements for coverage are improving, insurance plans are adapting coverage duration, and repeat sessions including maintenance therapy are being covered. Thank you baby Jesus!</p>
-<h4 class='text-xl font-display font-bold text-slate-900 mt-6 mb-3'>3. Acceptance in Psychiatry & Technological Advancements
-The stigma around non-traditional psychiatric interventions is fading. More psychiatrists and mental health professionals are recognizing the benefits of neuromodulation and integrating it into their treatment plans. New developments in TMS technology, such as theta burst stimulation (SAINT) and personalized treatment protocols, are improving efficiency and outcomes.</h4>
+<h4 id='3-acceptance-in-psychiatry-technological-advancements' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>3. Acceptance in Psychiatry & Technological Advancements</h4>
+<p class='text-slate-600 leading-relaxed'>The stigma around non-traditional psychiatric interventions is fading. More psychiatrists and mental health professionals are recognizing the benefits of neuromodulation and integrating it into their treatment plans. New developments in TMS technology, such as theta burst stimulation (SAINT) and personalized treatment protocols, are improving efficiency and outcomes.</p>
 <p class='text-slate-600 leading-relaxed'>We are understanding OCD so much better with the idea of provocation while in treatment or with the usage of TMS for off-label conditions such as ADHD, Anxiety and many more. Other neuromodulation techniques, including Transcranial Direct Current Stimulation (tDCS) and Vagus Nerve Stimulation (VNS), are also gaining traction.</p>
 <p class='text-slate-600 leading-relaxed'>---</p>
-<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Preparing Your Practice for Neuromodulation
-Integrating TMS into a mental health practice requires more than just purchasing a device. Thoughtful operational planning ensures clinical and financial success. There’s a lot of key components that have to be the framework of your practice, the blueprint for growth and the foundation for stability.</h3>
-<h4 class='text-xl font-display font-bold text-slate-900 mt-6 mb-3'>Operational Considerations for TMS:</h4>
-<ul class='list-disc pl-6 space-y-2 my-4'><li class='text-slate-600'><strong>Regulatory and Compliance:</strong> Ensure you meet all state and federal regulations for TMS administration. Properly credential providers to meet insurance requirements. Stay updated on evolving FDA indications and compliance standards, reevaluating office procedure and policy quarterly.</li>
-<li class='text-slate-600'><strong>Clinical Workflow & Staffing:</strong> Train staff on TMS protocols, patient screening, and safety measures. Consider hiring a dedicated TMS coordinator to manage scheduling, insurance approvals, and patient follow-ups. A patient journey must reflect a seamless, informative, and supportive experience.</li>
-<li class='text-slate-600'><strong>Financial Planning & ROI:</strong> TMS devices require a significant upfront investment, but a well-run TMS program can be highly profitable. Evaluate insurance reimbursement rates and develop a financial model for sustainability. Offer financing options for patients who prefer self-pay treatment.</li>
-<li class='text-slate-600'><strong>Patient Acquisition & Marketing:</strong> Educate your community on TMS through digital marketing, physician outreach, and patient testimonials. Build a strong referral network. Highlight the benefits of TMS in treating depression and other conditions, differentiating your clinic by emphasizing expertise, technology, and patient-centered care.</li>
-<li class='text-slate-600'><strong>Long-Term Growth Strategy:</strong> Join EAP networks and state agencies to build a strong network for client growth. Stay informed about emerging neuromodulation therapies and expand services as new treatments gain approval. Develop a data-driven approach to track patient outcomes and refine treatment protocols.</li>
+<h3 id='preparing-your-practice-for-neuromodulation' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Preparing Your Practice for Neuromodulation</h3>
+<p class='text-slate-600 leading-relaxed'>Integrating TMS into a mental health practice requires more than just purchasing a device. Thoughtful operational planning ensures clinical and financial success. There’s a lot of key components that have to be the framework of your practice, the blueprint for growth and the foundation for stability.</p>
+<h4 id='operational-considerations-for-tms' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>Operational Considerations for TMS:</h4>
+<ul class='space-y-4 my-6'>
+                <li class="flex items-start gap-3 text-slate-600">
+                    <svg class="w-5 h-5 text-brand-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span><strong>Regulatory and Compliance:</strong> Ensure you meet all state and federal regulations for TMS administration. Properly credential providers to meet insurance requirements. Stay updated on evolving FDA indications and compliance standards, reevaluating office procedure and policy quarterly.</span>
+                </li>
+                <li class="flex items-start gap-3 text-slate-600">
+                    <svg class="w-5 h-5 text-brand-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span><strong>Clinical Workflow & Staffing:</strong> Train staff on TMS protocols, patient screening, and safety measures. Consider hiring a dedicated TMS coordinator to manage scheduling, insurance approvals, and patient follow-ups. A patient journey must reflect a seamless, informative, and supportive experience.</span>
+                </li>
+                <li class="flex items-start gap-3 text-slate-600">
+                    <svg class="w-5 h-5 text-brand-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span><strong>Financial Planning & ROI:</strong> TMS devices require a significant upfront investment, but a well-run TMS program can be highly profitable. Evaluate insurance reimbursement rates and develop a financial model for sustainability. Offer financing options for patients who prefer self-pay treatment.</span>
+                </li>
+                <li class="flex items-start gap-3 text-slate-600">
+                    <svg class="w-5 h-5 text-brand-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span><strong>Patient Acquisition & Marketing:</strong> Educate your community on TMS through digital marketing, physician outreach, and patient testimonials. Build a strong referral network. Highlight the benefits of TMS in treating depression and other conditions, differentiating your clinic by emphasizing expertise, technology, and patient-centered care.</span>
+                </li>
+                <li class="flex items-start gap-3 text-slate-600">
+                    <svg class="w-5 h-5 text-brand-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span><strong>Long-Term Growth Strategy:</strong> Join EAP networks and state agencies to build a strong network for client growth. Stay informed about emerging neuromodulation therapies and expand services as new treatments gain approval. Develop a data-driven approach to track patient outcomes and refine treatment protocols.</span>
+                </li>
 </ul>
 <p class='text-slate-600 leading-relaxed'>TMS and neuromodulation therapies are no longer fringe treatments; they are becoming central to modern mental health care. Clinics that proactively integrate TMS can not only enhance patient outcomes but also build a sustainable, future-proof practice. However, success requires careful planning, operational readiness, and a commitment to excellence.</p>
 <p class='text-slate-600 leading-relaxed'>At <strong>MyKohi</strong>, we specialize in helping mental health clinics seamlessly incorporate TMS into their practice. From financial modeling to marketing strategies and operational setup, we provide the expertise needed to thrive in this growing field. If you're considering adding TMS to your clinic, contact us today to ensure a smooth and successful transition.</p>
 
-                    </div>
-                </article>
-                
-                <!-- Right: Sticky Sidebar -->
-                <aside class="lg:col-span-4 space-y-8">
-                    <!-- CTA Card -->
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white relative overflow-hidden shadow-xl shadow-slate-900/10">
-                        <div class="absolute inset-0 z-0 opacity-20">
-                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-500 rounded-full blur-2xl"></div>
-                            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500 rounded-full blur-2xl"></div>
-                        </div>
-                        <div class="relative z-10">
-                            <h3 class="font-display font-bold text-xl mb-3">Ready to Grow Your Practice?</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
-                                Connect with our consulting team to get a complimentary practice assessment and custom roadmap for patient acquisition.
-                            </p>
-                            <a href="contact.html" class="w-full py-3 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-50 transition-all text-center block shadow-lg">
-                                Book Assessment
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Recent Posts -->
-                    <div class="bg-white rounded-3xl border border-slate-100 p-8 shadow-xl shadow-slate-100/50">
-                        <h3 class="font-display font-bold text-slate-900 text-lg mb-6 border-b border-slate-100 pb-4">
-                            Recent Articles
-                        </h3>
-                        <div class="space-y-4">
-                                                        <a href="blog-tms-dip.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">June 8, 2025</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    The TMS Dip: When It Gets Worse Before It Gets Way Better
-                                </h4>
-                            </a>
-                            <a href="blog-is-tms-legitimate.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">March 20, 2025</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    Is TMS Therapy Legitimate?
-                                </h4>
-                            </a>
-                            <a href="blog-top-5-dos-donts.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">January 30, 2025</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    Top 5 Do's and Don'ts for TMS & Ketamine Clinics
-                                </h4>
-                            </a>
-                            <a href="blog-power-of-first-impression.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">January 15, 2025</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    The Power of the First Impression - Intake Best Practices
-                                </h4>
-                            </a>
-                            <a href="blog-why-january-is-key.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">December 27, 2024</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    Why January Is Key to Boosting Your TMS and Ketamine Clinic
-                                </h4>
-                            </a>
-                            <a href="blog-social-media-101.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
-                                <span class="text-xs text-slate-400 font-medium block mb-1">December 15, 2024</span>
-                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
-                                    Social Media 101 for Marketing TMS and Ketamine Therapy
-                                </h4>
-                            </a>
+                    </article>
 
+                    <!-- Inline Large CTA Card (Replaces sidebar card) -->
+                    <div class="mt-16 bg-[#0a0f1d] rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-slate-900/20 section-reveal max-w-[800px]">
+                        <div class="relative z-10 max-w-2xl mx-auto text-center">
+                            <h3 class="font-display font-bold text-2xl md:text-3xl mb-4 leading-tight">Ready to Grow Your Mental Health Practice?</h3>
+                            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-8 font-light max-w-lg mx-auto">
+                                Connect with our expert consulting team today to get a complimentary practice assessment and a customized roadmap for sustainable patient acquisition.
+                            </p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0Ze2FOwV9hUTWF0gMWLds-6AoV3ufK8GtgCnER5uYW6NrawmnKZm_OxKqApEkcsLrrxyQ-ya3I" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-50 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-center">
+                                    Schedule a Consultation
+                                </a>
+                                <a href="tel:18334695644" class="w-full sm:w-auto px-8 py-4 bg-white/10 text-white rounded-xl font-bold hover:bg-white/20 border border-white/20 transition-all text-center">
+                                    1-833-4MY-KOHI
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </aside>
-            </div>
+
+                    <!-- Author Bio Card -->
+                    <div class="mt-12 pt-12 border-t border-slate-100 section-reveal max-w-[800px]">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
+                            <img src="karan.png" alt="Dr. Karan Narwal" class="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-md">
+                            <div class="text-center sm:text-left">
+                                <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">About the Author</div>
+                                <h4 class="font-display font-bold text-slate-900 text-lg mb-2">Dr. Karan Narwal</h4>
+                                <p class="text-slate-500 text-sm leading-relaxed">
+                                    Dr. Karan Narwal is a clinical leader specializing in advanced neuromodulation treatments. As the founder of MyKohi, he guides practices in operational setup, marketing, and delivering high-quality patient care.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of Right Column -->
+                
+            </div> <!-- End of Grid Layout -->
+
         </div>
     </section>
+
+    <!-- Reading Progress JS -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progress = document.getElementById('reading-progress');
+            if (progress) {
+                progress.style.width = scrolled + '%';
+            }
+        });
+
+        // Intersection Observer to highlight active TOC item in sticky sidebar
+        window.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '-100px 0px -70% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.toc-link').forEach(link => {
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('text-brand-600', 'border-brand-600');
+                                link.classList.remove('text-slate-500', 'text-slate-700', 'border-transparent');
+                            } else {
+                                link.classList.remove('text-brand-600', 'border-brand-600');
+                                link.classList.add('border-transparent');
+                                if (link.classList.contains('text-xs')) {
+                                    link.classList.add('text-slate-500');
+                                } else {
+                                    link.classList.add('text-slate-700');
+                                }
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('article h3, article h4').forEach(heading => {
+                observer.observe(heading);
+            });
+        });
+    </script>
     <!-- Footer -->
     <footer class="bg-[#0a0f1d] text-white border-t border-white/10 pt-20 pb-10 relative overflow-hidden">
         <!-- Abstract Background Glows -->
