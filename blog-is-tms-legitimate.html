@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is TMS Therapy Legitimate? | MyKohi Blog</title>
+    <meta name="description" content="Transcranial Magnetic Stimulation (TMS) often gets lumped in with alternative treatments. Here is the science behind why TMS is a legitimate option.">
+    <link rel="icon" type="image/png"
+        href="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            teal: '#14b8a6',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    animation: {
+                        'reveal': 'reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        reveal: {
+                            '0%': { opacity: 0, transform: 'translateY(40px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+
+
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 50%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+
+    <style>
+        .animate-reveal {
+            opacity: 0;
+            animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes reveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- Fixed Background -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-brand-200/30 to-blue-200/30 rounded-full blur-[100px]">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-slate-200/30 to-blue-200/30 rounded-full blur-[80px]">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 top-0">
+        <div class="absolute inset-0 bg-white/70 backdrop-blur-xl border-b border-white/40"></div>
+        <div class="max-w-[1500px] mx-auto px-6 h-20 flex items-center justify-between relative z-10">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                    alt="logo" class="h-16">
+            </a>
+
+            <div
+                class="hidden lg:flex items-center gap-1 bg-slate-100/50 p-1.5 rounded-full border border-slate-200/60 backdrop-blur-sm">
+                <a href="index.html"
+                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Home</a>
+                <a href="about.html"
+                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">About</a>
+                <a href="marketing.html"
+                    class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">Marketing</a>
+                <div class="relative group">
+                    <button
+                        class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all flex items-center gap-1">
+                        Practice Dev
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <a href="practice-development.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Practice
+                            Dev Overview</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button
+                        class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all flex items-center gap-1">
+                        Practice Assessment
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <a href="clinic-assessment.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Take
+                            the Assessment</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button
+                        class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all flex items-center gap-1">
+                        Strategic Advisory
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <a href="mergers-acquisitions.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Merger's
+                            & Acquisition's Advisory</a>
+                        <a href="strategic-advisory.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Strategic
+                            Advisory</a>
+                        <a href="clinical-advisory.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Clinical
+                            Advisory</a>
+                    </div>
+                </div>
+
+
+                <div class="relative group">
+                    <button
+                        class="px-6 py-2.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all flex items-center gap-1">
+                        More
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        <a href="media.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Media
+                            & Insights</a>
+                        <a href="blog.html"
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Blog
+                             </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="tel:18334695644" class="hidden xl:flex flex-col items-end mr-2 group">
+                    <span
+                        class="text-[10px] uppercase tracking-wider font-bold text-slate-400 group-hover:text-brand-600 transition-colors">Connect
+                        With Us</span>
+                    <span class="font-mono font-bold text-sm text-slate-900">1-833-4MY-KOHI</span>
+                </a>
+                <a href="#contact"
+                    class="group relative px-6 md:px-8 py-3 bg-slate-900 text-white rounded-full font-bold overflow-hidden shadow-2xl shadow-brand-900/20 hover:scale-[1.02] transition-transform duration-300 text-center">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-brand-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                    <span class="relative z-10 flex items-center justify-center gap-3">
+                        Call Now
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Mobile Hamburger Menu -->
+                <button id="mobile-menu-button"
+                    class="lg:hidden flex flex-col items-center justify-center gap-[5px] w-10 h-10 rounded-lg bg-white/70 hover:bg-white backdrop-blur-xl border border-slate-200/60">
+                    <span class="sr-only">Menu</span>
+                    <div class="w-6 h-0.5 bg-slate-700 transition-all duration-200" id="hamburger-line-1"></div>
+                    <div class="w-6 h-0.5 bg-slate-700 transition-all duration-200" id="hamburger-line-2"></div>
+                    <div class="w-6 h-0.5 bg-slate-700 transition-all duration-200" id="hamburger-line-3"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-40 lg:hidden pointer-events-none opacity-0 transition-opacity duration-200">
+        <div id="mobile-menu-backdrop"
+            class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div>
+        <div id="mobile-menu-panel"
+            class="absolute top-20 left-4 right-4 bg-white rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-900/10 overflow-hidden transform -translate-y-4 transition-transform duration-200 pointer-events-none opacity-0">
+            <div class="flex flex-col p-2">
+                <a href="index.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Home</a>
+                <a href="about.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">About</a>
+                <a href="marketing.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Marketing</a>
+                <a href="practice-development.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Practice
+                    Dev Overview</a>
+                <a href="clinic-assessment.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Clinic
+                    Assessment</a>
+                <a href="strategic-advisory.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Strategic
+                    Advisory</a>
+                <a href="clinical-advisory.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Clinical
+                    Advisory</a>
+
+                <a href="media.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Media</a>
+                <a href="blog.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Blog
+                     </a>
+                <a href="mergers-acquisitions.html"
+                    class="px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600 transition-colors">Mergers
+                    &amp; Acquisitions</a>
+
+                <a href="contact.html"
+                    class="mt-2 mx-2 mb-2 flex items-center justify-center gap-3 px-6 py-3 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-all duration-300 shadow-xl shadow-slate-900/20">
+                    <span>Contact us</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Script -->
+    <script>
+            (function () {
+                const btn = document.getElementById('mobile-menu-button');
+                const menu = document.getElementById('mobile-menu');
+                const panel = document.getElementById('mobile-menu-panel');
+                const backdrop = document.getElementById('mobile-menu-backdrop');
+                const line1 = document.getElementById('hamburger-line-1');
+                const line2 = document.getElementById('hamburger-line-2');
+                const line3 = document.getElementById('hamburger-line-3');
+                if (!btn || !menu || !panel || !backdrop) return;
+
+                function openMenu() {
+                    menu.classList.remove('pointer-events-none', 'opacity-0');
+                    menu.classList.add('pointer-events-auto', 'opacity-100');
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                    panel.classList.remove('pointer-events-none', 'opacity-0', '-translate-y-4');
+                    panel.classList.add('pointer-events-auto', 'opacity-100', 'translate-y-0');
+                    if (line1) { line1.style.transform = 'translateY(7px) rotate(45deg)'; }
+                    if (line2) { line2.style.opacity = '0'; }
+                    if (line3) { line3.style.transform = 'translateY(-7px) rotate(-45deg)'; }
+                    btn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeMenu() {
+                    menu.classList.add('pointer-events-none', 'opacity-0');
+                    menu.classList.remove('pointer-events-auto', 'opacity-100');
+                    backdrop.classList.add('opacity-0');
+                    backdrop.classList.remove('opacity-100');
+                    panel.classList.add('pointer-events-none', 'opacity-0', '-translate-y-4');
+                    panel.classList.remove('pointer-events-auto', 'opacity-100', 'translate-y-0');
+                    if (line1) { line1.style.transform = ''; }
+                    if (line2) { line2.style.opacity = ''; }
+                    if (line3) { line3.style.transform = ''; }
+                    btn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (btn.getAttribute('aria-expanded') === 'true') {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+
+                backdrop.addEventListener('click', closeMenu);
+
+                document.querySelectorAll('#mobile-menu a').forEach(function (link) {
+                    link.addEventListener('click', closeMenu);
+                });
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') closeMenu();
+                });
+            })();
+    </script>
+
+    
+    <!-- Article Header Hero -->
+    <section class="pt-32 pb-12 relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <a href="blog.html" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-700 transition-colors mb-6 group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Blog
+                </a>
+                
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-100 mb-6">
+                    <span class="text-brand-700 font-mono font-bold uppercase tracking-wider text-xs">TMS Therapy</span>
+                </div>
+                
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 leading-tight">
+                    Is TMS Therapy Legitimate?
+                </h1>
+                
+                <div class="flex items-center gap-6 text-sm text-slate-500 font-medium">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold text-xs">
+                            KN
+                        </div>
+                        <span>By Dr. Karan Narwal</span>
+                    </div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
+                    <span>March 20, 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="pb-24 relative z-10">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <!-- Left: Article Content -->
+                <article class="lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-8 md:p-12 shadow-xl shadow-slate-100/50">
+                    <!-- Featured Image -->
+                    <div class="aspect-[21/9] rounded-2xl overflow-hidden bg-slate-100 mb-10">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=1200&auto=format&fit=crop&q=80" alt="Is TMS Therapy Legitimate?" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-6">
+                        <p class='text-slate-600 leading-relaxed'>By Dr. Karan Narwal</p>
+<p class='text-slate-600 leading-relaxed'>Just imagine if you’ve gone through years of psychotherapy. You’ve been told that you need to eat well, so you only shop at Whole Foods. You’ve been told exercise helps, so you’ve been keeping the gym routine going for over a year. Your last visit with your doctor resulted in a dosage increase with your Lexapro and you’ve been given something to help you sleep. This has been a battle for 6 years.</p>
+<p class='text-slate-600 leading-relaxed'><strong>Medication after medication</strong>, routine after routine. But that lack of interest in things you love is still existent, perhaps worse. Your therapist says they want to help you but right now feel that your symptoms are making it difficult to benefit from using the skills you're taught in therapy. They turn you to a TMS clinic nearby. Mention something about <strong>magnets</strong>. This sounds crazy. This sounds completely out of a movie. It’s voodoo. You’ve been Googling TMS therapy near me or <strong>is TMS legitimate</strong>? You’ve been reading forums, asking friends and even searching YouTube.</p>
+<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>You're not alone
+Transcranial Magnetic Stimulation (TMS) often gets lumped in with other so-called "alternative" treatments, right alongside kale cleanses and essential oils promising to heal your childhood trauma. But here’s the thing, TMS is not the traditional golden goose that big Pharma loves. They know it works, they know it helps and they know it brings revenue. And when I mean they, I mean the corporate and medical community.</h3>
+<p class='text-slate-600 leading-relaxed'><strong>TMS is real. TMS is happening. TMS is an FDA-approved, scientifically backed, and highly effective treatment for depression and other mental health conditions.</strong></p>
+<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>So What’s The Science Behind the “Magic”?
+Let’s cut to the chase. TMS is a non-invasive procedure that uses magnetic pulses to stimulate areas of the brain associated with mood regulation, most specifically, the prefrontal cortex. Now if you’re thinking, “Magnetic pulses? Sounds like sci-fi,” well, so did MRIs once upon a time. But just like how an MRI doesn’t teleport you to another dimension, TMS therapy is not pseudoscience; it’s innovative psychiatry at its finest. It’s the use of energy, literally, to create an anti-depressant effect.</h3>
+<p class='text-slate-600 leading-relaxed'>The National Institute of Mental Health (NIMH) and numerous research institutions confirm that TMS is an effective alternative for individuals who have tried conventional medication management without success. According to a study published in *The American Journal of Psychiatry*, approximately <strong>50-60% of patients with treatment-resistant depression</strong> respond to TMS, and about <strong>30-40% achieve full remission</strong>—as in, depression packs its bags and leaves the premises.</p>
+<p class='text-slate-600 leading-relaxed'>Compare that to standard antidepressant medications, which, according to STAR*D trials, have about a <strong>27.5% success rate</strong> for those who fail their first prescription. If antidepressants were a batting average, they wouldn’t even make the minor leagues.</p>
+<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Medication Management vs. Magnetic Mastery
+We’re not here to bash medication. Antidepressants and other psychiatric medications are a crucial part of comprehensive mental health care. But let’s be real, **not everyone responds to meds the same way.** For some, selective serotonin reuptake inhibitors (SSRIs) work wonders; for others, they come with a side of insomnia, weight gain, and an overwhelming urge to binge-watch reality TV to numb the side effects.</h3>
+<p class='text-slate-600 leading-relaxed'>TMS offers customized care for patients who have tried and failed multiple medications. It’s also <strong>non-systemic</strong>, meaning no weight gain, no nausea, no emotional zombification. The only side effect? Maybe a slight tapping sensation on your head that feels like a very insistent woodpecker is delivering your brain a message: "Hey, wake up! Happiness is calling."</p>
+<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>What Do the Experts Say?
+If you’re still skeptical, you’re in good company—so were medical professionals, until mountains of data shut down the doubts. Institutions like **Harvard Medical School, Mayo Clinic, and Johns Hopkins** have all endorsed TMS as a legitimate, effective option for treating depression, OCD, and even PTSD.</h3>
+<p class='text-slate-600 leading-relaxed'>Harvard Health Publishing reports that TMS therapy “appears to be effective and safe” for treatment-resistant depression, with long-term benefits. Meanwhile, a Mayo Clinic study found that TMS provides “significant improvement” for patients who struggle with conventional psychiatric treatment options.</p>
+<h3 class='text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>So, Is TMS Legit? Or Just Hype?
+In short, Yes, TMS is the real deal. It’s not a cure-all, and it’s not for everyone, but for **millions of individuals** struggling with depression, anxiety, and other mental health disorders, it’s a beacon of hope that doesn’t require another pill bottle. It’s innovative psychiatry at its peak, offering a **customized care** approach that goes beyond the “here, try this prescription and call me in six weeks” model.</h3>
+<p class='text-slate-600 leading-relaxed'>At <strong>MyKohi</strong>, we specialize in helping clinics and providers grow, expand and resourcefully provide quality mental health treatment like TMS Therapy and Ketamine. The goal is to provide mental health treatment and comprehensive mental health care through guidance and support. Our services include marketing and consulting efforts in order to maximize your digital presence and visibility with operational guidance and support.</p>
+<p class='text-slate-600 leading-relaxed'>And yes, TMS is <strong>legitimate</strong>, and no, it won’t turn you into Magneto. But it just might help you finally feel like yourself again.</p>
+
+                    </div>
+                </article>
+                
+                <!-- Right: Sticky Sidebar -->
+                <aside class="lg:col-span-4 space-y-8">
+                    <!-- CTA Card -->
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 text-white relative overflow-hidden shadow-xl shadow-slate-900/10">
+                        <div class="absolute inset-0 z-0 opacity-20">
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-500 rounded-full blur-2xl"></div>
+                            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500 rounded-full blur-2xl"></div>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="font-display font-bold text-xl mb-3">Ready to Grow Your Practice?</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                                Connect with our consulting team to get a complimentary practice assessment and custom roadmap for patient acquisition.
+                            </p>
+                            <a href="contact.html" class="w-full py-3 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-50 transition-all text-center block shadow-lg">
+                                Book Assessment
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Posts -->
+                    <div class="bg-white rounded-3xl border border-slate-100 p-8 shadow-xl shadow-slate-100/50">
+                        <h3 class="font-display font-bold text-slate-900 text-lg mb-6 border-b border-slate-100 pb-4">
+                            Recent Articles
+                        </h3>
+                        <div class="space-y-4">
+                                                        <a href="blog-tms-dip.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">June 8, 2025</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    The TMS Dip: When It Gets Worse Before It Gets Way Better
+                                </h4>
+                            </a>
+                            <a href="blog-future-of-mental-health.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">February 25, 2025</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    The Future of Mental Health Treatment - TMS & Neuromodulation
+                                </h4>
+                            </a>
+                            <a href="blog-top-5-dos-donts.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">January 30, 2025</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    Top 5 Do's and Don'ts for TMS & Ketamine Clinics
+                                </h4>
+                            </a>
+                            <a href="blog-power-of-first-impression.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">January 15, 2025</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    The Power of the First Impression - Intake Best Practices
+                                </h4>
+                            </a>
+                            <a href="blog-why-january-is-key.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">December 27, 2024</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    Why January Is Key to Boosting Your TMS and Ketamine Clinic
+                                </h4>
+                            </a>
+                            <a href="blog-social-media-101.html" class="block group/link border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                                <span class="text-xs text-slate-400 font-medium block mb-1">December 15, 2024</span>
+                                <h4 class="text-sm font-bold text-slate-800 group-hover/link:text-brand-600 transition-colors line-clamp-2">
+                                    Social Media 101 for Marketing TMS and Ketamine Therapy
+                                </h4>
+                            </a>
+
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-[#0a0f1d] text-white border-t border-white/10 pt-20 pb-10 relative overflow-hidden">
+        <!-- Abstract Background Glows -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-0 right-[20%] w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-0 left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]">
+            </div>
+        </div>
+
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                <!-- Branding & Vision -->
+                <div class="lg:col-span-4">
+                    <a href="index.html" class="inline-block mb-6">
+                        <!-- Using the Blue variant because it stays visible but is iconic, or we can use the same logo with brightness-0 invert filter to make it pure white -->
+                        <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                            alt="MyKohi Logo" class="h-16 brightness-0 invert opacity-90">
+                    </a>
+                    <p class="text-slate-400 leading-relaxed mb-6 font-light max-w-sm">
+                        MyKohi partners with mental health practices to strengthen brands, attract the right patients,
+                        and build sustainable
+                        growth through integrated marketing and consulting.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <a href="https://www.linkedin.com/company/mykohi/" target="_blank"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/mykohillc/" target="_blank"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="mailto:Info@mykohi.com"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-brand-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-brand-500/25">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Columns -->
+                <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+                    <!-- Company -->
+                    <div>
+                        <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Company</h4>
+                        <ul class="space-y-3">
+                            <li class="group"><a href="index.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Home</span></a></li>
+                            <li class="group"><a href="about.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">About Us</span></a></li>
+                            <li class="group"><a href="contact.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Contact</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Services -->
+                    <div>
+                        <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Services</h4>
+                        <ul class="space-y-3">
+                            <li class="group"><a href="marketing.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Marketing</span></a></li>
+                            <li class="group"><a href="practice-development.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Practice Development
+                                        Consulting</span></a>
+                            </li>
+                            <li class="group"><a href="clinic-assessment.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Assessment</span></a>
+                            </li>
+                            <li class="group"><a href="mergers-acquisitions.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Mergers &
+                                        Acquisitions</span></a>
+                            </li>
+                            <li class="group"><a href="strategic-advisory.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Strategic
+                                        Advisory</span></a>
+                            </li>
+                            <li class="group"><a href="clinical-advisory.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Clinical
+                                        Advisory</span></a>
+                            </li>
+                            <li class="group"><a href="treatment-fund.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Treatment
+                                        Fund</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Resources -->
+                    <div>
+                        <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">More</h4>
+                        <ul class="space-y-3">
+
+                            <li class="group"><a href="media.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Media</span></a></li>
+                            <li class="group"><a href="blog.html"
+                                    class="text-slate-400 group-hover:text-brand-400 transition-colors text-sm flex items-center gap-2 relative"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brand-500 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all absolute left-0"></span><span
+                                        class="group-hover:translate-x-3 transition-transform">Blog</span></a></li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-white font-display font-bold mb-6 tracking-wide text-lg">Connect With Us</h4>
+                        <ul class="space-y-5">
+                            <li>
+                                <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Phone</div>
+                                <a href="tel:18334695644"
+                                    class="text-white hover:text-brand-400 font-mono text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                        </path>
+                                    </svg>
+                                    1-833-4MY-KOHI
+                                </a>
+                            </li>
+                            <li>
+                                <div class="text-slate-500 text-xs mb-1 uppercase tracking-wider font-bold">Email</div>
+                                <a href="mailto:Info@mykohi.com"
+                                    class="text-white hover:text-brand-400 text-sm transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                    Info@mykohi.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">
+                    &copy; 2026 MyKohi, LLC. All Rights Reserved.
+                </p>
+                <div class="flex items-center gap-6">
+                    <p class="text-slate-500 text-sm">Building Better Practices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll Animations -->
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
