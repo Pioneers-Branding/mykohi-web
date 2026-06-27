@@ -185,8 +185,8 @@
                     <div
                         class="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                         <a href="mergers-acquisitions.html"
-                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Merger's
-                            & Acquisition's Advisory</a>
+                            class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Mergers
+                            & Acquisitions Advisory</a>
                         <a href="strategic-advisory.html"
                             class="block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600 transition-colors">Strategic
                             Advisory</a>
@@ -953,7 +953,7 @@
 
     <!-- Gallery Lightbox Modal -->
     <div id="gallery-modal"
-        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-in-out">
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black opacity-0 pointer-events-none transition-all duration-300 ease-in-out">
         <!-- Close Button -->
         <button id="modal-close"
             class="absolute top-6 right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all duration-200 z-[110]"
@@ -984,14 +984,11 @@
         <!-- Image Container -->
         <div class="relative max-w-[85vw] max-h-[75vh] flex items-center justify-center select-none">
             <img id="modal-img" src="" alt=""
-                class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl transition-all duration-300 scale-95">
+                class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+                style="transition: opacity 0.15s ease, transform 0.15s ease;">
         </div>
 
-        <!-- Info Overlay (Caption & Counter) -->
-        <div class="mt-6 text-center px-6">
-            <p id="modal-caption" class="text-white text-base md:text-lg font-medium tracking-wide mb-1"></p>
-            <p id="modal-counter" class="text-slate-400 text-xs font-mono"></p>
-        </div>
+
     </div>
 
     <!-- Gallery Lightbox Script -->
@@ -1026,20 +1023,16 @@
                 currentIndex = index;
 
                 // Animate image transition
-                modalImg.classList.remove('scale-100');
-                modalImg.classList.add('scale-95');
-                modalImg.style.opacity = '0.3';
+                modalImg.style.opacity = '0';
+                modalImg.style.transform = 'scale(0.97)';
 
                 setTimeout(() => {
                     modalImg.src = imagesData[currentIndex].src;
                     modalImg.alt = imagesData[currentIndex].alt;
-                    modalCaption.textContent = imagesData[currentIndex].alt;
-                    modalCounter.textContent = `${currentIndex + 1} / ${imagesData.length}`;
 
                     // Show
-                    modalImg.classList.remove('scale-95');
-                    modalImg.classList.add('scale-100');
                     modalImg.style.opacity = '1';
+                    modalImg.style.transform = 'scale(1)';
                 }, 150);
             }
 
