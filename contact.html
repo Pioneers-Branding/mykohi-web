@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
@@ -506,7 +506,7 @@
                         <h2 class="text-2xl font-display font-bold text-slate-900 mb-2">Send Us a Message</h2>
                         <p class="text-slate-500 mb-8">Fill out the form below and we'll get back to you as soon as
                             possible.</p>
-                        <form accept-charset='UTF-8' action='https://app.formester.com/forms/LRWJorU4c/submissions'
+                        <form id="contact-form" accept-charset='UTF-8' action='https://app.formester.com/forms/LRWJorU4c/submissions'
                             method='POST' class="space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
@@ -951,6 +951,18 @@
         document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
     </script>
     <script defer src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                const response = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+                if (!response) {
+                    e.preventDefault();
+                    alert("Please check the \"I'm not a robot\" reCAPTCHA verification box before submitting.");
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
