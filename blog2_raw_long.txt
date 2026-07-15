@@ -1,0 +1,141 @@
+                <!-- Left Column: Sticky TOC (Desktop only) -->
+                <aside class="hidden lg:block sticky top-28 self-start">
+                    <nav class="toc-sidebar space-y-4 max-h-[calc(100vh-160px)] overflow-y-auto pr-4 select-none">
+                        <span class="text-[10px] font-mono font-bold text-brand-600 uppercase tracking-widest block">On This Page</span>
+                        <ul class="relative space-y-1 border-l border-slate-200 pl-4 list-none m-0">
+                            <li><a href="#the-new-digital-front-door" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">The New Digital Front Door</a></li>
+                            <li><a href="#the-foundation-of-local-seo" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">The Foundation of Local SEO</a></li>
+                            <li><a href="#step-by-step-gbp-optimization" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">Step-by-Step GBP Optimization</a></li>
+                            <li><a href="#gbp-categories-and-attributes" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">Categories and Attributes</a></li>
+                            <li><a href="#leveraging-gbp-posts" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">Leveraging GBP Posts</a></li>
+                            <li><a href="#the-mechanics-of-patient-reviews" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">The Mechanics of Patient Reviews</a></li>
+                            <li><a href="#hipaa-compliance-and-reviews" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">HIPAA Compliance & Reviews</a></li>
+                            <li><a href="#local-content-strategy-eeat" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">Local Content Strategy & E-E-A-T</a></li>
+                            <li><a href="#the-power-of-local-backlinks" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">The Power of Local Backlinks</a></li>
+                            <li><a href="#technical-seo-and-mobile" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">Technical SEO & Mobile Optimization</a></li>
+                            <li><a href="#schema-markup-deep-dive" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 pl-3 text-xs font-normal border-l-2 border-transparent text-slate-500 hover:text-brand-600">Schema Markup Deep Dive</a></li>
+                            <li><a href="#faqs" class="toc-link block transition-all duration-200 py-1.5 -ml-[17px] pl-4 text-sm font-bold border-l-2 border-transparent text-slate-700 hover:text-brand-600">Frequently Asked Questions (FAQs)</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+                
+                <!-- Right Column: Article Content & Author/CTA Card -->
+                <div>
+                    <!-- Article Thumbnail Image -->
+                    <div class="mb-8 rounded-2xl overflow-hidden aspect-[16/9] shadow-lg border border-slate-100 relative">
+                        <img src="img/local_seo_mental_health.png" alt="Local SEO for Mental Health Clinics" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Article Body -->
+<article class="prose prose-slate max-w-[800px] text-slate-700 leading-relaxed space-y-8 text-base md:text-lg">
+    <!-- Mobile/Tablet Table of Contents (Inline) -->
+    <div class="lg:hidden bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8 max-w-md">
+        <span class="text-[10px] font-mono font-bold text-brand-600 uppercase tracking-widest block mb-2">On This Page</span>
+        <h4 class="font-display font-bold text-slate-900 text-base mb-3">Table of Contents</h4>
+        <ul class="space-y-2 border-l-2 border-slate-200 pl-4 list-none m-0">
+            <li><a href="#the-new-digital-front-door" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">The New Digital Front Door</a></li>
+            <li><a href="#the-foundation-of-local-seo" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">The Foundation of Local SEO</a></li>
+            <li><a href="#step-by-step-gbp-optimization" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">Step-by-Step GBP Optimization</a></li>
+            <li><a href="#gbp-categories-and-attributes" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">Categories and Attributes</a></li>
+            <li><a href="#leveraging-gbp-posts" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">Leveraging GBP Posts</a></li>
+            <li><a href="#the-mechanics-of-patient-reviews" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">The Mechanics of Patient Reviews</a></li>
+            <li><a href="#hipaa-compliance-and-reviews" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">HIPAA Compliance & Reviews</a></li>
+            <li><a href="#local-content-strategy-eeat" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">Local Content Strategy & E-E-A-T</a></li>
+            <li><a href="#the-power-of-local-backlinks" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">The Power of Local Backlinks</a></li>
+            <li><a href="#technical-seo-and-mobile" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">Technical SEO & Mobile Optimization</a></li>
+            <li><a href="#schema-markup-deep-dive" class="block text-slate-600 hover:text-brand-600 transition-colors pl-4 text-xs font-normal">Schema Markup Deep Dive</a></li>
+            <li><a href="#faqs" class="block text-slate-600 hover:text-brand-600 transition-colors font-semibold text-sm">Frequently Asked Questions (FAQs)</a></li>
+        </ul>
+    </div>
+
+    <p class='text-slate-600 leading-relaxed text-lg first-letter:float-left first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-brand-600 first-letter:mr-3 first-letter:mt-1 first-letter:leading-none'>Local SEO is the lifeblood of patient acquisition for any brick-and-mortar mental health clinic. By Dr. Karan Narwal</p>
+    
+    <h3 id='the-new-digital-front-door' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>The New Digital Front Door</h3>
+    <p class='text-slate-600 leading-relaxed'>In an increasingly digital world, a potential patient's journey almost always begins with a search engine. The days of relying solely on insurance directories, physical yellow pages, or passing foot traffic are entirely over. Today, when someone is struggling and finally decides to seek help, they reach for their smartphone. They open Google and type in highly specific, location-bound queries such as "psychiatrist near me," "TMS therapy in Chicago," or "best anxiety therapist in Austin." If your clinic does not appear at the absolute top of those search results, you are invisible to the very people who desperately need your services.</p>
+    <p class='text-slate-600 leading-relaxed'>Local Search Engine Optimization (SEO) is the specialized practice of ensuring your clinic is visible to those actively seeking help in your immediate geographic community. Unlike traditional, global SEO—which aims to rank content on a national scale for broad terms like "what is depression"—Local SEO is hyper-focused. It's about dominating your specific city, county, or neighborhood. If your mental health clinic relies on patients walking through physical doors to receive treatment, mastering Local SEO is not an optional marketing tactic; it is a foundational business requirement that will dictate the long-term sustainability of your practice. In this comprehensive, 2000-word guide, we will break down the exact, step-by-step strategies you need to implement to rank #1 in Google's Local Pack, drive high-intent traffic to your website, and ultimately fill your appointment calendar.</p>
+    
+    <h3 id='the-foundation-of-local-seo' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>The Foundation of Local SEO: Proximity, Prominence, and Relevance</h3>
+    <p class='text-slate-600 leading-relaxed'>Before diving into the technical execution, it is crucial to understand how Google evaluates local businesses. Search engines like Google use a vastly different algorithm for local searches compared to global informational searches. The local algorithm prioritizes three core pillars: Proximity, Prominence, and Relevance.</p>
+    <p class='text-slate-600 leading-relaxed'><strong>Proximity:</strong> This refers to how close your physical clinic is to the user performing the search. While you cannot heavily manipulate proximity (unless you open a new satellite clinic), you can optimize your digital presence to ensure Google understands exactly what geographic radius you serve. If a user is standing two blocks from your clinic and searches for a psychiatrist, proximity dictates that you should be a primary candidate for their search results.</p>
+    <p class='text-slate-600 leading-relaxed'><strong>Prominence:</strong> How well-known and reputable is your clinic offline and online? In the digital realm, prominence is dictated by patient reviews, backlinks from other local businesses, citations (mentions of your business name, address, and phone number across the web), and overall brand mentions in local news or directories. A clinic with massive prominence can often outrank a clinic that is physically closer to the searcher.</p>
+    <p class='text-slate-600 leading-relaxed'><strong>Relevance:</strong> Does your clinic offer the exact service the user is searching for? Your website content and business profile must perfectly match the search intent. If a user searches for "TMS therapy," and your website only heavily features generic talk therapy, Google will deem you irrelevant. You must clearly state your specific treatments, conditions treated, and specializations.</p>
+    <p class='text-slate-600 leading-relaxed'>If your clinic is located in downtown Seattle, your SEO efforts must unambiguously signal to Google that you are the most prominent, authoritative, and relevant mental health provider in that specific geographic quadrant.</p>
+
+    <h3 id='step-by-step-gbp-optimization' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Step-by-Step Google Business Profile (GBP) Optimization</h3>
+    <p class='text-slate-600 leading-relaxed'>Your Google Business Profile (formerly known as Google My Business) is arguably the single most critical element of your Local SEO strategy. It is what determines your appearance in the coveted "Local Pack"—the three map listings that appear at the very top of Google search results, above the organic website listings. To perfectly optimize your GBP, you must go beyond the basics.</p>
+    <p class='text-slate-600 leading-relaxed'>First and foremost, ensure your NAP (Name, Address, Phone number) is 100% accurate. The name of your clinic on GBP must exactly match the name on your front door and your website. Do not stuff keywords into your business name (e.g., "Seattle Psychiatry & TMS Therapy Center" when your legal name is just "Seattle Psychiatry"). Google frequently penalizes keyword stuffing in business titles.</p>
+    
+    <h4 id='gbp-categories-and-attributes' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>Categories and Attributes</h4>
+    <p class='text-slate-600 leading-relaxed'>Select the correct primary category. For many of our clients, this is "Mental Health Clinic," "Psychiatrist," or "Mental Health Service." This primary category holds the most weight. Then, utilize secondary categories to cover all your services, such as "Psychotherapist," "Neurologist," or "Wellness Center." Fill out the "Services" section meticulously. Create a custom service item for every treatment you offer: TMS Therapy, Spravato, Ketamine Infusions, Cognitive Behavioral Therapy, Psychiatric Evaluations, etc. Add a 300-word description for each service outlining what it is and who it helps.</p>
+    <p class='text-slate-600 leading-relaxed'>Most clinics fail to fully populate their profiles. You must add high-quality, professional photos of your office interior, exterior, and staff. Patients dealing with severe anxiety want to know exactly what the waiting room looks like, what the TMS chair looks like, and what the doctor's face looks like before they arrive. This builds immediate visual trust. Ensure you fill out the 750-character business description, seamlessly integrating local keywords (e.g., "Serving the greater Seattle area with advanced neuromodulation...").</p>
+
+    <h4 id='leveraging-gbp-posts' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>Leveraging GBP Posts and Q&A</h4>
+    <p class='text-slate-600 leading-relaxed'>Google Business Profile allows you to create social-media-style "Posts." You should be posting at least once a week. Share clinic updates, introduce new staff members, link to new blog articles, and highlight specific treatments. These posts signal to Google that your business is highly active and engaged with the community.</p>
+    <p class='text-slate-600 leading-relaxed'>Furthermore, proactively use the Q&A section. Do not wait for patients to ask questions. You can (and should) ask and answer your own questions. Populate this section with common inquiries: "Do you take Blue Cross Blue Shield?", "Does TMS therapy hurt?", "What are your hours on weekends?". This feeds Google's algorithm with more relevant semantic data about your clinic.</p>
+
+    <h3 id='the-mechanics-of-patient-reviews' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>The Mechanics of Patient Reviews</h3>
+    <p class='text-slate-600 leading-relaxed'>Reviews are a massive ranking factor for local SEO and arguably the strongest conversion factor for prospective patients. In mental healthcare, trust is everything. A clinic with 150 five-star reviews will almost always outrank and out-convert a clinic with 5 reviews, even if the latter has a significantly better website and a larger marketing budget. When a patient is searching for a psychiatrist, they are entrusting that provider with their mental well-being; social proof is the only way they can validate that trust beforehand.</p>
+    
+    <h4 id='hipaa-compliance-and-reviews' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>HIPAA Compliance & Reviews</h4>
+    <p class='text-slate-600 leading-relaxed'>Generating reviews in healthcare is uniquely challenging due to HIPAA regulations. You cannot offer incentives (discounts, gift cards) in exchange for reviews. However, you can and must implement a compliant, automated system to request feedback from satisfied patients. Timing is key—ask for a review immediately after a successful treatment milestone. For example, the day a patient completes their 36th TMS session and reports a massive drop in their PHQ-9 score is the perfect time to hand them a tablet or send an automated text message with a direct link to your Google Review page.</p>
+    <p class='text-slate-600 leading-relaxed'>Google's algorithm evaluates the quantity, quality (star rating), and velocity (how consistently you get them over time) of reviews. A sudden spike of 50 reviews followed by six months of silence looks unnatural. Consistent, steady acquisition is the goal.</p>
+    <p class='text-slate-600 leading-relaxed'>Furthermore, you must respond to all reviews—positive and negative—professionally and promptly. When responding to negative reviews, NEVER confirm the person is a patient, as this violates HIPAA. Use standard, compliant language: "Due to privacy laws, we cannot discuss specific patient care online, but we take all feedback seriously. Please contact our office manager directly at [Phone Number]." When responding to positive reviews, incorporate natural keywords: "Thank you for your kind words! We are proud to provide advanced TMS therapy to the Seattle community."</p>
+
+    <h3 id='local-content-strategy-eeat' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Local Content Strategy & E-E-A-T</h3>
+    <p class='text-slate-600 leading-relaxed'>Your website must speak the language of your community. Creating generic content about depression is fine, but creating location-specific content is how you rank locally. This is where Google's E-E-A-T guidelines (Experience, Expertise, Authoritativeness, and Trustworthiness) come heavily into play. Medical content is subjected to "Your Money or Your Life" (YMYL) standards, meaning Google holds it to the highest possible scrutiny.</p>
+    <p class='text-slate-600 leading-relaxed'>If you serve a wide metropolitan area, create dedicated "City Pages" or "Location Pages." Instead of one page for "Anxiety Treatment," create pages for "Anxiety Treatment in Naperville, IL" and "Anxiety Treatment in Evanston, IL." On these pages, discuss the specific demographic challenges, mention local landmarks, and embed a Google Map of your clinic showing driving directions from that specific suburb. This localizes the content deeply.</p>
+    <p class='text-slate-600 leading-relaxed'>To satisfy E-E-A-T, every piece of clinical content on your website must be authored or medically reviewed by a credentialed professional (MD, DO, PhD). Include comprehensive author biographies highlighting their medical school, residencies, board certifications, and years of experience. Link outwards to authoritative medical journals (like PubMed or the APA) to back up your claims regarding treatment efficacy.</p>
+
+    <h4 id='the-power-of-local-backlinks' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>The Power of Local Backlinks</h4>
+    <p class='text-slate-600 leading-relaxed'>Earning local backlinks is a highly weighted ranking factor for Prominence. A backlink is simply another website linking to yours. In Local SEO, a link from a massive national website is great, but a link from a highly relevant local website is often better. Partner with other local health professionals—chiropractors, primary care physicians, physical therapists—and agree to write guest blog posts for each other's websites.</p>
+    <p class='text-slate-600 leading-relaxed'>Join the local Chamber of Commerce, sponsor a local high school sports team, or participate in local charity runs. These organizations will almost always list your clinic on their website with a backlink. A link from a local .org or .edu domain signals massive local authority to search engines. You can also leverage PR by publishing blog posts about mental health statistics in your specific city, pitching them to local news stations, and earning links from high-authority local media outlets.</p>
+
+    <h3 id='technical-seo-and-mobile' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Technical SEO & Mobile Optimization</h3>
+    <p class='text-slate-600 leading-relaxed'>None of the above strategies matter if your website is technically broken. Google uses a mobile-first index, meaning it evaluates the mobile version of your site to determine its rankings, regardless of whether a user is searching on a desktop or a phone. The vast majority of local searches ("psychiatrist near me") are performed on smartphones while users are on the go, waiting in a doctor's office, or sitting on their couch.</p>
+    <p class='text-slate-600 leading-relaxed'>Your website must provide a flawless mobile experience. Buttons must be large and easily tappable (especially the "Call Now" and "Book Appointment" buttons). The navigation menu must be intuitive, and the text must be readable without the user having to pinch and zoom. Google's Core Web Vitals algorithm update heavily penalizes slow, clunky mobile sites. You need blazing-fast loading speeds. Compress large images (use WebP format instead of PNG/JPEG), utilize browser caching, and minimize heavy JavaScript.</p>
+    <p class='text-slate-600 leading-relaxed'>Crucially, ensure your site uses HTTPS. Security is paramount in healthcare, and Google actively penalizes sites that lack SSL certificates, often displaying a massive "Not Secure" warning to users, which destroys trust instantly. Fix broken links, ensure every image has descriptive alt-text, and utilize a clean, hierarchical URL structure (e.g., yourclinic.com/services/tms-therapy).</p>
+
+    <h4 id='schema-markup-deep-dive' class='scroll-mt-24 text-xl font-display font-bold text-slate-900 mt-6 mb-3'>Schema Markup Deep Dive</h4>
+    <p class='text-slate-600 leading-relaxed'>Schema markup (also known as structured data) is a standardized vocabulary of code that you put on your website to help search engines understand the exact context of your content. It is essentially translating your website into the native language of search engines. For mental health clinics, implementing LocalBusiness, MedicalClinic, and Physician JSON-LD schema is a digital cheat code.</p>
+    <p class='text-slate-600 leading-relaxed'>By deploying this structured data, you hand-feed Google exact data points: who you are, the precise latitude and longitude of your clinic, your operating hours, your accepted insurances, the medical credentials of your staff, and your specific medical specializations. This removes all ambiguity for Google's algorithm. When Google is 100% confident in the data provided by your schema, it is significantly more likely to feature your clinic in rich snippets, knowledge panels, and the Local Pack.</p>
+
+    <h3 id='faqs' class='scroll-mt-24 text-2xl font-display font-bold text-slate-900 mt-8 mb-4'>Frequently Asked Questions (FAQs)</h3>
+    <div class='space-y-4 my-6'>
+        <details class="group border border-slate-200 rounded-xl bg-white overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-slate-800 hover:text-brand-600">
+                How long does local SEO take to work?
+                <svg class="w-5 h-5 transition-transform group-open:rotate-180 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-600 border-t border-slate-100 pt-4">
+                Local SEO is a marathon, not a sprint. It typically takes 3 to 6 months to see significant, needle-moving improvements in local search rankings. The timeline depends heavily on your local market's competition density (ranking in Manhattan takes longer than ranking in a rural town) and the current baseline authority of your website. However, once you achieve those top rankings, the lead flow is incredibly consistent and sustainable.
+            </div>
+        </details>
+        <details class="group border border-slate-200 rounded-xl bg-white overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-slate-800 hover:text-brand-600">
+                Do I need a blog for Local SEO?
+                <svg class="w-5 h-5 transition-transform group-open:rotate-180 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-600 border-t border-slate-100 pt-4">
+                Yes. A blog allows you to target long-tail, local keywords (e.g., "Best Anxiety Treatments in Dallas" or "How to find a TMS clinic in Houston") and provides fresh, relevant content that search engines love to crawl. It also establishes your clinical team as thought leaders in your specific geographic area, satisfying Google's E-E-A-T requirements and building trust with prospective patients.
+            </div>
+        </details>
+        <details class="group border border-slate-200 rounded-xl bg-white overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-slate-800 hover:text-brand-600">
+                Is it better to use Google Ads or Local SEO?
+                <svg class="w-5 h-5 transition-transform group-open:rotate-180 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-600 border-t border-slate-100 pt-4">
+                They serve entirely different purposes in a comprehensive marketing strategy. Google Ads provide immediate visibility and instant lead generation, but at a higher cost-per-click, making them great for new clinics that need patients tomorrow. Local SEO requires time, patience, and upfront investment, but it eventually yields the highest overall ROI and the lowest cost-per-acquisition over the long term. A hybrid approach—running ads while simultaneously building SEO—is the most effective strategy.
+            </div>
+        </details>
+        <details class="group border border-slate-200 rounded-xl bg-white overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-slate-800 hover:text-brand-600">
+                Does changing my clinic's address hurt my SEO?
+                <svg class="w-5 h-5 transition-transform group-open:rotate-180 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-600 border-t border-slate-100 pt-4">
+                It can cause a temporary disruption. If you move locations, you must meticulously update your address on your Google Business Profile, your website, and across all hundreds of local directories and citation sites. If search engines find conflicting addresses (e.g., Yelp has the old address and Google has the new one), they lose trust in your data, which can negatively impact your rankings. Using citation management tools is crucial during a move.
+            </div>
+        </details>
+    </div>
+</article>
