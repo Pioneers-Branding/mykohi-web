@@ -274,3 +274,9 @@ buildBlogPage(blog1Title, blog1Desc, blog1Thumb, blog1Date, blog1TocLinks, blog1
 buildBlogPage(blog2Title, blog2Desc, blog2Thumb, blog2Date, blog2TocLinks, blog2MobileTocLinks, blog2Article, 'blog-local-seo-mental-health.html', 'https://mykohi.com/blog-local-seo-mental-health.html');
 
 console.log("Blogs successfully rewritten with detailed content and TOCs.");
+
+try {
+    require('./generate_sitemap')();
+} catch (e) {
+    console.error("Failed to generate sitemap:", e);
+}

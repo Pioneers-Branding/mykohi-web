@@ -191,3 +191,9 @@ const seoArticle = `
 updateBlog('c:\\Users\\Intel\\Desktop\\MyKohi\\blog-local-seo-mental-health.html', seoAside, seoArticle);
 
 console.log("Articles updated successfully.");
+
+try {
+    require('./generate_sitemap')();
+} catch (e) {
+    console.error("Failed to generate sitemap:", e);
+}
