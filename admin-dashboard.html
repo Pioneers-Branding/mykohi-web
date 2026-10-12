@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
         rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +36,10 @@
             }
         }
     </script>
+    <!-- PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"
+        defer></script>
     <style>
         .field {
             width: 100%;
@@ -55,21 +59,64 @@
         #drawer {
             transition: transform .3s ease;
         }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .5rem 1rem;
+            border-radius: 9999px;
+            font-size: .875rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            transition: all .15s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .btn-dark {
+            background: #0f172a;
+            color: #fff;
+            border-color: #0f172a;
+        }
+
+        .btn-dark:hover {
+            background: #0369a1;
+            border-color: #0369a1;
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .bar {
+            transition: width .6s cubic-bezier(.16, 1, .3, 1);
+        }
     </style>
 </head>
 
-<body class="bg-[#f8fafc] text-slate-900 antialiased">
+<body class="bg-[#f6f8fb] text-slate-900 antialiased">
 
     <!-- Login -->
     <section id="login-view" class="min-h-screen flex items-center justify-center px-4">
         <form id="login-form"
             class="w-full max-w-sm bg-white border border-slate-200 shadow-xl rounded-3xl p-8 text-center">
-            <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
-                alt="MyKohi" class="h-16 mx-auto mb-4">
+            <img src="img/brain-bulb-logo.png" alt="MyKohi" class="h-20 mx-auto mb-4">
             <h1 class="text-2xl font-display font-bold mb-1">Onboarding Dashboard</h1>
             <p class="text-sm text-slate-500 mb-6">Admin access only</p>
-            <input id="admin-key" type="password" class="field mb-3" placeholder="Admin key" autocomplete="current-password"
-                required>
+            <input id="admin-key" type="password" class="field mb-3" placeholder="Admin key"
+                autocomplete="current-password" required>
             <p id="login-error" class="hidden text-sm text-rose-600 mb-3"></p>
             <button id="login-btn"
                 class="w-full py-3 rounded-full bg-slate-900 text-white font-semibold hover:bg-brand-700 transition-all disabled:opacity-60">Sign
@@ -79,122 +126,144 @@
 
     <!-- Dashboard -->
     <section id="app-view" class="hidden min-h-screen">
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-20">
+        <header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-20">
             <div class="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3 min-w-0">
-                    <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
-                        alt="MyKohi" class="h-10">
-                    <span class="font-display font-bold text-lg truncate">Onboarding</span>
+                    <img src="img/brain-bulb-logo.png" alt="MyKohi" class="h-10">
+                    <div class="min-w-0">
+                        <p class="font-display font-bold leading-tight truncate">Onboarding</p>
+                        <p id="last-sync" class="text-xs text-slate-400 leading-tight truncate"></p>
+                    </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span id="last-sync" class="hidden md:inline text-xs text-slate-400 mr-2"></span>
-                    <button id="refresh-btn"
-                        class="px-4 py-2 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50">Refresh</button>
-                    <button id="export-btn"
-                        class="px-4 py-2 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50">Export
-                        CSV</button>
-                    <button id="logout-btn"
-                        class="px-4 py-2 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900">Log
+                    <button id="refresh-btn" class="btn" title="Refresh">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg><span class="hidden sm:inline">Refresh</span></button>
+                    <button id="export-btn" class="btn hidden md:inline-flex">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16v16H4zM4 10h16M10 4v16" stroke-linejoin="round" />
+                        </svg>CSV</button>
+                    <button id="report-btn" class="btn btn-dark">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg><span class="hidden sm:inline">Download report</span><span
+                            class="sm:hidden">PDF</span></button>
+                    <button id="logout-btn" class="text-sm font-medium text-slate-500 hover:text-slate-900 px-2">Log
                         out</button>
                 </div>
             </div>
         </header>
 
         <main class="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
-            <!-- Stats -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Total submissions</p>
-                    <p id="stat-total" class="text-3xl font-display font-bold mt-2">–</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Last 7 days</p>
-                    <p id="stat-week" class="text-3xl font-display font-bold mt-2">–</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Awaiting contact</p>
-                    <p id="stat-new" class="text-3xl font-display font-bold mt-2 text-brand-700">–</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-5">
-                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Onboarded</p>
-                    <p id="stat-onboarded" class="text-3xl font-display font-bold mt-2 text-teal-600">–</p>
-                </div>
+            <div class="mb-6">
+                <h1 class="text-2xl sm:text-3xl font-display font-bold">Practice onboarding</h1>
+                <p class="text-slate-500 text-sm mt-1">Every practice that completed the onboarding form on mykohi.com.
+                </p>
             </div>
 
+            <!-- Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="stats"></div>
+
+            <!-- Insights -->
+            <div class="grid md:grid-cols-3 gap-4 mb-8" id="insights"></div>
+
             <!-- Filters -->
-            <div class="flex flex-col md:flex-row gap-3 mb-4">
-                <input id="search" type="search" class="field md:max-w-sm"
-                    placeholder="Search practice, name, email, city…">
+            <div class="bg-white border border-slate-200 rounded-2xl p-3 flex flex-col md:flex-row gap-3 mb-4">
+                <div class="relative md:max-w-sm w-full">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-3.5-3.5" stroke-linecap="round" />
+                    </svg>
+                    <input id="search" type="search" class="field" style="padding-left:2.25rem"
+                        placeholder="Search practice, name, email, city…">
+                </div>
                 <select id="status-filter" class="field md:w-48">
                     <option value="">All statuses</option>
                 </select>
                 <select id="type-filter" class="field md:w-64">
                     <option value="">All practice types</option>
                 </select>
-                <span id="result-count" class="text-sm text-slate-500 md:ml-auto self-center"></span>
+                <span id="result-count" class="text-sm text-slate-500 md:ml-auto self-center px-2"></span>
             </div>
 
             <!-- Table -->
-            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
-                        <thead class="bg-slate-50 text-left text-xs font-mono uppercase tracking-wider text-slate-500">
+                        <thead
+                            class="bg-slate-50 text-left text-[11px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200">
                             <tr>
-                                <th class="px-4 py-3 whitespace-nowrap">Submitted</th>
-                                <th class="px-4 py-3">Practice</th>
+                                <th class="px-5 py-3">Practice</th>
                                 <th class="px-4 py-3">Contact</th>
-                                <th class="px-4 py-3">Location</th>
                                 <th class="px-4 py-3">Interested in</th>
                                 <th class="px-4 py-3 whitespace-nowrap">Budget</th>
-                                <th class="px-4 py-3 whitespace-nowrap">Timeline</th>
+                                <th class="px-4 py-3 whitespace-nowrap">Start</th>
                                 <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3 whitespace-nowrap">Submitted</th>
                             </tr>
                         </thead>
                         <tbody id="rows" class="divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
-                <p id="empty" class="hidden text-center text-slate-500 py-16">No submissions match.</p>
+                <div id="empty" class="hidden text-center py-16">
+                    <p class="text-4xl mb-3">📋</p>
+                    <p id="empty-text" class="text-slate-500">No submissions match.</p>
+                </div>
                 <p id="loading" class="text-center text-slate-500 py-16">Loading…</p>
             </div>
         </main>
     </section>
 
     <!-- Detail drawer -->
-    <div id="overlay" class="hidden fixed inset-0 bg-slate-900/40 z-30"></div>
+    <div id="overlay" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-30"></div>
     <aside id="drawer"
-        class="fixed top-0 right-0 h-full w-full max-w-xl bg-white z-40 shadow-2xl translate-x-full overflow-y-auto"
+        class="fixed top-0 right-0 h-full w-full max-w-2xl bg-[#f6f8fb] z-40 shadow-2xl translate-x-full overflow-y-auto"
         aria-hidden="true">
-        <div class="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-start justify-between gap-4">
-            <div class="min-w-0">
-                <h2 id="d-title" class="text-xl font-display font-bold truncate"></h2>
-                <p id="d-sub" class="text-sm text-slate-500"></p>
-            </div>
-            <button id="close-drawer" class="text-slate-400 hover:text-slate-900 text-2xl leading-none"
+        <div id="d-hero" class="relative bg-gradient-to-br from-slate-900 via-brand-700 to-accent-purple text-white">
+            <button id="close-drawer"
+                class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-xl leading-none"
                 aria-label="Close">×</button>
+            <div class="px-6 sm:px-8 pt-8 pb-6">
+                <div class="flex items-start gap-4">
+                    <div id="d-avatar"
+                        class="w-14 h-14 shrink-0 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center font-display font-bold text-xl">
+                    </div>
+                    <div class="min-w-0 pr-8">
+                        <h2 id="d-title" class="text-2xl font-display font-bold leading-tight break-words"></h2>
+                        <p id="d-sub" class="text-white/75 text-sm mt-1"></p>
+                        <div id="d-pill" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-6" id="d-actions"></div>
+            </div>
         </div>
-        <div class="p-6 space-y-6">
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
-                <div class="grid grid-cols-2 gap-3">
+
+        <div class="p-6 sm:p-8 space-y-5">
+            <div id="d-facts" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+            <div id="d-sections" class="space-y-5"></div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">Internal tracking</h3>
+                <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="text-xs font-mono uppercase tracking-wider text-slate-500" for="d-status">Status</label>
+                        <label class="text-sm font-medium text-slate-700" for="d-status">Status</label>
                         <select id="d-status" class="field mt-1"></select>
                     </div>
-                    <div class="flex items-end gap-2">
-                        <a id="d-email" class="flex-1 text-center px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-sm font-medium hover:bg-brand-50">Email</a>
-                        <a id="d-phone" class="flex-1 text-center px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-sm font-medium hover:bg-brand-50">Call</a>
+                    <div class="sm:col-span-2">
+                        <label class="text-sm font-medium text-slate-700" for="d-notes">Internal notes</label>
+                        <textarea id="d-notes" rows="3" class="field mt-1"
+                            placeholder="Call notes, next steps…"></textarea>
                     </div>
                 </div>
-                <div>
-                    <label class="text-xs font-mono uppercase tracking-wider text-slate-500" for="d-notes">Internal notes</label>
-                    <textarea id="d-notes" rows="3" class="field mt-1" placeholder="Call notes, next steps…"></textarea>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button id="d-save"
-                        class="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-brand-700 disabled:opacity-60">Save</button>
+                <div class="flex items-center gap-3 mt-4">
+                    <button id="d-save" class="btn btn-dark">Save changes</button>
                     <span id="d-saved" class="text-sm text-slate-500"></span>
                 </div>
             </div>
-            <dl id="d-fields" class="divide-y divide-slate-100"></dl>
         </div>
     </aside>
 
@@ -212,21 +281,35 @@
             payment_model: 'Payment model', current_marketing: 'Current marketing', challenges: 'Biggest challenge',
             interested_in: 'Interested in', monthly_budget: 'Monthly budget', timeline: 'Start timeline',
             goals: '12-month goals', referral_source: 'Heard about us via', consent: 'Consent to contact',
-            source_page: 'Came from page'
+            source_page: 'Came from page', status: 'Status', admin_notes: 'Internal notes'
         };
-        const HIDDEN = /recaptcha|^_|captcha/i;
-        const STATUS_STYLES = {
-            'New': 'bg-brand-50 text-brand-700 border-brand-200',
-            'Contacted': 'bg-amber-50 text-amber-700 border-amber-200',
-            'In Progress': 'bg-purple-50 text-purple-700 border-purple-200',
-            'Onboarded': 'bg-teal-50 text-teal-700 border-teal-200',
-            'Not a Fit': 'bg-slate-100 text-slate-500 border-slate-200'
+        const SECTIONS = [
+            { title: 'Practice', keys: ['practice_type', 'website', 'years_in_operation', 'city', 'state', 'num_locations', 'num_providers'] },
+            { title: 'Primary contact', keys: ['full_name', 'role', 'email', 'phone', 'preferred_contact', 'best_time'] },
+            { title: 'Services & current state', keys: ['services_offered', 'monthly_new_patients', 'payment_model', 'current_marketing', 'challenges'] },
+            { title: 'Goals & next steps', keys: ['interested_in', 'monthly_budget', 'timeline', 'goals', 'referral_source', 'consent'] },
+        ];
+        const FACTS = [['num_locations', 'Locations'], ['num_providers', 'Providers'], ['monthly_new_patients', 'New patients / mo'],
+            ['monthly_budget', 'Monthly budget'], ['timeline', 'Start'], ['payment_model', 'Payment']];
+        const FACT_KEYS = FACTS.map(f => f[0]);
+        const CHIP_KEYS = ['services_offered', 'current_marketing', 'interested_in'];
+        const LONG_KEYS = ['challenges', 'goals'];
+        const HIDDEN = /recaptcha|captcha|^_/i;
+
+        const STATUS = {
+            'New': { cls: 'bg-brand-50 text-brand-700 border-brand-200', dot: 'bg-brand-500', fg: [3, 105, 161], bg: [224, 242, 254] },
+            'Contacted': { cls: 'bg-amber-50 text-amber-700 border-amber-200', dot: 'bg-amber-500', fg: [180, 83, 9], bg: [254, 243, 199] },
+            'In Progress': { cls: 'bg-violet-50 text-violet-700 border-violet-200', dot: 'bg-violet-500', fg: [109, 40, 217], bg: [237, 233, 254] },
+            'Onboarded': { cls: 'bg-teal-50 text-teal-700 border-teal-200', dot: 'bg-teal-500', fg: [15, 118, 110], bg: [204, 251, 241] },
+            'Not a Fit': { cls: 'bg-slate-100 text-slate-500 border-slate-200', dot: 'bg-slate-400', fg: [100, 116, 139], bg: [241, 245, 249] }
         };
+        const URGENCY = { 'Immediately': 'bg-rose-500', 'Within 30 days': 'bg-amber-500', '1–3 months': 'bg-brand-500', 'Just exploring': 'bg-slate-300' };
+        const AVATAR_COLORS = ['bg-brand-100 text-brand-700', 'bg-violet-100 text-violet-700', 'bg-teal-100 text-teal-700', 'bg-amber-100 text-amber-700', 'bg-rose-100 text-rose-700', 'bg-indigo-100 text-indigo-700'];
 
         const $ = id => document.getElementById(id);
         let adminKey = '';
         let rows = [];
-        let statuses = Object.keys(STATUS_STYLES);
+        let statuses = Object.keys(STATUS);
         let active = null;
 
         try { adminKey = sessionStorage.getItem('mykohi_admin_key') || ''; } catch (e) { }
@@ -247,23 +330,57 @@
             return data;
         }
 
-        // Field helpers: tolerate Formester header variations (e.g. "practice_name" vs "Practice Name").
+        // ---------- Field helpers (tolerate Formester header variations) ----------
         const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+        function headerFor(row, key) {
+            if (key in row.fields) return key;
+            return Object.keys(row.fields).find(h => norm(h) === norm(key)) || null;
+        }
         function get(row, key) {
-            const f = row.fields;
-            if (key in f) return f[key];
-            const k = Object.keys(f).find(h => norm(h) === norm(key));
-            return k ? f[k] : '';
+            const h = headerFor(row, key);
+            return h ? String(row.fields[h]).trim() : '';
+        }
+        const list = v => String(v || '').split(',').map(s => s.trim()).filter(Boolean);
+        function dateKey(row) {
+            return Object.keys(row.fields).find(h => /submitted|created|timestamp|date|time/i.test(h) && !/best_?time|timeline/i.test(h));
         }
         function dateOf(row) {
-            const k = Object.keys(row.fields).find(h => /submitted|created|timestamp|date|time/i.test(h) && !/best_?time|timeline/i.test(h));
+            const k = dateKey(row);
             if (!k) return null;
             const d = new Date(row.fields[k]);
             return isNaN(d) ? null : d;
         }
         const fmtDate = d => d ? d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
-        const pill = s => `<span class="inline-block px-2.5 py-1 rounded-full border text-xs font-medium whitespace-nowrap ${STATUS_STYLES[s] || STATUS_STYLES['New']}">${esc(s)}</span>`;
+        function timeAgo(d) {
+            if (!d) return '';
+            const s = (Date.now() - d.getTime()) / 1000;
+            if (s < 3600) return Math.max(1, Math.round(s / 60)) + 'm ago';
+            if (s < 86400) return Math.round(s / 3600) + 'h ago';
+            if (s < 86400 * 30) return Math.round(s / 86400) + 'd ago';
+            return fmtDate(d);
+        }
+        function labelFor(k) {
+            return LABELS[k] || LABELS[Object.keys(LABELS).find(l => norm(l) === norm(k))]
+                || k.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+        function initials(name) {
+            const parts = String(name || '?').trim().split(/\s+/).filter(w => /^[a-z0-9]/i.test(w));
+            return ((parts[0] || '?')[0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+        }
+        function avatarColor(s) {
+            let h = 0;
+            for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+            return AVATAR_COLORS[h % AVATAR_COLORS.length];
+        }
+        const pill = s => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium whitespace-nowrap ${(STATUS[s] || STATUS.New).cls}"><span class="w-1.5 h-1.5 rounded-full ${(STATUS[s] || STATUS.New).dot}"></span>${esc(s)}</span>`;
+        const chip = (t, extra = '') => `<span class="inline-block px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium ${extra}">${esc(t)}</span>`;
+        function counts(items, key, multi) {
+            const m = new Map();
+            items.forEach(r => (multi ? list(get(r, key)) : [get(r, key)]).filter(Boolean).forEach(v => m.set(v, (m.get(v) || 0) + 1)));
+            return [...m.entries()].sort((a, b) => b[1] - a[1]);
+        }
 
+        // ---------- Auth & loading ----------
         async function login(key) {
             adminKey = key;
             await api('login');
@@ -276,20 +393,21 @@
         async function load() {
             $('loading').classList.remove('hidden');
             $('loading').textContent = 'Loading…';
+            $('refresh-btn').disabled = true;
             try {
                 const data = await api('list');
                 rows = data.rows;
                 statuses = data.statuses || statuses;
                 fillFilters();
                 render();
-                $('last-sync').textContent = 'Updated ' + new Date().toLocaleTimeString();
-                $('last-sync').classList.remove('hidden');
+                $('last-sync').textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                $('loading').classList.add('hidden');
             } catch (err) {
                 if (/unauthorized/i.test(err.message)) return logout();
                 $('loading').textContent = 'Could not load data: ' + err.message;
-                return;
+            } finally {
+                $('refresh-btn').disabled = false;
             }
-            $('loading').classList.add('hidden');
         }
 
         function fillFilters() {
@@ -313,52 +431,175 @@
             );
         }
 
-        function render() {
+        function summary(items) {
             const weekAgo = Date.now() - 7 * 864e5;
-            $('stat-total').textContent = rows.length;
-            $('stat-week').textContent = rows.filter(r => { const d = dateOf(r); return d && d.getTime() >= weekAgo; }).length;
-            $('stat-new').textContent = rows.filter(r => r.status === 'New').length;
-            $('stat-onboarded').textContent = rows.filter(r => r.status === 'Onboarded').length;
+            return {
+                total: items.length,
+                week: items.filter(r => { const d = dateOf(r); return d && d.getTime() >= weekAgo; }).length,
+                fresh: items.filter(r => r.status === 'New').length,
+                onboarded: items.filter(r => r.status === 'Onboarded').length,
+            };
+        }
 
-            const list = filtered();
-            $('result-count').textContent = `${list.length} of ${rows.length}`;
-            $('empty').classList.toggle('hidden', list.length > 0 || rows.length === 0);
-            if (rows.length === 0) { $('empty').classList.remove('hidden'); $('empty').textContent = 'No submissions yet.'; }
-            else $('empty').textContent = 'No submissions match.';
+        // ---------- Rendering ----------
+        function renderStats() {
+            const s = summary(rows);
+            const rate = s.total ? Math.round(s.onboarded / s.total * 100) : 0;
+            const cards = [
+                { label: 'Total submissions', value: s.total, note: 'All time', accent: 'from-slate-800 to-slate-600', icon: '<path d="M9 4H6v17h12V4h-3M9 3h6v3H9zM9 11h6M9 15h4" stroke-linecap="round" stroke-linejoin="round"/>' },
+                { label: 'Last 7 days', value: s.week, note: 'New this week', accent: 'from-brand-600 to-brand-400', icon: '<path d="M4 7h16v13H4zM4 11h16M9 3v4M15 3v4" stroke-linejoin="round"/>' },
+                { label: 'Awaiting contact', value: s.fresh, note: s.fresh ? 'Needs follow-up' : 'All caught up', accent: 'from-amber-500 to-orange-400', icon: '<path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round"/>' },
+                { label: 'Onboarded', value: s.onboarded, note: rate + '% conversion', accent: 'from-teal-500 to-emerald-400', icon: '<path d="m5 12 4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>' },
+            ];
+            $('stats').innerHTML = cards.map(c => `
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                    <div class="flex items-start justify-between">
+                        <p class="text-xs font-mono uppercase tracking-wider text-slate-500">${c.label}</p>
+                        <span class="w-9 h-9 rounded-xl bg-gradient-to-br ${c.accent} text-white flex items-center justify-center">
+                            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${c.icon}</svg>
+                        </span>
+                    </div>
+                    <p class="text-3xl font-display font-bold mt-2">${c.value}</p>
+                    <p class="text-xs text-slate-400 mt-1">${esc(c.note)}</p>
+                </div>`).join('');
+        }
 
-            $('rows').innerHTML = list.map(r => `
-                <tr class="hover:bg-slate-50 cursor-pointer" data-key="${esc(r.rowKey)}" tabindex="0">
-                    <td class="px-4 py-3 whitespace-nowrap text-slate-500">${fmtDate(dateOf(r))}</td>
-                    <td class="px-4 py-3"><div class="font-semibold">${esc(get(r, 'practice_name') || '—')}</div><div class="text-xs text-slate-500">${esc(get(r, 'practice_type'))}</div></td>
-                    <td class="px-4 py-3"><div>${esc(get(r, 'full_name'))}</div><div class="text-xs text-slate-500">${esc(get(r, 'email'))}</div></td>
-                    <td class="px-4 py-3 whitespace-nowrap">${esc([get(r, 'city'), get(r, 'state')].filter(Boolean).join(', '))}</td>
-                    <td class="px-4 py-3 text-slate-600 max-w-[220px] truncate">${esc(get(r, 'interested_in'))}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">${esc(get(r, 'monthly_budget'))}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">${esc(get(r, 'timeline'))}</td>
-                    <td class="px-4 py-3">${pill(r.status)}</td>
-                </tr>`).join('');
+        function barCard(title, data, color) {
+            const top = data.slice(0, 5);
+            const max = Math.max(1, ...top.map(d => d[1]));
+            const body = top.length ? top.map(([k, v]) => `
+                <div>
+                    <div class="flex justify-between text-sm mb-1"><span class="text-slate-700 truncate pr-3">${esc(k)}</span><span class="font-semibold text-slate-900">${v}</span></div>
+                    <div class="h-2 rounded-full bg-slate-100 overflow-hidden"><div class="bar h-full rounded-full ${color}" style="width:${Math.round(v / max * 100)}%"></div></div>
+                </div>`).join('') : '<p class="text-sm text-slate-400">No data yet</p>';
+            return `<div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                <p class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${title}</p>
+                <div class="space-y-3">${body}</div></div>`;
+        }
+
+        function renderInsights() {
+            $('insights').innerHTML =
+                barCard('By practice type', counts(rows, 'practice_type'), 'bg-gradient-to-r from-brand-500 to-brand-400') +
+                barCard('Most requested help', counts(rows, 'interested_in', true), 'bg-gradient-to-r from-violet-500 to-accent-purple') +
+                barCard('Monthly budget', counts(rows, 'monthly_budget'), 'bg-gradient-to-r from-teal-500 to-emerald-400');
+        }
+
+        function renderTable() {
+            const items = filtered();
+            $('result-count').textContent = `${items.length} of ${rows.length} practices`;
+            $('empty').classList.toggle('hidden', items.length > 0);
+            $('empty-text').textContent = rows.length ? 'No submissions match these filters.' : 'No submissions yet. They will appear here as soon as someone completes the onboarding form.';
+
+            $('rows').innerHTML = items.map(r => {
+                const name = get(r, 'practice_name') || 'Untitled practice';
+                const loc = [get(r, 'city'), get(r, 'state')].filter(Boolean).join(', ');
+                const interests = list(get(r, 'interested_in'));
+                const tl = get(r, 'timeline');
+                const d = dateOf(r);
+                return `
+                <tr class="hover:bg-brand-50/40 cursor-pointer transition-colors" data-key="${esc(r.rowKey)}" tabindex="0">
+                    <td class="px-5 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 shrink-0 rounded-xl ${avatarColor(name)} flex items-center justify-center font-bold text-sm">${esc(initials(name))}</div>
+                            <div class="min-w-0">
+                                <div class="font-semibold text-slate-900 truncate max-w-[240px]">${esc(name)}</div>
+                                <div class="text-xs text-slate-500 truncate max-w-[240px]">${esc([get(r, 'practice_type'), loc].filter(Boolean).join(' · '))}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4">
+                        <div class="text-slate-800">${esc(get(r, 'full_name'))}</div>
+                        <div class="text-xs text-slate-500">${esc(get(r, 'role') || get(r, 'email'))}</div>
+                    </td>
+                    <td class="px-4 py-4"><div class="flex flex-wrap gap-1 max-w-[260px]">${interests.slice(0, 2).map(i => chip(i)).join('')}${interests.length > 2 ? chip('+' + (interests.length - 2), 'bg-slate-200') : ''}</div></td>
+                    <td class="px-4 py-4 whitespace-nowrap text-slate-700">${esc(get(r, 'monthly_budget') || '—')}</td>
+                    <td class="px-4 py-4 whitespace-nowrap text-slate-700">${tl ? `<span class="inline-flex items-center gap-2"><span class="w-2 h-2 rounded-full ${URGENCY[tl] || 'bg-slate-300'}"></span>${esc(tl)}</span>` : '—'}</td>
+                    <td class="px-4 py-4">${pill(r.status)}</td>
+                    <td class="px-4 py-4 whitespace-nowrap"><div class="text-slate-700">${fmtDate(d)}</div><div class="text-xs text-slate-400">${timeAgo(d)}</div></td>
+                </tr>`;
+            }).join('');
+        }
+
+        function render() {
+            renderStats();
+            renderInsights();
+            renderTable();
+        }
+
+        // ---------- Detail drawer ----------
+        function otherFields(row) {
+            const known = new Set(['practice_name', ...SECTIONS.flatMap(s => s.keys)].map(norm));
+            const dk = dateKey(row);
+            return Object.keys(row.fields).filter(k => !known.has(norm(k)) && !HIDDEN.test(k) && k !== dk && String(row.fields[k]).trim());
+        }
+
+        function valueHtml(key, v) {
+            if (CHIP_KEYS.includes(key)) return `<div class="flex flex-wrap gap-1.5">${list(v).map(i => chip(i, 'bg-brand-50 text-brand-700')).join('')}</div>`;
+            if (key === 'email') return `<a class="text-brand-700 hover:underline break-all" href="mailto:${esc(v)}">${esc(v)}</a>`;
+            if (key === 'phone') return `<a class="text-brand-700 hover:underline" href="tel:${esc(v.replace(/[^\d+]/g, ''))}">${esc(v)}</a>`;
+            if (/^https?:\/\//i.test(v)) return `<a class="text-brand-700 hover:underline break-all" href="${esc(v)}" target="_blank" rel="noopener">${esc(v.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>`;
+            return `<span class="whitespace-pre-wrap break-words">${esc(v)}</span>`;
+        }
+
+        function sectionCard(title, row, keys) {
+            const short = [], long = [];
+            keys.forEach(k => {
+                const v = get(row, k);
+                if (!v || FACT_KEYS.includes(k)) return;
+                (LONG_KEYS.includes(k) || CHIP_KEYS.includes(k) ? long : short).push([k, v]);
+            });
+            if (!short.length && !long.length) return '';
+            return `<div class="bg-white border border-slate-200 rounded-2xl p-5">
+                <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${esc(title)}</h3>
+                ${short.length ? `<dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4">${short.map(([k, v]) => `
+                    <div><dt class="text-xs text-slate-500 mb-0.5">${esc(labelFor(k))}</dt><dd class="text-sm text-slate-900 font-medium">${valueHtml(k, v)}</dd></div>`).join('')}</dl>` : ''}
+                ${long.map(([k, v]) => `
+                    <div class="${short.length ? 'mt-5' : ''}">
+                        <p class="text-xs text-slate-500 mb-1.5">${esc(labelFor(k))}</p>
+                        ${LONG_KEYS.includes(k)
+                    ? `<blockquote class="text-sm text-slate-800 bg-slate-50 border-l-4 border-brand-400 rounded-r-xl px-4 py-3 whitespace-pre-wrap">${esc(v)}</blockquote>`
+                    : valueHtml(k, v)}
+                    </div>`).join('')}
+            </div>`;
         }
 
         function openDrawer(row) {
             active = row;
-            $('d-title').textContent = get(row, 'practice_name') || 'Submission';
-            $('d-sub').textContent = [get(row, 'full_name'), fmtDate(dateOf(row))].filter(Boolean).join(' · ');
+            const name = get(row, 'practice_name') || 'Untitled practice';
+            const loc = [get(row, 'city'), get(row, 'state')].filter(Boolean).join(', ');
+            const d = dateOf(row);
+            $('d-avatar').textContent = initials(name);
+            $('d-title').textContent = name;
+            $('d-sub').textContent = [get(row, 'practice_type'), loc, d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join(' · ');
+            $('d-pill').innerHTML = pill(row.status);
+
+            const email = get(row, 'email'), phone = get(row, 'phone'), site = get(row, 'website');
+            const action = (href, label, extra = '') => `<a href="${esc(href)}" ${extra} class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-sm font-medium">${label}</a>`;
+            $('d-actions').innerHTML =
+                (email ? action('mailto:' + email, '✉ Email') : '') +
+                (phone ? action('tel:' + phone.replace(/[^\d+]/g, ''), '☎ Call') : '') +
+                (/^https?:\/\//i.test(site) ? action(site, '↗ Website', 'target="_blank" rel="noopener"') : '') +
+                `<button id="d-pdf" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-slate-900 hover:bg-brand-50 text-sm font-semibold">⤓ Download PDF</button>`;
+            $('d-pdf').addEventListener('click', e => withBusy(e.currentTarget, () => profilePdf(row)));
+
+            $('d-facts').innerHTML = FACTS.map(([k, l]) => [l, get(row, k)]).map(([l, v]) => `
+                <div class="bg-white border border-slate-200 rounded-2xl px-4 py-3">
+                    <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">${l}</p>
+                    <p class="text-base font-semibold text-slate-900 mt-0.5 truncate">${esc(v || '—')}</p>
+                </div>`).join('');
+
+            const others = otherFields(row);
+            $('d-sections').innerHTML = SECTIONS.map(s => sectionCard(s.title, row, s.keys)).join('') +
+                (others.length ? `<div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">Additional details</h3>
+                    <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4">${others.map(k => `
+                        <div><dt class="text-xs text-slate-500 mb-0.5">${esc(labelFor(k))}</dt><dd class="text-sm text-slate-900 font-medium">${valueHtml(k, String(row.fields[k]))}</dd></div>`).join('')}</dl></div>` : '');
+
             $('d-status').value = row.status;
             $('d-notes').value = row.adminNotes;
             $('d-saved').textContent = '';
-            const email = get(row, 'email'), phone = get(row, 'phone');
-            $('d-email').href = email ? 'mailto:' + email : '#';
-            $('d-phone').href = phone ? 'tel:' + phone.replace(/[^\d+]/g, '') : '#';
 
-            $('d-fields').innerHTML = Object.entries(row.fields)
-                .filter(([k, v]) => v !== '' && !HIDDEN.test(k))
-                .map(([k, v]) => {
-                    const lbl = LABELS[k] || LABELS[Object.keys(LABELS).find(l => norm(l) === norm(k))] || k;
-                    let val = esc(v);
-                    if (/^https?:\/\//i.test(v)) val = `<a class="text-brand-700 underline break-all" href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>`;
-                    return `<div class="py-3 grid grid-cols-3 gap-3"><dt class="text-sm text-slate-500">${esc(lbl)}</dt><dd class="col-span-2 text-sm whitespace-pre-wrap break-words">${val}</dd></div>`;
-                }).join('');
-
+            $('drawer').scrollTop = 0;
             $('overlay').classList.remove('hidden');
             $('drawer').classList.remove('translate-x-full');
             $('drawer').setAttribute('aria-hidden', 'false');
@@ -381,6 +622,7 @@
                 await api('update', { rowKey: row.rowKey, changes });
                 Object.assign(row, changes);
                 render();
+                $('d-pill').innerHTML = pill(row.status);
                 $('d-saved').textContent = 'Saved ✓';
             } catch (err) {
                 $('d-saved').textContent = 'Error: ' + err.message;
@@ -389,16 +631,273 @@
             }
         }
 
+        // ---------- PDF export ----------
+        const C = {
+            ink: [15, 23, 42], muted: [100, 116, 139], line: [226, 232, 240], soft: [248, 250, 252],
+            brand: [2, 132, 199], brandDark: [3, 105, 161], brandSoft: [240, 249, 255], purple: [139, 92, 246], white: [255, 255, 255]
+        };
+        let logoData;
+        async function getLogo() {
+            if (logoData !== undefined) return logoData;
+            try {
+                const blob = await (await fetch('img/brain-bulb-logo.png')).blob();
+                logoData = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); });
+            } catch (e) { logoData = null; }
+            return logoData;
+        }
+        // Built-in PDF fonts only cover Latin-1 plus a few typographic marks; drop anything else (e.g. emoji).
+        const T = s => String(s ?? '').replace(/[^\t\n\r\x20-\x7E -ÿ–—‘’“”•…€]/g, '').trim();
+        const slug = s => T(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'practice';
+        const today = () => new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+
+        function newDoc(orientation) {
+            if (!window.jspdf) throw new Error('PDF library is still loading, try again in a second.');
+            return new window.jspdf.jsPDF({ unit: 'pt', format: 'a4', orientation });
+        }
+
+        function gradientBar(doc, x, y, w, h) {
+            const steps = 60;
+            for (let i = 0; i < steps; i++) {
+                const t = i / (steps - 1);
+                doc.setFillColor(...C.brand.map((c, j) => Math.round(c + (C.purple[j] - c) * t)));
+                doc.rect(x + (w / steps) * i, y, w / steps + 0.5, h, 'F');
+            }
+        }
+
+        async function pdfHeader(doc, eyebrow, title, subtitle) {
+            const W = doc.internal.pageSize.getWidth(), M = 40;
+            const logo = await getLogo();
+            if (logo) doc.addImage(logo, 'PNG', M, 26, 50, 50);
+            const x = logo ? M + 62 : M;
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(...C.brand);
+            doc.text(T(eyebrow).toUpperCase(), x, 40, { charSpace: 1 });
+            doc.setFontSize(18); doc.setTextColor(...C.ink);
+            doc.text(T(title), x, 60);
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...C.muted);
+            doc.text(T(subtitle), x, 74);
+            doc.setFontSize(8);
+            doc.text('Generated ' + today(), W - M, 40, { align: 'right' });
+            doc.text('Confidential', W - M, 52, { align: 'right' });
+            gradientBar(doc, M, 90, W - M * 2, 3);
+            return 112;
+        }
+
+        function pdfFooters(doc, label) {
+            const n = doc.getNumberOfPages();
+            for (let i = 1; i <= n; i++) {
+                doc.setPage(i);
+                const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 40;
+                doc.setDrawColor(...C.line); doc.setLineWidth(0.5);
+                doc.line(M, H - 34, W - M, H - 34);
+                doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(...C.muted);
+                doc.text('MyKohi  ·  ' + label + '  ·  mykohi.com', M, H - 20);
+                doc.text(`Page ${i} of ${n}`, W - M, H - 20, { align: 'right' });
+            }
+        }
+
+        function statusBadge(doc, status, x, y, alignRight) {
+            const s = STATUS[status] || STATUS.New;
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+            const w = doc.getTextWidth(T(status).toUpperCase()) + 20;
+            const bx = alignRight ? x - w : x;
+            doc.setFillColor(...s.bg);
+            doc.roundedRect(bx, y, w, 18, 9, 9, 'F');
+            doc.setFillColor(...s.fg);
+            doc.circle(bx + 9, y + 9, 2.2, 'F');
+            doc.setTextColor(...s.fg);
+            doc.text(T(status).toUpperCase(), bx + 15, y + 12.2, { charSpace: 0.3 });
+        }
+
+        // Largest font size (down to min) at which text fits maxW; ellipsize if it still doesn't.
+        function fitText(doc, text, maxW, size, min) {
+            for (let fs = size; fs >= min; fs -= 0.5) {
+                doc.setFontSize(fs);
+                if (doc.getTextWidth(text) <= maxW) return text;
+            }
+            let t = text;
+            while (t.length > 1 && doc.getTextWidth(t + '…') > maxW) t = t.slice(0, -1);
+            return t.trimEnd() + '…';
+        }
+
+        function statBoxes(doc, y, items) {
+            const W = doc.internal.pageSize.getWidth(), M = 40, gap = 10;
+            const bw = (W - M * 2 - gap * (items.length - 1)) / items.length, bh = 54;
+            items.forEach(([label, value], i) => {
+                const x = M + i * (bw + gap);
+                doc.setFillColor(...C.soft); doc.setDrawColor(...C.line); doc.setLineWidth(0.6);
+                doc.roundedRect(x, y, bw, bh, 8, 8, 'FD');
+                doc.setFont('helvetica', 'bold'); doc.setFontSize(6.8); doc.setTextColor(...C.muted);
+                doc.text(T(label).toUpperCase(), x + 12, y + 18, { charSpace: 0.6 });
+                doc.setTextColor(...C.ink);
+                doc.text(fitText(doc, T(value) || '-', bw - 24, 13, 8.5), x + 12, y + 38);
+            });
+            return y + bh;
+        }
+
+        async function profilePdf(row) {
+            const doc = newDoc('portrait');
+            const W = doc.internal.pageSize.getWidth(), M = 40;
+            const name = get(row, 'practice_name') || 'Untitled practice';
+            let y = await pdfHeader(doc, 'Practice onboarding profile', 'MyKohi Onboarding', 'Prepared for the MyKohi team');
+
+            // Hero
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(...C.ink);
+            const nameLines = doc.splitTextToSize(T(name), W - M * 2 - 130);
+            doc.text(nameLines, M, y + 10);
+            statusBadge(doc, row.status, W - M, y - 4, true);
+            y += 10 + (nameLines.length - 1) * 24 + 18;
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(...C.muted);
+            const loc = [get(row, 'city'), get(row, 'state')].filter(Boolean).join(', ');
+            const d = dateOf(row);
+            doc.text(T([get(row, 'practice_type'), loc, d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join('   ·   ')), M, y);
+            y += 22;
+
+            const facts = FACTS.map(([k, l]) => [l, get(row, k)]);
+            y = statBoxes(doc, y, facts.slice(0, 3)) + 10;
+            y = statBoxes(doc, y, facts.slice(3)) + 24;
+
+            const H = doc.internal.pageSize.getHeight();
+            const section = (title, pairs) => {
+                if (!pairs.length) return;
+                // Start short sections on a new page rather than splitting them.
+                if (pairs.length <= 8 && y + 34 + pairs.length * 26 > H - 50) { doc.addPage(); y = 50; }
+                doc.autoTable({
+                    rowPageBreak: 'avoid',
+                    startY: y,
+                    margin: { left: M, right: M, top: 50, bottom: 50 },
+                    head: [[{ content: T(title).toUpperCase(), colSpan: 2 }]],
+                    body: pairs.map(([k, v]) => [T(labelFor(k)), T(v)]),
+                    theme: 'plain',
+                    styles: { font: 'helvetica', fontSize: 9.5, cellPadding: { top: 7, bottom: 7, left: 10, right: 10 }, textColor: C.ink, lineColor: C.line, overflow: 'linebreak', valign: 'top' },
+                    headStyles: { fillColor: C.brandSoft, textColor: C.brandDark, fontStyle: 'bold', fontSize: 8, cellPadding: { top: 8, bottom: 8, left: 10, right: 10 } },
+                    columnStyles: { 0: { cellWidth: 150, textColor: C.muted }, 1: { fontStyle: 'normal' } },
+                    alternateRowStyles: { fillColor: C.soft },
+                    tableLineWidth: 0.6, tableLineColor: C.line,
+                });
+                y = doc.lastAutoTable.finalY + 18;
+            };
+
+            SECTIONS.forEach(s => section(s.title, s.keys.filter(k => !FACT_KEYS.includes(k)).map(k => [k, get(row, k)]).filter(p => p[1])));
+            section('Additional details', otherFields(row).map(k => [k, String(row.fields[k])]));
+            section('Internal tracking', [['status', row.status], ['admin_notes', row.adminNotes || '-']]);
+
+            pdfFooters(doc, 'Practice onboarding profile');
+            doc.save(`MyKohi-Onboarding-${slug(name)}.pdf`);
+        }
+
+        function barsPanel(doc, x, y, w, title, data) {
+            const top = data.slice(0, 5), max = Math.max(1, ...top.map(d => d[1]));
+            doc.setFillColor(...C.white); doc.setDrawColor(...C.line); doc.setLineWidth(0.6);
+            doc.roundedRect(x, y, w, 128, 8, 8, 'FD');
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(...C.muted);
+            doc.text(T(title).toUpperCase(), x + 12, y + 18, { charSpace: 0.6 });
+            if (!top.length) {
+                doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text('No data yet', x + 12, y + 40);
+                return;
+            }
+            top.forEach(([k, v], i) => {
+                const ry = y + 34 + i * 18.5, labelW = w * 0.42, barW = w - labelW - 50;
+                doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...C.ink);
+                doc.text(fitText(doc, T(k), labelW - 8, 8.5, 8.5), x + 12, ry + 7);
+                doc.setFillColor(...C.soft); doc.roundedRect(x + 12 + labelW, ry, barW, 8, 4, 4, 'F');
+                doc.setFillColor(...C.brand); doc.roundedRect(x + 12 + labelW, ry, Math.max(8, barW * v / max), 8, 4, 4, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.text(String(v), x + w - 12, ry + 7, { align: 'right' });
+            });
+        }
+
+        async function reportPdf() {
+            const items = filtered();
+            const doc = newDoc('landscape');
+            const W = doc.internal.pageSize.getWidth(), M = 40;
+            const filters = [$('search').value.trim() && `search "${$('search').value.trim()}"`, $('status-filter').value, $('type-filter').value].filter(Boolean);
+            let y = await pdfHeader(doc, 'Onboarding report', 'Practice Onboarding Report',
+                `${items.length} practice${items.length === 1 ? '' : 's'}${filters.length ? '  ·  Filtered by ' + filters.join(', ') : '  ·  All submissions'}`);
+
+            const s = summary(items);
+            y = statBoxes(doc, y, [
+                ['Submissions', String(s.total)], ['Last 7 days', String(s.week)],
+                ['Awaiting contact', String(s.fresh)], ['Onboarded', `${s.onboarded}  (${s.total ? Math.round(s.onboarded / s.total * 100) : 0}%)`]
+            ]) + 14;
+
+            const pw = (W - M * 2 - 20) / 3;
+            barsPanel(doc, M, y, pw, 'By practice type', counts(items, 'practice_type'));
+            barsPanel(doc, M + pw + 10, y, pw, 'Most requested help', counts(items, 'interested_in', true));
+            barsPanel(doc, M + (pw + 10) * 2, y, pw, 'Monthly budget', counts(items, 'monthly_budget'));
+            y += 128 + 20;
+
+            doc.autoTable({
+                startY: y,
+                margin: { left: M, right: M, top: 50, bottom: 50 },
+                rowPageBreak: 'avoid',
+                head: [['Practice', 'Contact', 'Location', 'Interested in', 'Budget', 'Start', 'Status', 'Submitted']],
+                body: items.map(r => [
+                    T(get(r, 'practice_name')) + (get(r, 'practice_type') ? '\n' + T(get(r, 'practice_type')) : ''),
+                    [get(r, 'full_name'), get(r, 'email'), get(r, 'phone')].filter(Boolean).map(T).join('\n'),
+                    T([get(r, 'city'), get(r, 'state')].filter(Boolean).join(', ')),
+                    T(list(get(r, 'interested_in')).join(', ')),
+                    T(get(r, 'monthly_budget')),
+                    T(get(r, 'timeline')),
+                    T(r.status),
+                    fmtDate(dateOf(r))
+                ]),
+                theme: 'plain',
+                styles: { font: 'helvetica', fontSize: 8, textColor: C.ink, cellPadding: { top: 7, bottom: 7, left: 7, right: 7 }, lineColor: C.line, lineWidth: { bottom: 0.5 }, valign: 'middle', overflow: 'linebreak' },
+                headStyles: { fillColor: C.ink, textColor: C.white, fontStyle: 'bold', fontSize: 7.5, lineWidth: 0 },
+                alternateRowStyles: { fillColor: C.soft },
+                columnStyles: { 0: { cellWidth: 140, fontStyle: 'bold' }, 1: { cellWidth: 150 }, 3: { cellWidth: 130 }, 6: { cellWidth: 70 }, 7: { cellWidth: 70 } },
+                didParseCell: data => {
+                    if (data.section === 'body' && data.column.index === 6) {
+                        data.cell.styles.textColor = (STATUS[data.cell.raw] || STATUS.New).fg;
+                        data.cell.styles.fontStyle = 'bold';
+                    }
+                },
+                // Practice cell: draw the name in bold and the type in muted text ourselves.
+                willDrawCell: data => {
+                    if (data.section === 'body' && data.column.index === 0) data.cell.text = [];
+                },
+                didDrawCell: data => {
+                    if (data.section !== 'body' || data.column.index !== 0) return;
+                    const r = items[data.row.index], cell = data.cell;
+                    const w = cell.width - cell.padding('horizontal');
+                    doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+                    const nameLines = doc.splitTextToSize(T(get(r, 'practice_name')) || 'Untitled practice', w);
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+                    const typeLines = get(r, 'practice_type') ? doc.splitTextToSize(T(get(r, 'practice_type')), w) : [];
+                    const lh = 8 * 1.15, th = 7.5 * 1.15;
+                    let ty = cell.y + (cell.height - (nameLines.length * lh + typeLines.length * th + (typeLines.length ? 2 : 0))) / 2;
+                    doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(...C.ink);
+                    doc.text(nameLines, cell.x + cell.padding('left'), ty, { baseline: 'top', lineHeightFactor: 1.15 });
+                    ty += nameLines.length * lh + 2;
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(...C.muted);
+                    if (typeLines.length) doc.text(typeLines, cell.x + cell.padding('left'), ty, { baseline: 'top', lineHeightFactor: 1.15 });
+                },
+            });
+
+            pdfFooters(doc, 'Practice onboarding report');
+            doc.save(`MyKohi-Onboarding-Report-${new Date().toISOString().slice(0, 10)}.pdf`);
+        }
+
+        async function withBusy(btn, fn) {
+            const html = btn.innerHTML;
+            btn.disabled = true;
+            btn.textContent = 'Preparing PDF…';
+            try { await fn(); }
+            catch (err) { alert('Could not create PDF: ' + err.message); }
+            finally { btn.disabled = false; btn.innerHTML = html; }
+        }
+
+        // ---------- CSV ----------
         function exportCsv() {
-            const list = filtered();
-            const headers = [...new Set(list.flatMap(r => Object.keys(r.fields)))].filter(h => !HIDDEN.test(h));
+            const items = filtered();
+            const headers = [...new Set(items.flatMap(r => Object.keys(r.fields)))].filter(h => !HIDDEN.test(h));
             const cell = v => {
                 let s = String(v ?? '');
                 if (/^[=+\-@]/.test(s)) s = "'" + s;
                 return '"' + s.replace(/"/g, '""') + '"';
             };
             const lines = [[...headers, 'status', 'admin_notes'].map(cell).join(',')]
-                .concat(list.map(r => [...headers.map(h => r.fields[h]), r.status, r.adminNotes].map(cell).join(',')));
+                .concat(items.map(r => [...headers.map(h => r.fields[h]), r.status, r.adminNotes].map(cell).join(',')));
             const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
@@ -415,6 +914,7 @@
             closeDrawer();
         }
 
+        // ---------- Events ----------
         $('login-form').addEventListener('submit', async e => {
             e.preventDefault();
             const btn = $('login-btn');
@@ -438,9 +938,10 @@
         $('rows').addEventListener('keydown', e => {
             if (e.key === 'Enter') e.target.closest('tr[data-key]')?.click();
         });
-        ['search', 'status-filter', 'type-filter'].forEach(id => $(id).addEventListener('input', render));
+        ['search', 'status-filter', 'type-filter'].forEach(id => $(id).addEventListener('input', renderTable));
         $('refresh-btn').addEventListener('click', load);
         $('export-btn').addEventListener('click', exportCsv);
+        $('report-btn').addEventListener('click', e => withBusy(e.currentTarget, reportPdf));
         $('logout-btn').addEventListener('click', logout);
         $('close-drawer').addEventListener('click', closeDrawer);
         $('overlay').addEventListener('click', closeDrawer);
