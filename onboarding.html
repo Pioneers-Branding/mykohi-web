@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Onboarding | MyKohi</title>
+    <meta name="description"
+        content="Start working with MyKohi. Tell us about your practice, your goals and how we can help you grow.">
+    <link rel="icon" type="image/png"
+        href="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            teal: '#14b8a6',
+                            rose: '#f43f5e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            outline: none;
+            transition: all .2s;
+        }
+
+        .field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px #e0f2fe;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+
+        .chip input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .chip span {
+            display: inline-block;
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            font-size: 0.875rem;
+            color: #334155;
+            cursor: pointer;
+            transition: all .15s;
+            user-select: none;
+        }
+
+        .chip input:checked+span {
+            background: #0284c7;
+            border-color: #0284c7;
+            color: #fff;
+        }
+
+        .chip input:focus-visible+span {
+            box-shadow: 0 0 0 3px #bae6fd;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn .35s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media only screen and (max-width: 400px) {
+            .g-recaptcha {
+                transform: scale(0.85);
+                transform-origin: 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-900 antialiased overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-brand-200/30 to-purple-200/30 rounded-full blur-[100px]">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-teal-200/30 to-blue-200/30 rounded-full blur-[80px]">
+        </div>
+    </div>
+
+    <header class="relative z-10">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                    alt="MyKohi logo" class="h-14">
+            </a>
+            <a href="contact.html" class="text-sm font-medium text-slate-600 hover:text-brand-700">Questions? Contact
+                us</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 px-4 sm:px-6 pb-20">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8 mt-4">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 mb-5">
+                    <span class="text-brand-700 font-mono font-bold uppercase tracking-widest text-xs">Practice
+                        Onboarding</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-display font-bold text-slate-900 mb-3 leading-tight">Let's get to
+                    know your practice</h1>
+                <p class="text-slate-600 max-w-xl mx-auto">This takes about 4 minutes. Your answers help us prepare a
+                    plan before our first call.</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
+                    <span id="step-label">Step 1 of 4 · Your Practice</span>
+                    <span id="step-pct">25%</span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
+                    <div id="progress-bar"
+                        class="h-full bg-gradient-to-r from-brand-500 to-accent-purple rounded-full transition-all duration-500"
+                        style="width:25%"></div>
+                </div>
+            </div>
+
+            <form id="onboarding-form" accept-charset="UTF-8"
+                action="https://app.formester.com/forms/hPx2q1rco/submissions" method="POST" novalidate
+                class="bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl shadow-slate-200/60 rounded-[2rem] p-6 sm:p-10">
+
+                <input type="hidden" name="source_page" id="source_page">
+
+                <!-- Step 1: Practice -->
+                <section class="step active" data-title="Your Practice">
+                    <h2 class="text-2xl font-display font-bold mb-1">Your practice</h2>
+                    <p class="text-slate-500 mb-8">The basics about your clinic.</p>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div class="sm:col-span-2">
+                            <label class="label" for="practice_name">Practice name *</label>
+                            <input class="field" id="practice_name" name="practice_name" type="text" required
+                                placeholder="Bright Mind TMS Center">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="label" for="website">Website</label>
+                            <input class="field" id="website" name="website" type="url"
+                                placeholder="https://yourpractice.com">
+                        </div>
+                        <div>
+                            <label class="label" for="practice_type">Practice type *</label>
+                            <select class="field" id="practice_type" name="practice_type" required>
+                                <option value="">Select…</option>
+                                <option>TMS clinic</option>
+                                <option>Psychiatry practice</option>
+                                <option>Ketamine / Spravato clinic</option>
+                                <option>Therapy / counseling practice</option>
+                                <option>Multi-specialty behavioral health</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="years_in_operation">Years in operation</label>
+                            <select class="field" id="years_in_operation" name="years_in_operation">
+                                <option value="">Select…</option>
+                                <option>Not open yet</option>
+                                <option>Less than 1 year</option>
+                                <option>1–3 years</option>
+                                <option>3–5 years</option>
+                                <option>5+ years</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="city">City *</label>
+                            <input class="field" id="city" name="city" type="text" required>
+                        </div>
+                        <div>
+                            <label class="label" for="state">State *</label>
+                            <input class="field" id="state" name="state" type="text" required placeholder="e.g. TX">
+                        </div>
+                        <div>
+                            <label class="label" for="num_locations">Number of locations</label>
+                            <input class="field" id="num_locations" name="num_locations" type="number" min="0"
+                                placeholder="1">
+                        </div>
+                        <div>
+                            <label class="label" for="num_providers">Number of providers</label>
+                            <input class="field" id="num_providers" name="num_providers" type="number" min="0"
+                                placeholder="3">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: Contact -->
+                <section class="step" data-title="Contact Details">
+                    <h2 class="text-2xl font-display font-bold mb-1">Who should we talk to?</h2>
+                    <p class="text-slate-500 mb-8">Your main point of contact for onboarding.</p>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="label" for="full_name">Full name *</label>
+                            <input class="field" id="full_name" name="full_name" type="text" required
+                                autocomplete="name">
+                        </div>
+                        <div>
+                            <label class="label" for="role">Your role *</label>
+                            <select class="field" id="role" name="role" required>
+                                <option value="">Select…</option>
+                                <option>Owner / Founder</option>
+                                <option>Medical Director</option>
+                                <option>Practice Manager</option>
+                                <option>Marketing Lead</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="email">Email *</label>
+                            <input class="field" id="email" name="email" type="email" required autocomplete="email">
+                        </div>
+                        <div>
+                            <label class="label" for="phone">Phone *</label>
+                            <input class="field" id="phone" name="phone" type="tel" required autocomplete="tel"
+                                placeholder="(555) 123-4567">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <span class="label">Preferred contact method</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="radio" name="preferred_contact"
+                                        value="Email" checked><span>Email</span></label>
+                                <label class="chip relative"><input type="radio" name="preferred_contact"
+                                        value="Phone call"><span>Phone call</span></label>
+                                <label class="chip relative"><input type="radio" name="preferred_contact"
+                                        value="Text"><span>Text</span></label>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="label" for="best_time">Best time to reach you</label>
+                            <input class="field" id="best_time" name="best_time" type="text"
+                                placeholder="e.g. Weekdays after 3pm CT">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 3: Services & current state -->
+                <section class="step" data-title="Services & Growth">
+                    <h2 class="text-2xl font-display font-bold mb-1">Services & where you are today</h2>
+                    <p class="text-slate-500 mb-8">Helps us understand your patient flow.</p>
+                    <div class="space-y-7">
+                        <div class="checkgroup" data-name="services_offered" data-required="true">
+                            <span class="label">Services you offer *</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox" value="TMS"><span>TMS</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Spravato"><span>Spravato</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Ketamine"><span>Ketamine
+                                        infusion</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Medication management"><span>Medication management</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Therapy"><span>Therapy</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Neurofeedback"><span>Neurofeedback</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Other"><span>Other</span></label>
+                            </div>
+                            <p class="group-error hidden text-sm text-rose-600 mt-2">Please choose at least one.</p>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="label" for="monthly_new_patients">New patients per month</label>
+                                <select class="field" id="monthly_new_patients" name="monthly_new_patients">
+                                    <option value="">Select…</option>
+                                    <option>0–10</option>
+                                    <option>10–25</option>
+                                    <option>25–50</option>
+                                    <option>50–100</option>
+                                    <option>100+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="label" for="payment_model">Payment model</label>
+                                <select class="field" id="payment_model" name="payment_model">
+                                    <option value="">Select…</option>
+                                    <option>Insurance</option>
+                                    <option>Cash pay</option>
+                                    <option>Both</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="checkgroup" data-name="current_marketing">
+                            <span class="label">What marketing are you doing now?</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox" value="SEO"><span>SEO</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Google Ads"><span>Google
+                                        Ads</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Meta Ads"><span>Facebook /
+                                        Instagram Ads</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Social media"><span>Organic
+                                        social</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Physician referrals"><span>Physician referrals</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Agency"><span>Working with an
+                                        agency</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="None"><span>None</span></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="label" for="challenges">Biggest challenge right now *</label>
+                            <textarea class="field" id="challenges" name="challenges" rows="4" required
+                                placeholder="e.g. Not enough consults, low conversion from consult to treatment, staff turnover…"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 4: Goals -->
+                <section class="step" data-title="Goals & Budget">
+                    <h2 class="text-2xl font-display font-bold mb-1">Goals & next steps</h2>
+                    <p class="text-slate-500 mb-8">What you'd like MyKohi to help with.</p>
+                    <div class="space-y-7">
+                        <div class="checkgroup" data-name="interested_in" data-required="true">
+                            <span class="label">I'm interested in *</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Marketing"><span>Marketing</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Practice development"><span>Practice development</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Clinical advisory"><span>Clinical advisory</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Strategic advisory"><span>Strategic advisory</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Mergers & acquisitions"><span>Mergers & acquisitions</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Treatment fund"><span>Treatment fund</span></label>
+                            </div>
+                            <p class="group-error hidden text-sm text-rose-600 mt-2">Please choose at least one.</p>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="label" for="monthly_budget">Monthly budget *</label>
+                                <select class="field" id="monthly_budget" name="monthly_budget" required>
+                                    <option value="">Select…</option>
+                                    <option>Under $2,500</option>
+                                    <option>$2,500 – $5,000</option>
+                                    <option>$5,000 – $10,000</option>
+                                    <option>$10,000 – $25,000</option>
+                                    <option>$25,000+</option>
+                                    <option>Not sure yet</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="label" for="timeline">When do you want to start? *</label>
+                                <select class="field" id="timeline" name="timeline" required>
+                                    <option value="">Select…</option>
+                                    <option>Immediately</option>
+                                    <option>Within 30 days</option>
+                                    <option>1–3 months</option>
+                                    <option>Just exploring</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="label" for="goals">What does success look like in 12 months?</label>
+                            <textarea class="field" id="goals" name="goals" rows="3"
+                                placeholder="e.g. Double TMS starts, open a second location…"></textarea>
+                        </div>
+                        <div>
+                            <label class="label" for="referral_source">How did you hear about us?</label>
+                            <input class="field" id="referral_source" name="referral_source" type="text"
+                                placeholder="Google, referral, event, LinkedIn…">
+                        </div>
+                        <label class="flex items-start gap-3 text-sm text-slate-600">
+                            <input type="checkbox" id="consent" name="consent" value="Yes" required
+                                class="mt-1 h-4 w-4 rounded border-slate-300 text-brand-600">
+                            <span>I agree to be contacted by MyKohi about my practice. Please don't include any
+                                patient health information in this form.</span>
+                        </label>
+                        <div class="g-recaptcha" data-sitekey="6LeE7VItAAAAABTQF8a_CbVZaTwZZy3uD-JhSvrb"></div>
+                        <p id="captcha-error" class="hidden text-sm text-rose-600">Please check the "I'm not a robot"
+                            box.</p>
+                    </div>
+                </section>
+
+                <!-- Hidden fields that receive the joined checkbox values -->
+                <input type="hidden" name="services_offered">
+                <input type="hidden" name="current_marketing">
+                <input type="hidden" name="interested_in">
+
+                <div class="flex items-center justify-between gap-4 mt-10 pt-6 border-t border-slate-100">
+                    <button type="button" id="back-btn"
+                        class="invisible px-6 py-3 rounded-full border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 transition-all">←
+                        Back</button>
+                    <button type="button" id="next-btn"
+                        class="px-8 py-3 rounded-full bg-slate-900 text-white font-semibold hover:bg-brand-700 transition-all shadow-lg">Continue
+                        →</button>
+                    <button type="submit" id="submit-btn"
+                        class="hidden px-8 py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-purple text-white font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-60">Submit
+                        onboarding</button>
+                </div>
+            </form>
+
+            <p class="text-center text-xs text-slate-400 mt-6">Your information is kept confidential and only used by
+                the MyKohi team.</p>
+        </div>
+    </main>
+
+    <script defer src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        (function () {
+            const form = document.getElementById('onboarding-form');
+            const steps = Array.from(form.querySelectorAll('.step'));
+            const backBtn = document.getElementById('back-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const label = document.getElementById('step-label');
+            const pct = document.getElementById('step-pct');
+            const bar = document.getElementById('progress-bar');
+            let current = 0;
+
+            document.getElementById('source_page').value = document.referrer || 'direct';
+
+            function show(i) {
+                steps.forEach((s, idx) => s.classList.toggle('active', idx === i));
+                current = i;
+                const p = Math.round(((i + 1) / steps.length) * 100);
+                label.textContent = `Step ${i + 1} of ${steps.length} · ${steps[i].dataset.title}`;
+                pct.textContent = p + '%';
+                bar.style.width = p + '%';
+                backBtn.classList.toggle('invisible', i === 0);
+                nextBtn.classList.toggle('hidden', i === steps.length - 1);
+                submitBtn.classList.toggle('hidden', i !== steps.length - 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function validateStep(step) {
+                let ok = true;
+                step.querySelectorAll('.checkgroup[data-required]').forEach(g => {
+                    const any = g.querySelector('input:checked');
+                    g.querySelector('.group-error').classList.toggle('hidden', !!any);
+                    if (!any) ok = false;
+                });
+                const fields = Array.from(step.querySelectorAll('input, select, textarea'))
+                    .filter(el => el.willValidate && el.closest('.checkgroup') === null);
+                for (const el of fields) {
+                    if (!el.checkValidity()) {
+                        el.reportValidity();
+                        return false;
+                    }
+                }
+                if (!ok) step.querySelector('.group-error:not(.hidden)').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return ok;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(steps[current])) show(current + 1);
+            });
+            backBtn.addEventListener('click', () => show(current - 1));
+
+            // Enter in a text field moves forward instead of submitting early.
+            form.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && e.target.tagName === 'INPUT' && current < steps.length - 1) {
+                    e.preventDefault();
+                    nextBtn.click();
+                }
+            });
+
+            form.querySelectorAll('.checkgroup input').forEach(cb => cb.addEventListener('change', () => {
+                const g = cb.closest('.checkgroup');
+                if (g.querySelector('input:checked')) g.querySelector('.group-error')?.classList.add('hidden');
+            }));
+
+            form.addEventListener('submit', e => {
+                if (!validateStep(steps[current])) { e.preventDefault(); return; }
+
+                const captcha = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+                document.getElementById('captcha-error').classList.toggle('hidden', !!captcha);
+                if (!captcha) { e.preventDefault(); return; }
+
+                form.querySelectorAll('.checkgroup').forEach(g => {
+                    const values = Array.from(g.querySelectorAll('input:checked')).map(i => i.value);
+                    form.querySelector(`input[type=hidden][name="${g.dataset.name}"]`).value = values.join(', ');
+                });
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting…';
+            });
+        })();
+    </script>
+</body>
+
+</html>

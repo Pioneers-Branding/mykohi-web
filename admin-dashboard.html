@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Onboarding Dashboard | MyKohi</title>
+    <link rel="icon" type="image/png"
+        href="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8',
+                            500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        },
+                        accent: { purple: '#8b5cf6', teal: '#14b8a6', rose: '#f43f5e' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .field {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            outline: none;
+            font-size: 0.875rem;
+        }
+
+        .field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px #e0f2fe;
+        }
+
+        #drawer {
+            transition: transform .3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-900 antialiased">
+
+    <!-- Login -->
+    <section id="login-view" class="min-h-screen flex items-center justify-center px-4">
+        <form id="login-form"
+            class="w-full max-w-sm bg-white border border-slate-200 shadow-xl rounded-3xl p-8 text-center">
+            <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                alt="MyKohi" class="h-16 mx-auto mb-4">
+            <h1 class="text-2xl font-display font-bold mb-1">Onboarding Dashboard</h1>
+            <p class="text-sm text-slate-500 mb-6">Admin access only</p>
+            <input id="admin-key" type="password" class="field mb-3" placeholder="Admin key" autocomplete="current-password"
+                required>
+            <p id="login-error" class="hidden text-sm text-rose-600 mb-3"></p>
+            <button id="login-btn"
+                class="w-full py-3 rounded-full bg-slate-900 text-white font-semibold hover:bg-brand-700 transition-all disabled:opacity-60">Sign
+                in</button>
+        </form>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="app-view" class="hidden min-h-screen">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-20">
+            <div class="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                        alt="MyKohi" class="h-10">
+                    <span class="font-display font-bold text-lg truncate">Onboarding</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="last-sync" class="hidden md:inline text-xs text-slate-400 mr-2"></span>
+                    <button id="refresh-btn"
+                        class="px-4 py-2 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50">Refresh</button>
+                    <button id="export-btn"
+                        class="px-4 py-2 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50">Export
+                        CSV</button>
+                    <button id="logout-btn"
+                        class="px-4 py-2 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900">Log
+                        out</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
+            <!-- Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Total submissions</p>
+                    <p id="stat-total" class="text-3xl font-display font-bold mt-2">–</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Last 7 days</p>
+                    <p id="stat-week" class="text-3xl font-display font-bold mt-2">–</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Awaiting contact</p>
+                    <p id="stat-new" class="text-3xl font-display font-bold mt-2 text-brand-700">–</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500">Onboarded</p>
+                    <p id="stat-onboarded" class="text-3xl font-display font-bold mt-2 text-teal-600">–</p>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row gap-3 mb-4">
+                <input id="search" type="search" class="field md:max-w-sm"
+                    placeholder="Search practice, name, email, city…">
+                <select id="status-filter" class="field md:w-48">
+                    <option value="">All statuses</option>
+                </select>
+                <select id="type-filter" class="field md:w-64">
+                    <option value="">All practice types</option>
+                </select>
+                <span id="result-count" class="text-sm text-slate-500 md:ml-auto self-center"></span>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 text-left text-xs font-mono uppercase tracking-wider text-slate-500">
+                            <tr>
+                                <th class="px-4 py-3 whitespace-nowrap">Submitted</th>
+                                <th class="px-4 py-3">Practice</th>
+                                <th class="px-4 py-3">Contact</th>
+                                <th class="px-4 py-3">Location</th>
+                                <th class="px-4 py-3">Interested in</th>
+                                <th class="px-4 py-3 whitespace-nowrap">Budget</th>
+                                <th class="px-4 py-3 whitespace-nowrap">Timeline</th>
+                                <th class="px-4 py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+                <p id="empty" class="hidden text-center text-slate-500 py-16">No submissions match.</p>
+                <p id="loading" class="text-center text-slate-500 py-16">Loading…</p>
+            </div>
+        </main>
+    </section>
+
+    <!-- Detail drawer -->
+    <div id="overlay" class="hidden fixed inset-0 bg-slate-900/40 z-30"></div>
+    <aside id="drawer"
+        class="fixed top-0 right-0 h-full w-full max-w-xl bg-white z-40 shadow-2xl translate-x-full overflow-y-auto"
+        aria-hidden="true">
+        <div class="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-start justify-between gap-4">
+            <div class="min-w-0">
+                <h2 id="d-title" class="text-xl font-display font-bold truncate"></h2>
+                <p id="d-sub" class="text-sm text-slate-500"></p>
+            </div>
+            <button id="close-drawer" class="text-slate-400 hover:text-slate-900 text-2xl leading-none"
+                aria-label="Close">×</button>
+        </div>
+        <div class="p-6 space-y-6">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-mono uppercase tracking-wider text-slate-500" for="d-status">Status</label>
+                        <select id="d-status" class="field mt-1"></select>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <a id="d-email" class="flex-1 text-center px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-sm font-medium hover:bg-brand-50">Email</a>
+                        <a id="d-phone" class="flex-1 text-center px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-sm font-medium hover:bg-brand-50">Call</a>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs font-mono uppercase tracking-wider text-slate-500" for="d-notes">Internal notes</label>
+                    <textarea id="d-notes" rows="3" class="field mt-1" placeholder="Call notes, next steps…"></textarea>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="d-save"
+                        class="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-brand-700 disabled:opacity-60">Save</button>
+                    <span id="d-saved" class="text-sm text-slate-500"></span>
+                </div>
+            </div>
+            <dl id="d-fields" class="divide-y divide-slate-100"></dl>
+        </div>
+    </aside>
+
+    <script>
+        // Paste the Apps Script Web app URL here (see google-apps-script/onboarding.gs).
+        const SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+        const LABELS = {
+            practice_name: 'Practice name', website: 'Website', practice_type: 'Practice type',
+            years_in_operation: 'Years in operation', city: 'City', state: 'State',
+            num_locations: 'Locations', num_providers: 'Providers',
+            full_name: 'Full name', role: 'Role', email: 'Email', phone: 'Phone',
+            preferred_contact: 'Preferred contact', best_time: 'Best time to reach',
+            services_offered: 'Services offered', monthly_new_patients: 'New patients / month',
+            payment_model: 'Payment model', current_marketing: 'Current marketing', challenges: 'Biggest challenge',
+            interested_in: 'Interested in', monthly_budget: 'Monthly budget', timeline: 'Start timeline',
+            goals: '12-month goals', referral_source: 'Heard about us via', consent: 'Consent to contact',
+            source_page: 'Came from page'
+        };
+        const HIDDEN = /recaptcha|^_|captcha/i;
+        const STATUS_STYLES = {
+            'New': 'bg-brand-50 text-brand-700 border-brand-200',
+            'Contacted': 'bg-amber-50 text-amber-700 border-amber-200',
+            'In Progress': 'bg-purple-50 text-purple-700 border-purple-200',
+            'Onboarded': 'bg-teal-50 text-teal-700 border-teal-200',
+            'Not a Fit': 'bg-slate-100 text-slate-500 border-slate-200'
+        };
+
+        const $ = id => document.getElementById(id);
+        let adminKey = '';
+        let rows = [];
+        let statuses = Object.keys(STATUS_STYLES);
+        let active = null;
+
+        try { adminKey = sessionStorage.getItem('mykohi_admin_key') || ''; } catch (e) { }
+
+        function esc(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        async function api(action, extra = {}) {
+            if (SCRIPT_URL.startsWith('PASTE_')) throw new Error('SCRIPT_URL is not set in admin-dashboard.html');
+            const res = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action, key: adminKey, ...extra })
+            });
+            const data = await res.json();
+            if (!data.ok) throw new Error(data.error || 'Request failed');
+            return data;
+        }
+
+        // Field helpers: tolerate Formester header variations (e.g. "practice_name" vs "Practice Name").
+        const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+        function get(row, key) {
+            const f = row.fields;
+            if (key in f) return f[key];
+            const k = Object.keys(f).find(h => norm(h) === norm(key));
+            return k ? f[k] : '';
+        }
+        function dateOf(row) {
+            const k = Object.keys(row.fields).find(h => /submitted|created|timestamp|date|time/i.test(h) && !/best_?time|timeline/i.test(h));
+            if (!k) return null;
+            const d = new Date(row.fields[k]);
+            return isNaN(d) ? null : d;
+        }
+        const fmtDate = d => d ? d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+        const pill = s => `<span class="inline-block px-2.5 py-1 rounded-full border text-xs font-medium whitespace-nowrap ${STATUS_STYLES[s] || STATUS_STYLES['New']}">${esc(s)}</span>`;
+
+        async function login(key) {
+            adminKey = key;
+            await api('login');
+            try { sessionStorage.setItem('mykohi_admin_key', key); } catch (e) { }
+            $('login-view').classList.add('hidden');
+            $('app-view').classList.remove('hidden');
+            load();
+        }
+
+        async function load() {
+            $('loading').classList.remove('hidden');
+            $('loading').textContent = 'Loading…';
+            try {
+                const data = await api('list');
+                rows = data.rows;
+                statuses = data.statuses || statuses;
+                fillFilters();
+                render();
+                $('last-sync').textContent = 'Updated ' + new Date().toLocaleTimeString();
+                $('last-sync').classList.remove('hidden');
+            } catch (err) {
+                if (/unauthorized/i.test(err.message)) return logout();
+                $('loading').textContent = 'Could not load data: ' + err.message;
+                return;
+            }
+            $('loading').classList.add('hidden');
+        }
+
+        function fillFilters() {
+            const sf = $('status-filter'), tf = $('type-filter');
+            const sv = sf.value, tv = tf.value;
+            sf.innerHTML = '<option value="">All statuses</option>' + statuses.map(s => `<option>${esc(s)}</option>`).join('');
+            const types = [...new Set(rows.map(r => get(r, 'practice_type')).filter(Boolean))].sort();
+            tf.innerHTML = '<option value="">All practice types</option>' + types.map(t => `<option>${esc(t)}</option>`).join('');
+            sf.value = sv; tf.value = tv;
+            $('d-status').innerHTML = statuses.map(s => `<option>${esc(s)}</option>`).join('');
+        }
+
+        function filtered() {
+            const q = $('search').value.trim().toLowerCase();
+            const st = $('status-filter').value;
+            const ty = $('type-filter').value;
+            return rows.filter(r =>
+                (!st || r.status === st) &&
+                (!ty || get(r, 'practice_type') === ty) &&
+                (!q || Object.values(r.fields).join(' ').toLowerCase().includes(q) || r.adminNotes.toLowerCase().includes(q))
+            );
+        }
+
+        function render() {
+            const weekAgo = Date.now() - 7 * 864e5;
+            $('stat-total').textContent = rows.length;
+            $('stat-week').textContent = rows.filter(r => { const d = dateOf(r); return d && d.getTime() >= weekAgo; }).length;
+            $('stat-new').textContent = rows.filter(r => r.status === 'New').length;
+            $('stat-onboarded').textContent = rows.filter(r => r.status === 'Onboarded').length;
+
+            const list = filtered();
+            $('result-count').textContent = `${list.length} of ${rows.length}`;
+            $('empty').classList.toggle('hidden', list.length > 0 || rows.length === 0);
+            if (rows.length === 0) { $('empty').classList.remove('hidden'); $('empty').textContent = 'No submissions yet.'; }
+            else $('empty').textContent = 'No submissions match.';
+
+            $('rows').innerHTML = list.map(r => `
+                <tr class="hover:bg-slate-50 cursor-pointer" data-key="${esc(r.rowKey)}" tabindex="0">
+                    <td class="px-4 py-3 whitespace-nowrap text-slate-500">${fmtDate(dateOf(r))}</td>
+                    <td class="px-4 py-3"><div class="font-semibold">${esc(get(r, 'practice_name') || '—')}</div><div class="text-xs text-slate-500">${esc(get(r, 'practice_type'))}</div></td>
+                    <td class="px-4 py-3"><div>${esc(get(r, 'full_name'))}</div><div class="text-xs text-slate-500">${esc(get(r, 'email'))}</div></td>
+                    <td class="px-4 py-3 whitespace-nowrap">${esc([get(r, 'city'), get(r, 'state')].filter(Boolean).join(', '))}</td>
+                    <td class="px-4 py-3 text-slate-600 max-w-[220px] truncate">${esc(get(r, 'interested_in'))}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${esc(get(r, 'monthly_budget'))}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${esc(get(r, 'timeline'))}</td>
+                    <td class="px-4 py-3">${pill(r.status)}</td>
+                </tr>`).join('');
+        }
+
+        function openDrawer(row) {
+            active = row;
+            $('d-title').textContent = get(row, 'practice_name') || 'Submission';
+            $('d-sub').textContent = [get(row, 'full_name'), fmtDate(dateOf(row))].filter(Boolean).join(' · ');
+            $('d-status').value = row.status;
+            $('d-notes').value = row.adminNotes;
+            $('d-saved').textContent = '';
+            const email = get(row, 'email'), phone = get(row, 'phone');
+            $('d-email').href = email ? 'mailto:' + email : '#';
+            $('d-phone').href = phone ? 'tel:' + phone.replace(/[^\d+]/g, '') : '#';
+
+            $('d-fields').innerHTML = Object.entries(row.fields)
+                .filter(([k, v]) => v !== '' && !HIDDEN.test(k))
+                .map(([k, v]) => {
+                    const lbl = LABELS[k] || LABELS[Object.keys(LABELS).find(l => norm(l) === norm(k))] || k;
+                    let val = esc(v);
+                    if (/^https?:\/\//i.test(v)) val = `<a class="text-brand-700 underline break-all" href="${esc(v)}" target="_blank" rel="noopener">${esc(v)}</a>`;
+                    return `<div class="py-3 grid grid-cols-3 gap-3"><dt class="text-sm text-slate-500">${esc(lbl)}</dt><dd class="col-span-2 text-sm whitespace-pre-wrap break-words">${val}</dd></div>`;
+                }).join('');
+
+            $('overlay').classList.remove('hidden');
+            $('drawer').classList.remove('translate-x-full');
+            $('drawer').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeDrawer() {
+            active = null;
+            $('overlay').classList.add('hidden');
+            $('drawer').classList.add('translate-x-full');
+            $('drawer').setAttribute('aria-hidden', 'true');
+        }
+
+        async function saveActive() {
+            if (!active) return;
+            const row = active;
+            const changes = { status: $('d-status').value, adminNotes: $('d-notes').value };
+            $('d-save').disabled = true;
+            $('d-saved').textContent = 'Saving…';
+            try {
+                await api('update', { rowKey: row.rowKey, changes });
+                Object.assign(row, changes);
+                render();
+                $('d-saved').textContent = 'Saved ✓';
+            } catch (err) {
+                $('d-saved').textContent = 'Error: ' + err.message;
+            } finally {
+                $('d-save').disabled = false;
+            }
+        }
+
+        function exportCsv() {
+            const list = filtered();
+            const headers = [...new Set(list.flatMap(r => Object.keys(r.fields)))].filter(h => !HIDDEN.test(h));
+            const cell = v => {
+                let s = String(v ?? '');
+                if (/^[=+\-@]/.test(s)) s = "'" + s;
+                return '"' + s.replace(/"/g, '""') + '"';
+            };
+            const lines = [[...headers, 'status', 'admin_notes'].map(cell).join(',')]
+                .concat(list.map(r => [...headers.map(h => r.fields[h]), r.status, r.adminNotes].map(cell).join(',')));
+            const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `mykohi-onboarding-${new Date().toISOString().slice(0, 10)}.csv`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        function logout() {
+            adminKey = '';
+            try { sessionStorage.removeItem('mykohi_admin_key'); } catch (e) { }
+            $('app-view').classList.add('hidden');
+            $('login-view').classList.remove('hidden');
+            closeDrawer();
+        }
+
+        $('login-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const btn = $('login-btn');
+            btn.disabled = true; btn.textContent = 'Checking…';
+            $('login-error').classList.add('hidden');
+            try {
+                await login($('admin-key').value.trim());
+            } catch (err) {
+                adminKey = '';
+                $('login-error').textContent = /unauthorized/i.test(err.message) ? 'Wrong admin key.' : err.message;
+                $('login-error').classList.remove('hidden');
+            } finally {
+                btn.disabled = false; btn.textContent = 'Sign in';
+            }
+        });
+
+        $('rows').addEventListener('click', e => {
+            const tr = e.target.closest('tr[data-key]');
+            if (tr) openDrawer(rows.find(r => r.rowKey === tr.dataset.key));
+        });
+        $('rows').addEventListener('keydown', e => {
+            if (e.key === 'Enter') e.target.closest('tr[data-key]')?.click();
+        });
+        ['search', 'status-filter', 'type-filter'].forEach(id => $(id).addEventListener('input', render));
+        $('refresh-btn').addEventListener('click', load);
+        $('export-btn').addEventListener('click', exportCsv);
+        $('logout-btn').addEventListener('click', logout);
+        $('close-drawer').addEventListener('click', closeDrawer);
+        $('overlay').addEventListener('click', closeDrawer);
+        $('d-save').addEventListener('click', saveActive);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+        if (adminKey) login(adminKey).catch(logout);
+    </script>
+</body>
+
+</html>
