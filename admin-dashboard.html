@@ -158,11 +158,15 @@
         </header>
 
         <main class="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
+            <!-- Tabs -->
+            <div class="inline-flex bg-white border border-slate-200 rounded-full p-1 mb-6 shadow-sm" role="tablist"
+                id="tabs"></div>
+
             <div class="mb-6">
-                <h1 class="text-2xl sm:text-3xl font-display font-bold">Practice onboarding</h1>
-                <p class="text-slate-500 text-sm mt-1">Every practice that completed the onboarding form on mykohi.com.
-                </p>
+                <h1 id="page-title" class="text-2xl sm:text-3xl font-display font-bold"></h1>
+                <p id="page-desc" class="text-slate-500 text-sm mt-1"></p>
             </div>
+            <div id="not-connected" class="hidden bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl px-5 py-4 mb-6 text-sm"></div>
 
             <!-- Stats -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="stats"></div>
@@ -179,7 +183,7 @@
                         <path d="m20 20-3.5-3.5" stroke-linecap="round" />
                     </svg>
                     <input id="search" type="search" class="field" style="padding-left:2.25rem"
-                        placeholder="Search practice, name, email, city…">
+                        placeholder="Search name, email, city…">
                 </div>
                 <select id="status-filter" class="field md:w-48">
                     <option value="">All statuses</option>
@@ -196,15 +200,7 @@
                     <table class="w-full text-sm">
                         <thead
                             class="bg-slate-50 text-left text-[11px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200">
-                            <tr>
-                                <th class="px-5 py-3">Practice</th>
-                                <th class="px-4 py-3">Contact</th>
-                                <th class="px-4 py-3">Interested in</th>
-                                <th class="px-4 py-3 whitespace-nowrap">Budget</th>
-                                <th class="px-4 py-3 whitespace-nowrap">Start</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3 whitespace-nowrap">Submitted</th>
-                            </tr>
+                            <tr id="thead-row"></tr>
                         </thead>
                         <tbody id="rows" class="divide-y divide-slate-100"></tbody>
                     </table>
@@ -272,6 +268,7 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2p6fvchGt4rJAux4uMa70lF5MMLdI_cv8WjrfxV2algyZz0oGm_mm5dZEx4ApTHQ0/exec';
 
         const LABELS = {
+            // Practice onboarding
             practice_name: 'Practice name', website: 'Website', practice_type: 'Practice type',
             years_in_operation: 'Years in operation', city: 'City', state: 'State',
             num_locations: 'Locations', num_providers: 'Providers',
@@ -281,19 +278,32 @@
             payment_model: 'Payment model', current_marketing: 'Current marketing', challenges: 'Biggest challenge',
             interested_in: 'Interested in', monthly_budget: 'Monthly budget', timeline: 'Start timeline',
             goals: '12-month goals', referral_source: 'Heard about us via', consent: 'Consent to contact',
-            source_page: 'Came from page', status: 'Status', admin_notes: 'Internal notes'
+            source_page: 'Came from page', status: 'Status', admin_notes: 'Internal notes',
+            // Access & assets
+            business_name: 'Business name', brand_assets_link: 'Brand files', brand_assets_included: 'Files included',
+            brand_colors: 'Brand colors', website_platform: 'Website platform', hosting_provider: 'Hosting company',
+            domain_registrar: 'Domain registrar', ssl_managed_by: 'SSL managed by', website_backups: 'Website backups',
+            google_products: 'Google products', google_one_login: 'One Google account?', google_account_email: 'Google account owner',
+            social_platforms: 'Social platforms', facebook_url: 'Facebook page', instagram_handle: 'Instagram',
+            linkedin_url: 'LinkedIn page', instagram_connected_to_facebook: 'Instagram linked to Facebook',
+            other_social_links: 'Other profiles', anything_else: 'Anything else', help_call: 'Wants a help call',
+            help_call_time: 'Best time for call', no_passwords_confirmed: 'Confirmed no passwords', access_summary: 'Access summary'
         };
-        const SECTIONS = [
-            { title: 'Practice', keys: ['practice_type', 'website', 'years_in_operation', 'city', 'state', 'num_locations', 'num_providers'] },
-            { title: 'Primary contact', keys: ['full_name', 'role', 'email', 'phone', 'preferred_contact', 'best_time'] },
-            { title: 'Services & current state', keys: ['services_offered', 'monthly_new_patients', 'payment_model', 'current_marketing', 'challenges'] },
-            { title: 'Goals & next steps', keys: ['interested_in', 'monthly_budget', 'timeline', 'goals', 'referral_source', 'consent'] },
-        ];
-        const FACTS = [['num_locations', 'Locations'], ['num_providers', 'Providers'], ['monthly_new_patients', 'New patients / mo'],
-            ['monthly_budget', 'Monthly budget'], ['timeline', 'Start'], ['payment_model', 'Payment']];
-        const FACT_KEYS = FACTS.map(f => f[0]);
-        const CHIP_KEYS = ['services_offered', 'current_marketing', 'interested_in'];
-        const LONG_KEYS = ['challenges', 'goals'];
+        const TASKS = {
+            access_wordpress: 'WordPress admin', access_website_builder: 'Website builder', access_hosting: 'Hosting / cPanel',
+            access_domain: 'Domain & DNS', access_gbp: 'Google Business Profile', access_ga4: 'Google Analytics',
+            access_gsc: 'Search Console', access_google_ads: 'Google Ads', access_gtm: 'Tag Manager',
+            access_youtube: 'YouTube', access_merchant: 'Merchant Center', access_meta: 'Facebook & Instagram',
+            access_linkedin: 'LinkedIn page', access_other_social: 'Other social'
+        };
+        const TASK_KEYS = Object.keys(TASKS);
+        Object.assign(LABELS, TASKS);
+        const TASK_STYLE = {
+            'Done': { cls: 'bg-teal-50 text-teal-700 border-teal-200', fg: [15, 118, 110], order: 2 },
+            'Need help': { cls: 'bg-rose-50 text-rose-700 border-rose-200', fg: [190, 18, 60], order: 0 },
+            'Will do later': { cls: 'bg-amber-50 text-amber-700 border-amber-200', fg: [180, 83, 9], order: 1 },
+            'Not applicable': { cls: 'bg-slate-100 text-slate-500 border-slate-200', fg: [100, 116, 139], order: 3 }
+        };
         const HIDDEN = /recaptcha|captcha|^_/i;
 
         const STATUS = {
@@ -305,14 +315,25 @@
         };
         const URGENCY = { 'Immediately': 'bg-rose-500', 'Within 30 days': 'bg-amber-500', '1–3 months': 'bg-brand-500', 'Just exploring': 'bg-slate-300' };
         const AVATAR_COLORS = ['bg-brand-100 text-brand-700', 'bg-violet-100 text-violet-700', 'bg-teal-100 text-teal-700', 'bg-amber-100 text-amber-700', 'bg-rose-100 text-rose-700', 'bg-indigo-100 text-indigo-700'];
+        const ICONS = {
+            list: '<path d="M9 4H6v17h12V4h-3M9 3h6v3H9zM9 11h6M9 15h4" stroke-linecap="round" stroke-linejoin="round"/>',
+            calendar: '<path d="M4 7h16v13H4zM4 11h16M9 3v4M15 3v4" stroke-linejoin="round"/>',
+            clock: '<path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round"/>',
+            check: '<path d="m5 12 4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>',
+            help: '<path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7M12 17h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round"/>',
+            folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linejoin="round"/>',
+        };
+        const ACCENTS = { slate: 'from-slate-800 to-slate-600', brand: 'from-brand-600 to-brand-400', amber: 'from-amber-500 to-orange-400', teal: 'from-teal-500 to-emerald-400', rose: 'from-rose-500 to-pink-400', violet: 'from-violet-500 to-accent-purple' };
 
         const $ = id => document.getElementById(id);
         let adminKey = '';
-        let rows = [];
         let statuses = Object.keys(STATUS);
         let active = null;
+        let current = 'onboarding';
+        const data = {};   // source -> { rows, connected }
 
         try { adminKey = sessionStorage.getItem('mykohi_admin_key') || ''; } catch (e) { }
+        try { current = localStorage.getItem('mykohi_dash_tab') || current; } catch (e) { }
 
         function esc(s) {
             return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -325,9 +346,9 @@
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ action, key: adminKey, ...extra })
             });
-            const data = await res.json();
-            if (!data.ok) throw new Error(data.error || 'Request failed');
-            return data;
+            const json = await res.json();
+            if (!json.ok) throw new Error(json.error || 'Request failed');
+            return json;
         }
 
         // ---------- Field helpers (tolerate Formester header variations) ----------
@@ -341,8 +362,10 @@
             return h ? String(row.fields[h]).trim() : '';
         }
         const list = v => String(v || '').split(',').map(s => s.trim()).filter(Boolean);
+        const loc = r => [get(r, 'city'), get(r, 'state')].filter(Boolean).join(', ');
+        const host = u => String(u || '').replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/$/, '');
         function dateKey(row) {
-            return Object.keys(row.fields).find(h => /submitted|created|timestamp|date|time/i.test(h) && !/best_?time|timeline/i.test(h));
+            return Object.keys(row.fields).find(h => /submitted|created|timestamp|date|time/i.test(h) && !/best_?time|timeline|call_?time/i.test(h));
         }
         function dateOf(row) {
             const k = dateKey(row);
@@ -374,11 +397,209 @@
         }
         const pill = s => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium whitespace-nowrap ${(STATUS[s] || STATUS.New).cls}"><span class="w-1.5 h-1.5 rounded-full ${(STATUS[s] || STATUS.New).dot}"></span>${esc(s)}</span>`;
         const chip = (t, extra = '') => `<span class="inline-block px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium ${extra}">${esc(t)}</span>`;
+        const taskBadge = v => `<span class="inline-block px-2.5 py-1 rounded-full border text-xs font-semibold whitespace-nowrap ${(TASK_STYLE[v] || TASK_STYLE['Not applicable']).cls}">${esc(v)}</span>`;
         function counts(items, key, multi) {
             const m = new Map();
-            items.forEach(r => (multi ? list(get(r, key)) : [get(r, key)]).filter(Boolean).forEach(v => m.set(v, (m.get(v) || 0) + 1)));
+            items.forEach(r => (multi ? list(get(r, key)) : [get(r, key)]).filter(v => v && v !== 'None').forEach(v => m.set(v, (m.get(v) || 0) + 1)));
             return [...m.entries()].sort((a, b) => b[1] - a[1]);
         }
+        function tally(values) {
+            const m = new Map();
+            values.forEach(v => m.set(v, (m.get(v) || 0) + 1));
+            return [...m.entries()].sort((a, b) => b[1] - a[1]);
+        }
+        const weekAgo = () => Date.now() - 7 * 864e5;
+        const thisWeek = items => items.filter(r => { const d = dateOf(r); return d && d.getTime() >= weekAgo(); }).length;
+
+        function tasksOf(row) {
+            const all = TASK_KEYS.map(k => [k, get(row, k)]).filter(([, v]) => v);
+            const rel = all.filter(([, v]) => v !== 'Not applicable');
+            return {
+                all, total: rel.length,
+                done: rel.filter(x => x[1] === 'Done').length,
+                help: rel.filter(x => x[1] === 'Need help').map(x => TASKS[x[0]]),
+                later: rel.filter(x => x[1] === 'Will do later').map(x => TASKS[x[0]]),
+            };
+        }
+
+        // Shared table cells
+        const nameCell = (name, sub) => `
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 shrink-0 rounded-xl ${avatarColor(name)} flex items-center justify-center font-bold text-sm">${esc(initials(name))}</div>
+                <div class="min-w-0">
+                    <div class="font-semibold text-slate-900 truncate max-w-[240px]">${esc(name)}</div>
+                    <div class="text-xs text-slate-500 truncate max-w-[240px]">${esc(sub)}</div>
+                </div>
+            </div>`;
+        const twoLine = (a, b) => `<div class="text-slate-800">${esc(a)}</div><div class="text-xs text-slate-500">${esc(b)}</div>`;
+        const chipList = (items, cls = '', max = 2) => `<div class="flex flex-wrap gap-1 max-w-[260px]">${items.slice(0, max).map(i => chip(i, cls)).join('')}${items.length > max ? chip('+' + (items.length - max), 'bg-slate-200') : ''}</div>`;
+        const dateCell = r => { const d = dateOf(r); return `<div class="text-slate-700">${fmtDate(d)}</div><div class="text-xs text-slate-400">${timeAgo(d)}</div>`; };
+
+        // ---------- Per-form configuration ----------
+        const SOURCES = {
+            onboarding: {
+                tab: 'Practice onboarding',
+                title: 'Practice onboarding',
+                desc: 'Every practice that completed the onboarding form on mykohi.com.',
+                search: 'Search practice, name, email, city…',
+                nameKey: 'practice_name', noun: 'practice',
+                sub: r => [get(r, 'practice_type'), loc(r)].filter(Boolean).join(' · '),
+                pdfSub: r => get(r, 'practice_type'),
+                filterKey: 'practice_type', filterAll: 'All practice types',
+                facts: r => [['Locations', get(r, 'num_locations')], ['Providers', get(r, 'num_providers')],
+                ['New patients / mo', get(r, 'monthly_new_patients')], ['Monthly budget', get(r, 'monthly_budget')],
+                ['Start', get(r, 'timeline')], ['Payment', get(r, 'payment_model')]],
+                factKeys: ['num_locations', 'num_providers', 'monthly_new_patients', 'monthly_budget', 'timeline', 'payment_model'],
+                sections: [
+                    { title: 'Practice', keys: ['practice_type', 'website', 'years_in_operation', 'city', 'state'] },
+                    { title: 'Primary contact', keys: ['full_name', 'role', 'email', 'phone', 'preferred_contact', 'best_time'] },
+                    { title: 'Services & current state', keys: ['services_offered', 'current_marketing', 'challenges'] },
+                    { title: 'Goals & next steps', keys: ['interested_in', 'goals', 'referral_source', 'consent'] },
+                ],
+                chips: ['services_offered', 'current_marketing', 'interested_in'],
+                long: ['challenges', 'goals'],
+                hide: [],
+                stats: items => {
+                    const fresh = items.filter(r => r.status === 'New').length;
+                    const onb = items.filter(r => r.status === 'Onboarded').length;
+                    const rate = items.length ? Math.round(onb / items.length * 100) : 0;
+                    return [
+                        { label: 'Total submissions', value: items.length, note: 'All time', accent: 'slate', icon: 'list' },
+                        { label: 'Last 7 days', value: thisWeek(items), note: 'New this week', accent: 'brand', icon: 'calendar' },
+                        { label: 'Awaiting contact', value: fresh, note: fresh ? 'Needs follow-up' : 'All caught up', accent: 'amber', icon: 'clock' },
+                        { label: 'Onboarded', value: onb, pdf: `${onb}  (${rate}%)`, note: rate + '% conversion', accent: 'teal', icon: 'check' },
+                    ];
+                },
+                insights: items => [
+                    ['By practice type', counts(items, 'practice_type'), 'bg-gradient-to-r from-brand-500 to-brand-400'],
+                    ['Most requested help', counts(items, 'interested_in', true), 'bg-gradient-to-r from-violet-500 to-accent-purple'],
+                    ['Monthly budget', counts(items, 'monthly_budget'), 'bg-gradient-to-r from-teal-500 to-emerald-400'],
+                ],
+                columns: [
+                    { th: 'Practice', cls: 'px-5', td: r => nameCell(get(r, 'practice_name') || 'Untitled practice', SOURCES.onboarding.sub(r)) },
+                    { th: 'Contact', td: r => twoLine(get(r, 'full_name'), get(r, 'role') || get(r, 'email')) },
+                    { th: 'Interested in', td: r => chipList(list(get(r, 'interested_in'))) },
+                    { th: 'Budget', nowrap: true, td: r => `<span class="text-slate-700">${esc(get(r, 'monthly_budget') || '—')}</span>` },
+                    {
+                        th: 'Start', nowrap: true, td: r => {
+                            const tl = get(r, 'timeline');
+                            return tl ? `<span class="inline-flex items-center gap-2 text-slate-700"><span class="w-2 h-2 rounded-full ${URGENCY[tl] || 'bg-slate-300'}"></span>${esc(tl)}</span>` : '—';
+                        }
+                    },
+                    { th: 'Status', td: r => pill(r.status) },
+                    { th: 'Submitted', nowrap: true, td: dateCell },
+                ],
+                report: {
+                    eyebrow: 'Onboarding report', title: 'Practice Onboarding Report', file: 'Onboarding-Report', footer: 'Practice onboarding report',
+                    columns: [
+                        { head: 'Practice', width: 140, value: r => get(r, 'practice_name') },
+                        { head: 'Contact', width: 150, value: r => [get(r, 'full_name'), get(r, 'email'), get(r, 'phone')].filter(Boolean).join('\n') },
+                        { head: 'Location', value: loc },
+                        { head: 'Interested in', width: 130, value: r => list(get(r, 'interested_in')).join(', ') },
+                        { head: 'Budget', value: r => get(r, 'monthly_budget') },
+                        { head: 'Start', value: r => get(r, 'timeline') },
+                        { head: 'Status', width: 70, value: r => r.status },
+                        { head: 'Submitted', width: 70, value: r => fmtDate(dateOf(r)) },
+                    ],
+                },
+                profile: { eyebrow: 'Practice onboarding profile', file: 'Onboarding' },
+            },
+
+            access: {
+                tab: 'Access & assets',
+                title: 'Access & brand assets',
+                desc: 'Account access and brand files each client has handed over through access-onboarding.html.',
+                search: 'Search client, name, email…',
+                nameKey: 'business_name', noun: 'client',
+                sub: r => [host(get(r, 'website')), get(r, 'website_platform')].filter(Boolean).join(' · '),
+                pdfSub: r => host(get(r, 'website')) || get(r, 'website_platform'),
+                filterKey: 'website_platform', filterAll: 'All website platforms',
+                facts: r => {
+                    const t = tasksOf(r);
+                    return [['Access steps done', t.total ? `${t.done} / ${t.total}` : '—'], ['Need help', String(t.help.length)],
+                    ['Will do later', String(t.later.length)], ['Website platform', get(r, 'website_platform')],
+                    ['Brand files', get(r, 'brand_assets_link') ? 'Shared' : 'Not yet'], ['Help call', get(r, 'help_call') ? 'Requested' : 'No']];
+                },
+                factKeys: ['website_platform', 'help_call'],
+                sections: [
+                    { title: 'Access checklist', keys: TASK_KEYS, checklist: true },
+                    { title: 'Client & brand', keys: ['full_name', 'email', 'phone', 'brand_assets_link', 'brand_assets_included', 'brand_colors'] },
+                    { title: 'Website', keys: ['website', 'hosting_provider', 'domain_registrar', 'ssl_managed_by', 'website_backups'] },
+                    { title: 'Google', keys: ['google_products', 'google_one_login', 'google_account_email'] },
+                    { title: 'Social media', keys: ['social_platforms', 'facebook_url', 'instagram_handle', 'linkedin_url', 'instagram_connected_to_facebook', 'other_social_links'] },
+                    { title: 'Wrap-up', keys: ['anything_else', 'help_call_time', 'no_passwords_confirmed'] },
+                ],
+                chips: ['brand_assets_included', 'google_products', 'social_platforms'],
+                long: ['anything_else'],
+                hide: ['access_summary'],
+                stats: items => {
+                    const ts = items.map(tasksOf);
+                    const complete = ts.filter(t => t.done === t.total).length;
+                    const help = ts.filter(t => t.help.length).length;
+                    const files = items.filter(r => get(r, 'brand_assets_link')).length;
+                    return [
+                        { label: 'Clients submitted', value: items.length, note: thisWeek(items) + ' in the last 7 days', accent: 'slate', icon: 'list' },
+                        { label: 'Fully connected', value: complete, note: 'Every access step done', accent: 'teal', icon: 'check' },
+                        { label: 'Need help', value: help, note: help ? 'Schedule a call' : 'Nobody is stuck', accent: 'rose', icon: 'help' },
+                        { label: 'Brand files received', value: files, note: `${items.length - files} still missing`, accent: 'violet', icon: 'folder' },
+                    ];
+                },
+                insights: items => [
+                    ['Steps clients need help with', tally(items.flatMap(r => tasksOf(r).help)), 'bg-gradient-to-r from-rose-500 to-pink-400'],
+                    ['Google products', counts(items, 'google_products', true), 'bg-gradient-to-r from-brand-500 to-brand-400'],
+                    ['Website platform', counts(items, 'website_platform'), 'bg-gradient-to-r from-violet-500 to-accent-purple'],
+                ],
+                columns: [
+                    { th: 'Client', cls: 'px-5', td: r => nameCell(get(r, 'business_name') || 'Untitled client', SOURCES.access.sub(r)) },
+                    { th: 'Contact', td: r => twoLine(get(r, 'full_name'), get(r, 'email')) },
+                    {
+                        th: 'Access progress', td: r => {
+                            const t = tasksOf(r);
+                            if (!t.total) return '<span class="text-slate-400">No steps</span>';
+                            const pct = Math.round(t.done / t.total * 100);
+                            return `<div class="w-36"><div class="flex justify-between text-xs mb-1"><span class="font-semibold text-slate-800">${t.done} / ${t.total} done</span><span class="text-slate-400">${pct}%</span></div>
+                                <div class="h-1.5 rounded-full bg-slate-100 overflow-hidden"><div class="h-full rounded-full ${pct === 100 ? 'bg-teal-500' : 'bg-brand-500'}" style="width:${pct}%"></div></div></div>`;
+                        }
+                    },
+                    {
+                        th: 'Needs attention', td: r => {
+                            const t = tasksOf(r);
+                            if (t.help.length) return chipList(t.help, 'bg-rose-50 text-rose-700');
+                            if (t.later.length) return chip(`${t.later.length} pending`, 'bg-amber-50 text-amber-700');
+                            return chip('All set ✓', 'bg-teal-50 text-teal-700');
+                        }
+                    },
+                    {
+                        th: 'Brand files', nowrap: true, td: r => {
+                            const link = get(r, 'brand_assets_link');
+                            return /^https?:\/\//i.test(link)
+                                ? `<a href="${esc(link)}" target="_blank" rel="noopener" class="link-out inline-flex items-center gap-1 text-brand-700 font-medium hover:underline">Open ↗</a>`
+                                : '<span class="text-slate-400">Not yet</span>';
+                        }
+                    },
+                    { th: 'Status', td: r => pill(r.status) },
+                    { th: 'Submitted', nowrap: true, td: dateCell },
+                ],
+                report: {
+                    eyebrow: 'Access report', title: 'Client Access & Assets Report', file: 'Access-Report', footer: 'Client access report',
+                    columns: [
+                        { head: 'Client', width: 140, value: r => get(r, 'business_name') },
+                        { head: 'Contact', width: 150, value: r => [get(r, 'full_name'), get(r, 'email'), get(r, 'phone')].filter(Boolean).join('\n') },
+                        { head: 'Progress', width: 60, value: r => { const t = tasksOf(r); return t.total ? `${t.done}/${t.total}` : '-'; } },
+                        { head: 'Need help', width: 120, value: r => tasksOf(r).help.join(', ') || '-' },
+                        { head: 'Will do later', width: 110, value: r => tasksOf(r).later.join(', ') || '-' },
+                        { head: 'Brand files', value: r => get(r, 'brand_assets_link') ? 'Shared' : 'Not yet' },
+                        { head: 'Status', width: 70, value: r => r.status },
+                        { head: 'Submitted', width: 70, value: r => fmtDate(dateOf(r)) },
+                    ],
+                },
+                profile: { eyebrow: 'Client access profile', file: 'Access' },
+                notConnected: 'The access form isn\'t connected yet. To turn this tab on: create a new Formester form, paste its submission URL into <b>FORM_ACTION</b> in access-onboarding.html, connect it to a Google Sheet tab named <b>mykohi-onboarding-new</b>, and redeploy the latest Apps Script (Deploy → Manage deployments → Edit → New version).',
+            },
+        };
+        const src = () => SOURCES[current];
+        const rowsOf = () => (data[current] && data[current].rows) || [];
+        const nameOf = r => get(r, src().nameKey) || 'Untitled ' + src().noun;
 
         // ---------- Auth & loading ----------
         async function login(key) {
@@ -387,36 +608,73 @@
             try { sessionStorage.setItem('mykohi_admin_key', key); } catch (e) { }
             $('login-view').classList.add('hidden');
             $('app-view').classList.remove('hidden');
-            load();
+            switchTab(SOURCES[current] ? current : 'onboarding', true);
         }
 
-        async function load() {
-            $('loading').classList.remove('hidden');
-            $('loading').textContent = 'Loading…';
+        async function load(source = current) {
+            if (source === current) {
+                $('loading').classList.remove('hidden');
+                $('loading').textContent = 'Loading…';
+                $('rows').innerHTML = '';
+                $('empty').classList.add('hidden');
+            }
             $('refresh-btn').disabled = true;
             try {
-                const data = await api('list');
-                rows = data.rows;
-                statuses = data.statuses || statuses;
-                fillFilters();
-                render();
-                $('last-sync').textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-                $('loading').classList.add('hidden');
+                const res = await api('list', { source });
+                statuses = res.statuses || statuses;
+                // An older script ignores `source` and always returns onboarding rows.
+                const connected = source === 'onboarding' ? true : res.connected === true;
+                data[source] = { rows: connected ? res.rows : [], connected };
+                if (source === current) {
+                    fillFilters();
+                    render();
+                    $('last-sync').textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                    $('loading').classList.add('hidden');
+                }
+                renderTabs();
             } catch (err) {
                 if (/unauthorized/i.test(err.message)) return logout();
-                $('loading').textContent = 'Could not load data: ' + err.message;
+                if (source === current) $('loading').textContent = 'Could not load data: ' + err.message;
             } finally {
                 $('refresh-btn').disabled = false;
             }
+        }
+
+        function renderTabs() {
+            $('tabs').innerHTML = Object.entries(SOURCES).map(([k, s]) => {
+                const n = data[k] && data[k].connected ? data[k].rows.length : '';
+                const on = k === current;
+                return `<button role="tab" aria-selected="${on}" data-tab="${k}" class="px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-all ${on ? 'bg-slate-900 text-white shadow' : 'text-slate-600 hover:text-slate-900'}">${esc(s.tab)}${n !== '' ? ` <span class="ml-1 text-xs ${on ? 'text-white/70' : 'text-slate-400'}">${n}</span>` : ''}</button>`;
+            }).join('');
+        }
+
+        function switchTab(key, force) {
+            if (!SOURCES[key] || (key === current && !force)) return;
+            current = key;
+            try { localStorage.setItem('mykohi_dash_tab', key); } catch (e) { }
+            closeDrawer();
+            const s = src();
+            $('page-title').textContent = s.title;
+            $('page-desc').textContent = s.desc;
+            $('search').placeholder = s.search;
+            $('search').value = '';
+            $('status-filter').value = '';
+            $('thead-row').innerHTML = s.columns.map((c, i) => `<th class="${c.cls || 'px-4'} py-3 ${c.nowrap ? 'whitespace-nowrap' : ''}">${esc(c.th)}</th>`).join('');
+            renderTabs();
+            if (data[key]) { fillFilters(); render(); $('loading').classList.add('hidden'); }
+            else load(key);
+            // Load the other tab in the background so its count shows.
+            Object.keys(SOURCES).forEach(k => { if (k !== key && !data[k]) load(k); });
         }
 
         function fillFilters() {
             const sf = $('status-filter'), tf = $('type-filter');
             const sv = sf.value, tv = tf.value;
             sf.innerHTML = '<option value="">All statuses</option>' + statuses.map(s => `<option>${esc(s)}</option>`).join('');
-            const types = [...new Set(rows.map(r => get(r, 'practice_type')).filter(Boolean))].sort();
-            tf.innerHTML = '<option value="">All practice types</option>' + types.map(t => `<option>${esc(t)}</option>`).join('');
-            sf.value = sv; tf.value = tv;
+            const types = [...new Set(rowsOf().map(r => get(r, src().filterKey)).filter(Boolean))].sort();
+            tf.innerHTML = `<option value="">${esc(src().filterAll)}</option>` + types.map(t => `<option>${esc(t)}</option>`).join('');
+            sf.value = sv;
+            tf.value = types.includes(tv) ? tv : '';
             $('d-status').innerHTML = statuses.map(s => `<option>${esc(s)}</option>`).join('');
         }
 
@@ -424,48 +682,30 @@
             const q = $('search').value.trim().toLowerCase();
             const st = $('status-filter').value;
             const ty = $('type-filter').value;
-            return rows.filter(r =>
+            return rowsOf().filter(r =>
                 (!st || r.status === st) &&
-                (!ty || get(r, 'practice_type') === ty) &&
+                (!ty || get(r, src().filterKey) === ty) &&
                 (!q || Object.values(r.fields).join(' ').toLowerCase().includes(q) || r.adminNotes.toLowerCase().includes(q))
             );
         }
 
-        function summary(items) {
-            const weekAgo = Date.now() - 7 * 864e5;
-            return {
-                total: items.length,
-                week: items.filter(r => { const d = dateOf(r); return d && d.getTime() >= weekAgo; }).length,
-                fresh: items.filter(r => r.status === 'New').length,
-                onboarded: items.filter(r => r.status === 'Onboarded').length,
-            };
-        }
-
         // ---------- Rendering ----------
         function renderStats() {
-            const s = summary(rows);
-            const rate = s.total ? Math.round(s.onboarded / s.total * 100) : 0;
-            const cards = [
-                { label: 'Total submissions', value: s.total, note: 'All time', accent: 'from-slate-800 to-slate-600', icon: '<path d="M9 4H6v17h12V4h-3M9 3h6v3H9zM9 11h6M9 15h4" stroke-linecap="round" stroke-linejoin="round"/>' },
-                { label: 'Last 7 days', value: s.week, note: 'New this week', accent: 'from-brand-600 to-brand-400', icon: '<path d="M4 7h16v13H4zM4 11h16M9 3v4M15 3v4" stroke-linejoin="round"/>' },
-                { label: 'Awaiting contact', value: s.fresh, note: s.fresh ? 'Needs follow-up' : 'All caught up', accent: 'from-amber-500 to-orange-400', icon: '<path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round"/>' },
-                { label: 'Onboarded', value: s.onboarded, note: rate + '% conversion', accent: 'from-teal-500 to-emerald-400', icon: '<path d="m5 12 4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>' },
-            ];
-            $('stats').innerHTML = cards.map(c => `
+            $('stats').innerHTML = src().stats(rowsOf()).map(c => `
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
                     <div class="flex items-start justify-between">
-                        <p class="text-xs font-mono uppercase tracking-wider text-slate-500">${c.label}</p>
-                        <span class="w-9 h-9 rounded-xl bg-gradient-to-br ${c.accent} text-white flex items-center justify-center">
-                            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${c.icon}</svg>
+                        <p class="text-xs font-mono uppercase tracking-wider text-slate-500">${esc(c.label)}</p>
+                        <span class="w-9 h-9 rounded-xl bg-gradient-to-br ${ACCENTS[c.accent]} text-white flex items-center justify-center">
+                            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ICONS[c.icon]}</svg>
                         </span>
                     </div>
-                    <p class="text-3xl font-display font-bold mt-2">${c.value}</p>
+                    <p class="text-3xl font-display font-bold mt-2">${esc(c.value)}</p>
                     <p class="text-xs text-slate-400 mt-1">${esc(c.note)}</p>
                 </div>`).join('');
         }
 
-        function barCard(title, data, color) {
-            const top = data.slice(0, 5);
+        function barCard(title, rows, color) {
+            const top = rows.slice(0, 5);
             const max = Math.max(1, ...top.map(d => d[1]));
             const body = top.length ? top.map(([k, v]) => `
                 <div>
@@ -473,51 +713,26 @@
                     <div class="h-2 rounded-full bg-slate-100 overflow-hidden"><div class="bar h-full rounded-full ${color}" style="width:${Math.round(v / max * 100)}%"></div></div>
                 </div>`).join('') : '<p class="text-sm text-slate-400">No data yet</p>';
             return `<div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-                <p class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${title}</p>
+                <p class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${esc(title)}</p>
                 <div class="space-y-3">${body}</div></div>`;
         }
 
         function renderInsights() {
-            $('insights').innerHTML =
-                barCard('By practice type', counts(rows, 'practice_type'), 'bg-gradient-to-r from-brand-500 to-brand-400') +
-                barCard('Most requested help', counts(rows, 'interested_in', true), 'bg-gradient-to-r from-violet-500 to-accent-purple') +
-                barCard('Monthly budget', counts(rows, 'monthly_budget'), 'bg-gradient-to-r from-teal-500 to-emerald-400');
+            $('insights').innerHTML = src().insights(rowsOf()).map(([t, rows, color]) => barCard(t, rows, color)).join('');
         }
 
         function renderTable() {
-            const items = filtered();
-            $('result-count').textContent = `${items.length} of ${rows.length} practices`;
+            const all = rowsOf(), items = filtered(), s = src();
+            const connected = !data[current] || data[current].connected;
+            $('not-connected').classList.toggle('hidden', connected);
+            $('not-connected').innerHTML = connected ? '' : s.notConnected;
+            $('result-count').textContent = `${items.length} of ${all.length} ${s.noun}${all.length === 1 ? '' : 's'}`;
             $('empty').classList.toggle('hidden', items.length > 0);
-            $('empty-text').textContent = rows.length ? 'No submissions match these filters.' : 'No submissions yet. They will appear here as soon as someone completes the onboarding form.';
-
-            $('rows').innerHTML = items.map(r => {
-                const name = get(r, 'practice_name') || 'Untitled practice';
-                const loc = [get(r, 'city'), get(r, 'state')].filter(Boolean).join(', ');
-                const interests = list(get(r, 'interested_in'));
-                const tl = get(r, 'timeline');
-                const d = dateOf(r);
-                return `
+            $('empty-text').textContent = all.length ? 'No submissions match these filters.' : 'No submissions yet. They will appear here as soon as someone completes the form.';
+            $('rows').innerHTML = items.map(r => `
                 <tr class="hover:bg-brand-50/40 cursor-pointer transition-colors" data-key="${esc(r.rowKey)}" tabindex="0">
-                    <td class="px-5 py-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 shrink-0 rounded-xl ${avatarColor(name)} flex items-center justify-center font-bold text-sm">${esc(initials(name))}</div>
-                            <div class="min-w-0">
-                                <div class="font-semibold text-slate-900 truncate max-w-[240px]">${esc(name)}</div>
-                                <div class="text-xs text-slate-500 truncate max-w-[240px]">${esc([get(r, 'practice_type'), loc].filter(Boolean).join(' · '))}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-4 py-4">
-                        <div class="text-slate-800">${esc(get(r, 'full_name'))}</div>
-                        <div class="text-xs text-slate-500">${esc(get(r, 'role') || get(r, 'email'))}</div>
-                    </td>
-                    <td class="px-4 py-4"><div class="flex flex-wrap gap-1 max-w-[260px]">${interests.slice(0, 2).map(i => chip(i)).join('')}${interests.length > 2 ? chip('+' + (interests.length - 2), 'bg-slate-200') : ''}</div></td>
-                    <td class="px-4 py-4 whitespace-nowrap text-slate-700">${esc(get(r, 'monthly_budget') || '—')}</td>
-                    <td class="px-4 py-4 whitespace-nowrap text-slate-700">${tl ? `<span class="inline-flex items-center gap-2"><span class="w-2 h-2 rounded-full ${URGENCY[tl] || 'bg-slate-300'}"></span>${esc(tl)}</span>` : '—'}</td>
-                    <td class="px-4 py-4">${pill(r.status)}</td>
-                    <td class="px-4 py-4 whitespace-nowrap"><div class="text-slate-700">${fmtDate(d)}</div><div class="text-xs text-slate-400">${timeAgo(d)}</div></td>
-                </tr>`;
-            }).join('');
+                    ${s.columns.map(c => `<td class="${c.cls || 'px-4'} py-4 ${c.nowrap ? 'whitespace-nowrap' : ''}">${c.td(r)}</td>`).join('')}
+                </tr>`).join('');
         }
 
         function render() {
@@ -528,35 +743,47 @@
 
         // ---------- Detail drawer ----------
         function otherFields(row) {
-            const known = new Set(['practice_name', ...SECTIONS.flatMap(s => s.keys)].map(norm));
+            const s = src();
+            const known = new Set([s.nameKey, ...s.factKeys, ...s.hide, ...s.sections.flatMap(x => x.keys)].map(norm));
             const dk = dateKey(row);
             return Object.keys(row.fields).filter(k => !known.has(norm(k)) && !HIDDEN.test(k) && k !== dk && String(row.fields[k]).trim());
         }
 
         function valueHtml(key, v) {
-            if (CHIP_KEYS.includes(key)) return `<div class="flex flex-wrap gap-1.5">${list(v).map(i => chip(i, 'bg-brand-50 text-brand-700')).join('')}</div>`;
-            if (key === 'email') return `<a class="text-brand-700 hover:underline break-all" href="mailto:${esc(v)}">${esc(v)}</a>`;
+            if (TASK_STYLE[v] && TASK_KEYS.includes(key)) return taskBadge(v);
+            if (src().chips.includes(key)) return `<div class="flex flex-wrap gap-1.5">${list(v).map(i => chip(i, 'bg-brand-50 text-brand-700')).join('')}</div>`;
+            if (key === 'email' || key === 'google_account_email') return `<a class="text-brand-700 hover:underline break-all" href="mailto:${esc(v)}">${esc(v)}</a>`;
             if (key === 'phone') return `<a class="text-brand-700 hover:underline" href="tel:${esc(v.replace(/[^\d+]/g, ''))}">${esc(v)}</a>`;
-            if (/^https?:\/\//i.test(v)) return `<a class="text-brand-700 hover:underline break-all" href="${esc(v)}" target="_blank" rel="noopener">${esc(v.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>`;
+            if (/^https?:\/\//i.test(v)) return `<a class="text-brand-700 hover:underline break-all" href="${esc(v)}" target="_blank" rel="noopener">${esc(host(v))}</a>`;
             return `<span class="whitespace-pre-wrap break-words">${esc(v)}</span>`;
         }
 
-        function sectionCard(title, row, keys) {
-            const short = [], long = [];
-            keys.forEach(k => {
-                const v = get(row, k);
-                if (!v || FACT_KEYS.includes(k)) return;
-                (LONG_KEYS.includes(k) || CHIP_KEYS.includes(k) ? long : short).push([k, v]);
-            });
-            if (!short.length && !long.length) return '';
-            return `<div class="bg-white border border-slate-200 rounded-2xl p-5">
-                <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${esc(title)}</h3>
+        // Section rows for a record, skipping empty values and values already shown as facts.
+        function sectionPairs(row, sec) {
+            const pairs = sec.keys.filter(k => !src().factKeys.includes(k)).map(k => [k, get(row, k)]).filter(p => p[1]);
+            if (sec.checklist) pairs.sort((a, b) => (TASK_STYLE[a[1]] || {}).order - (TASK_STYLE[b[1]] || {}).order);
+            return pairs;
+        }
+
+        function sectionCard(row, sec) {
+            const pairs = sectionPairs(row, sec);
+            if (!pairs.length) return '';
+            const head = `<h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${esc(sec.title)}</h3>`;
+            if (sec.checklist) {
+                return `<div class="bg-white border border-slate-200 rounded-2xl p-5">${head}
+                    <ul class="divide-y divide-slate-100">${pairs.map(([k, v]) => `
+                        <li class="flex items-center justify-between gap-3 py-2.5"><span class="text-sm font-medium text-slate-800">${esc(labelFor(k))}</span>${taskBadge(v)}</li>`).join('')}</ul></div>`;
+            }
+            const s = src();
+            const short = pairs.filter(([k]) => !s.long.includes(k) && !s.chips.includes(k));
+            const wide = pairs.filter(([k]) => s.long.includes(k) || s.chips.includes(k));
+            return `<div class="bg-white border border-slate-200 rounded-2xl p-5">${head}
                 ${short.length ? `<dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4">${short.map(([k, v]) => `
                     <div><dt class="text-xs text-slate-500 mb-0.5">${esc(labelFor(k))}</dt><dd class="text-sm text-slate-900 font-medium">${valueHtml(k, v)}</dd></div>`).join('')}</dl>` : ''}
-                ${long.map(([k, v]) => `
+                ${wide.map(([k, v]) => `
                     <div class="${short.length ? 'mt-5' : ''}">
                         <p class="text-xs text-slate-500 mb-1.5">${esc(labelFor(k))}</p>
-                        ${LONG_KEYS.includes(k)
+                        ${s.long.includes(k)
                     ? `<blockquote class="text-sm text-slate-800 bg-slate-50 border-l-4 border-brand-400 rounded-r-xl px-4 py-3 whitespace-pre-wrap">${esc(v)}</blockquote>`
                     : valueHtml(k, v)}
                     </div>`).join('')}
@@ -564,32 +791,34 @@
         }
 
         function openDrawer(row) {
+            if (!row) return;
             active = row;
-            const name = get(row, 'practice_name') || 'Untitled practice';
-            const loc = [get(row, 'city'), get(row, 'state')].filter(Boolean).join(', ');
+            const s = src();
+            const name = nameOf(row);
             const d = dateOf(row);
             $('d-avatar').textContent = initials(name);
             $('d-title').textContent = name;
-            $('d-sub').textContent = [get(row, 'practice_type'), loc, d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join(' · ');
+            $('d-sub').textContent = [s.sub(row), d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join(' · ');
             $('d-pill').innerHTML = pill(row.status);
 
-            const email = get(row, 'email'), phone = get(row, 'phone'), site = get(row, 'website');
-            const action = (href, label, extra = '') => `<a href="${esc(href)}" ${extra} class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-sm font-medium">${label}</a>`;
+            const email = get(row, 'email'), phone = get(row, 'phone'), site = get(row, 'website'), files = get(row, 'brand_assets_link');
+            const action = (href, label) => `<a href="${esc(href)}" ${/^https?:/i.test(href) ? 'target="_blank" rel="noopener"' : ''} class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-sm font-medium">${label}</a>`;
             $('d-actions').innerHTML =
                 (email ? action('mailto:' + email, '✉ Email') : '') +
                 (phone ? action('tel:' + phone.replace(/[^\d+]/g, ''), '☎ Call') : '') +
-                (/^https?:\/\//i.test(site) ? action(site, '↗ Website', 'target="_blank" rel="noopener"') : '') +
+                (/^https?:\/\//i.test(site) ? action(site, '↗ Website') : '') +
+                (/^https?:\/\//i.test(files) ? action(files, '📁 Brand files') : '') +
                 `<button id="d-pdf" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-slate-900 hover:bg-brand-50 text-sm font-semibold">⤓ Download PDF</button>`;
             $('d-pdf').addEventListener('click', e => withBusy(e.currentTarget, () => profilePdf(row)));
 
-            $('d-facts').innerHTML = FACTS.map(([k, l]) => [l, get(row, k)]).map(([l, v]) => `
+            $('d-facts').innerHTML = s.facts(row).map(([l, v]) => `
                 <div class="bg-white border border-slate-200 rounded-2xl px-4 py-3">
-                    <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">${l}</p>
+                    <p class="text-[11px] font-mono uppercase tracking-wider text-slate-500">${esc(l)}</p>
                     <p class="text-base font-semibold text-slate-900 mt-0.5 truncate">${esc(v || '—')}</p>
                 </div>`).join('');
 
             const others = otherFields(row);
-            $('d-sections').innerHTML = SECTIONS.map(s => sectionCard(s.title, row, s.keys)).join('') +
+            $('d-sections').innerHTML = s.sections.map(sec => sectionCard(row, sec)).join('') +
                 (others.length ? `<div class="bg-white border border-slate-200 rounded-2xl p-5">
                     <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">Additional details</h3>
                     <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4">${others.map(k => `
@@ -647,7 +876,7 @@
         }
         // Built-in PDF fonts only cover Latin-1 plus a few typographic marks; drop anything else (e.g. emoji).
         const T = s => String(s ?? '').replace(/[^\t\n\r\x20-\x7E -ÿ–—‘’“”•…€]/g, '').trim();
-        const slug = s => T(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'practice';
+        const slug = s => T(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'record';
         const today = () => new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
 
         function newDoc(orientation) {
@@ -735,10 +964,11 @@
         }
 
         async function profilePdf(row) {
+            const s = src();
             const doc = newDoc('portrait');
-            const W = doc.internal.pageSize.getWidth(), M = 40;
-            const name = get(row, 'practice_name') || 'Untitled practice';
-            let y = await pdfHeader(doc, 'Practice onboarding profile', 'MyKohi Onboarding', 'Prepared for the MyKohi team');
+            const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 40;
+            const name = nameOf(row);
+            let y = await pdfHeader(doc, s.profile.eyebrow, 'MyKohi Onboarding', 'Prepared for the MyKohi team');
 
             // Hero
             doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(...C.ink);
@@ -747,16 +977,14 @@
             statusBadge(doc, row.status, W - M, y - 4, true);
             y += 10 + (nameLines.length - 1) * 24 + 18;
             doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(...C.muted);
-            const loc = [get(row, 'city'), get(row, 'state')].filter(Boolean).join(', ');
             const d = dateOf(row);
-            doc.text(T([get(row, 'practice_type'), loc, d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join('   ·   ')), M, y);
+            doc.text(T([s.sub(row), d ? 'Submitted ' + fmtDate(d) : ''].filter(Boolean).join('   ·   ')), M, y);
             y += 22;
 
-            const facts = FACTS.map(([k, l]) => [l, get(row, k)]);
+            const facts = s.facts(row);
             y = statBoxes(doc, y, facts.slice(0, 3)) + 10;
             y = statBoxes(doc, y, facts.slice(3)) + 24;
 
-            const H = doc.internal.pageSize.getHeight();
             const section = (title, pairs) => {
                 if (!pairs.length) return;
                 // Start short sections on a new page rather than splitting them.
@@ -773,20 +1001,27 @@
                     columnStyles: { 0: { cellWidth: 150, textColor: C.muted }, 1: { fontStyle: 'normal' } },
                     alternateRowStyles: { fillColor: C.soft },
                     tableLineWidth: 0.6, tableLineColor: C.line,
+                    didParseCell: data => {
+                        const st = TASK_STYLE[data.cell.raw];
+                        if (data.section === 'body' && data.column.index === 1 && st) {
+                            data.cell.styles.textColor = st.fg;
+                            data.cell.styles.fontStyle = 'bold';
+                        }
+                    },
                 });
                 y = doc.lastAutoTable.finalY + 18;
             };
 
-            SECTIONS.forEach(s => section(s.title, s.keys.filter(k => !FACT_KEYS.includes(k)).map(k => [k, get(row, k)]).filter(p => p[1])));
+            s.sections.forEach(sec => section(sec.title, sectionPairs(row, sec)));
             section('Additional details', otherFields(row).map(k => [k, String(row.fields[k])]));
             section('Internal tracking', [['status', row.status], ['admin_notes', row.adminNotes || '-']]);
 
-            pdfFooters(doc, 'Practice onboarding profile');
-            doc.save(`MyKohi-Onboarding-${slug(name)}.pdf`);
+            pdfFooters(doc, s.profile.eyebrow);
+            doc.save(`MyKohi-${s.profile.file}-${slug(name)}.pdf`);
         }
 
-        function barsPanel(doc, x, y, w, title, data) {
-            const top = data.slice(0, 5), max = Math.max(1, ...top.map(d => d[1]));
+        function barsPanel(doc, x, y, w, title, rows) {
+            const top = rows.slice(0, 5), max = Math.max(1, ...top.map(d => d[1]));
             doc.setFillColor(...C.white); doc.setDrawColor(...C.line); doc.setLineWidth(0.6);
             doc.roundedRect(x, y, w, 128, 8, 8, 'FD');
             doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(...C.muted);
@@ -807,52 +1042,42 @@
         }
 
         async function reportPdf() {
+            const s = src(), rep = s.report;
             const items = filtered();
             const doc = newDoc('landscape');
             const W = doc.internal.pageSize.getWidth(), M = 40;
             const filters = [$('search').value.trim() && `search "${$('search').value.trim()}"`, $('status-filter').value, $('type-filter').value].filter(Boolean);
-            let y = await pdfHeader(doc, 'Onboarding report', 'Practice Onboarding Report',
-                `${items.length} practice${items.length === 1 ? '' : 's'}${filters.length ? '  ·  Filtered by ' + filters.join(', ') : '  ·  All submissions'}`);
+            let y = await pdfHeader(doc, rep.eyebrow, rep.title,
+                `${items.length} ${s.noun}${items.length === 1 ? '' : 's'}${filters.length ? '  ·  Filtered by ' + filters.join(', ') : '  ·  All submissions'}`);
 
-            const s = summary(items);
-            y = statBoxes(doc, y, [
-                ['Submissions', String(s.total)], ['Last 7 days', String(s.week)],
-                ['Awaiting contact', String(s.fresh)], ['Onboarded', `${s.onboarded}  (${s.total ? Math.round(s.onboarded / s.total * 100) : 0}%)`]
-            ]) + 14;
+            y = statBoxes(doc, y, s.stats(items).map(c => [c.label, String(c.pdf ?? c.value)])) + 14;
 
             const pw = (W - M * 2 - 20) / 3;
-            barsPanel(doc, M, y, pw, 'By practice type', counts(items, 'practice_type'));
-            barsPanel(doc, M + pw + 10, y, pw, 'Most requested help', counts(items, 'interested_in', true));
-            barsPanel(doc, M + (pw + 10) * 2, y, pw, 'Monthly budget', counts(items, 'monthly_budget'));
+            s.insights(items).forEach(([title, rows], i) => barsPanel(doc, M + i * (pw + 10), y, pw, title, rows));
             y += 128 + 20;
 
+            const cols = rep.columns;
+            const statusCol = cols.findIndex(c => c.head === 'Status');
+            const columnStyles = {};
+            cols.forEach((c, i) => { if (c.width) columnStyles[i] = { cellWidth: c.width }; });
             doc.autoTable({
                 startY: y,
-                margin: { left: M, right: M, top: 50, bottom: 50 },
                 rowPageBreak: 'avoid',
-                head: [['Practice', 'Contact', 'Location', 'Interested in', 'Budget', 'Start', 'Status', 'Submitted']],
-                body: items.map(r => [
-                    T(get(r, 'practice_name')) + (get(r, 'practice_type') ? '\n' + T(get(r, 'practice_type')) : ''),
-                    [get(r, 'full_name'), get(r, 'email'), get(r, 'phone')].filter(Boolean).map(T).join('\n'),
-                    T([get(r, 'city'), get(r, 'state')].filter(Boolean).join(', ')),
-                    T(list(get(r, 'interested_in')).join(', ')),
-                    T(get(r, 'monthly_budget')),
-                    T(get(r, 'timeline')),
-                    T(r.status),
-                    fmtDate(dateOf(r))
-                ]),
+                margin: { left: M, right: M, top: 50, bottom: 50 },
+                head: [cols.map(c => c.head)],
+                // First column holds name + subtitle so the row height accounts for both; it is drawn by hand below.
+                body: items.map(r => cols.map((c, i) => i === 0 ? [T(nameOf(r)), T(s.pdfSub(r))].filter(Boolean).join('\n') : T(c.value(r)))),
                 theme: 'plain',
                 styles: { font: 'helvetica', fontSize: 8, textColor: C.ink, cellPadding: { top: 7, bottom: 7, left: 7, right: 7 }, lineColor: C.line, lineWidth: { bottom: 0.5 }, valign: 'middle', overflow: 'linebreak' },
                 headStyles: { fillColor: C.ink, textColor: C.white, fontStyle: 'bold', fontSize: 7.5, lineWidth: 0 },
                 alternateRowStyles: { fillColor: C.soft },
-                columnStyles: { 0: { cellWidth: 140, fontStyle: 'bold' }, 1: { cellWidth: 150 }, 3: { cellWidth: 130 }, 6: { cellWidth: 70 }, 7: { cellWidth: 70 } },
+                columnStyles: Object.assign(columnStyles, { 0: Object.assign({ fontStyle: 'bold' }, columnStyles[0]) }),
                 didParseCell: data => {
-                    if (data.section === 'body' && data.column.index === 6) {
+                    if (data.section === 'body' && data.column.index === statusCol) {
                         data.cell.styles.textColor = (STATUS[data.cell.raw] || STATUS.New).fg;
                         data.cell.styles.fontStyle = 'bold';
                     }
                 },
-                // Practice cell: draw the name in bold and the type in muted text ourselves.
                 willDrawCell: data => {
                     if (data.section === 'body' && data.column.index === 0) data.cell.text = [];
                 },
@@ -861,21 +1086,22 @@
                     const r = items[data.row.index], cell = data.cell;
                     const w = cell.width - cell.padding('horizontal');
                     doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-                    const nameLines = doc.splitTextToSize(T(get(r, 'practice_name')) || 'Untitled practice', w);
+                    const nameLines = doc.splitTextToSize(T(nameOf(r)), w);
                     doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
-                    const typeLines = get(r, 'practice_type') ? doc.splitTextToSize(T(get(r, 'practice_type')), w) : [];
+                    const sub = T(s.pdfSub(r));
+                    const subLines = sub ? doc.splitTextToSize(sub, w) : [];
                     const lh = 8 * 1.15, th = 7.5 * 1.15;
-                    let ty = cell.y + (cell.height - (nameLines.length * lh + typeLines.length * th + (typeLines.length ? 2 : 0))) / 2;
+                    let ty = cell.y + (cell.height - (nameLines.length * lh + subLines.length * th + (subLines.length ? 2 : 0))) / 2;
                     doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(...C.ink);
                     doc.text(nameLines, cell.x + cell.padding('left'), ty, { baseline: 'top', lineHeightFactor: 1.15 });
                     ty += nameLines.length * lh + 2;
                     doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(...C.muted);
-                    if (typeLines.length) doc.text(typeLines, cell.x + cell.padding('left'), ty, { baseline: 'top', lineHeightFactor: 1.15 });
+                    if (subLines.length) doc.text(subLines, cell.x + cell.padding('left'), ty, { baseline: 'top', lineHeightFactor: 1.15 });
                 },
             });
 
-            pdfFooters(doc, 'Practice onboarding report');
-            doc.save(`MyKohi-Onboarding-Report-${new Date().toISOString().slice(0, 10)}.pdf`);
+            pdfFooters(doc, rep.footer);
+            doc.save(`MyKohi-${rep.file}-${new Date().toISOString().slice(0, 10)}.pdf`);
         }
 
         async function withBusy(btn, fn) {
@@ -901,7 +1127,7 @@
             const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = `mykohi-onboarding-${new Date().toISOString().slice(0, 10)}.csv`;
+            a.download = `mykohi-${current}-${new Date().toISOString().slice(0, 10)}.csv`;
             a.click();
             URL.revokeObjectURL(a.href);
         }
@@ -931,15 +1157,20 @@
             }
         });
 
+        $('tabs').addEventListener('click', e => {
+            const b = e.target.closest('[data-tab]');
+            if (b) switchTab(b.dataset.tab);
+        });
         $('rows').addEventListener('click', e => {
+            if (e.target.closest('a')) return;   // links inside a row open normally
             const tr = e.target.closest('tr[data-key]');
-            if (tr) openDrawer(rows.find(r => r.rowKey === tr.dataset.key));
+            if (tr) openDrawer(rowsOf().find(r => r.rowKey === tr.dataset.key));
         });
         $('rows').addEventListener('keydown', e => {
             if (e.key === 'Enter') e.target.closest('tr[data-key]')?.click();
         });
         ['search', 'status-filter', 'type-filter'].forEach(id => $(id).addEventListener('input', renderTable));
-        $('refresh-btn').addEventListener('click', load);
+        $('refresh-btn').addEventListener('click', () => load());
         $('export-btn').addEventListener('click', exportCsv);
         $('report-btn').addEventListener('click', e => withBusy(e.currentTarget, reportPdf));
         $('logout-btn').addEventListener('click', logout);

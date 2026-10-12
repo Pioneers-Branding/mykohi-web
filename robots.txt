@@ -4,5 +4,6 @@ Allow: /sitemap.xml
 Disallow: /hero-demo.html
 Disallow: /thank-you.html
 Disallow: /admin-dashboard.html
+Disallow: /access-onboarding.html
 
 Sitemap: https://mykohi.com/sitemap.xml

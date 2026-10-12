@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Access & Brand Assets | MyKohi Onboarding</title>
+    <meta name="description" content="Give the MyKohi team access to your website, Google and social accounts, and share your brand files.">
+    <link rel="icon" type="image/png"
+        href="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            teal: '#14b8a6',
+                            rose: '#f43f5e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            outline: none;
+            transition: all .2s;
+        }
+
+        .field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px #e0f2fe;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+
+        .hint {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 0.35rem;
+        }
+
+        .chip input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .chip span {
+            display: inline-block;
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            font-size: 0.875rem;
+            color: #334155;
+            cursor: pointer;
+            transition: all .15s;
+            user-select: none;
+        }
+
+        .chip input:checked+span {
+            background: #0284c7;
+            border-color: #0284c7;
+            color: #fff;
+        }
+
+        .chip input:focus-visible+span {
+            box-shadow: 0 0 0 3px #bae6fd;
+        }
+
+        /* Task status choices */
+        .status input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .status span {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .5rem .85rem;
+            border-radius: .75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            font-size: .8rem;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .status input:focus-visible+span {
+            box-shadow: 0 0 0 3px #bae6fd;
+        }
+
+        .status input[value="Done"]:checked+span {
+            background: #0d9488;
+            border-color: #0d9488;
+            color: #fff;
+        }
+
+        .status input[value="Will do later"]:checked+span {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            color: #fff;
+        }
+
+        .status input[value="Need help"]:checked+span {
+            background: #e11d48;
+            border-color: #e11d48;
+            color: #fff;
+        }
+
+        .status input[value="Not applicable"]:checked+span {
+            background: #64748b;
+            border-color: #64748b;
+            color: #fff;
+        }
+
+        .task.done {
+            border-color: #99f6e4;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn .35s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media only screen and (max-width: 400px) {
+            .g-recaptcha {
+                transform: scale(0.85);
+                transform-origin: 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-900 antialiased overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-brand-200/30 to-purple-200/30 rounded-full blur-[100px]">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-teal-200/30 to-blue-200/30 rounded-full blur-[80px]">
+        </div>
+    </div>
+
+    <header class="relative z-10">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="https://img1.wsimg.com/isteam/ip/f791d9b9-2f6c-4539-b9b3-61b4c8a8a446/Blue%20Minimalist%20Brain%20Bulb%20Logo%20Transparent.png/:/rs=w:206,h:206,cg:true,m/cr=w:206,h:206/qt=q:95"
+                    alt="MyKohi logo" class="h-14">
+            </a>
+            <a href="contact.html" class="text-sm font-medium text-slate-600 hover:text-brand-700">Questions? Contact
+                us</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 px-4 sm:px-6 pb-20">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8 mt-4">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 mb-5">
+                    <span class="text-brand-700 font-mono font-bold uppercase tracking-widest text-xs">Onboarding · Step
+                        2</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-display font-bold text-slate-900 mb-3 leading-tight">Access &
+                    brand assets</h1>
+                <p class="text-slate-600 max-w-xl mx-auto">Give our team access to your accounts so we can get to work.
+                    You'll invite our email to each platform, so you never have to share a password.</p>
+            </div>
+
+            <div
+                class="flex items-start gap-3 bg-teal-50 border border-teal-200 text-teal-900 rounded-2xl px-5 py-4 mb-6 text-sm">
+                <svg class="w-5 h-5 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z" stroke-linejoin="round" />
+                    <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p><strong>Please don't type any passwords into this form.</strong> Each step shows how to add our team
+                    as a user, which you can remove at any time. If a step is tricky, choose <em>Need help</em> and
+                    we'll walk you through it on a quick call.</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
+                    <span id="step-label">Step 1 of 5</span>
+                    <span id="step-pct">20%</span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
+                    <div id="progress-bar"
+                        class="h-full bg-gradient-to-r from-brand-500 to-accent-purple rounded-full transition-all duration-500"
+                        style="width:20%"></div>
+                </div>
+            </div>
+
+            <form id="access-form" accept-charset="UTF-8" method="POST" novalidate
+                class="bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl shadow-slate-200/60 rounded-[2rem] p-6 sm:p-10">
+
+                <!-- Step 1: Client & brand -->
+                <section class="step active" data-title="Client & Brand">
+                    <h2 class="text-2xl font-display font-bold mb-1">About you & your brand</h2>
+                    <p class="text-slate-500 mb-8">Who you are, and where we can find your logo and brand files.</p>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div class="sm:col-span-2">
+                            <label class="label" for="business_name">Business / practice name *</label>
+                            <input class="field" id="business_name" name="business_name" type="text" required>
+                        </div>
+                        <div>
+                            <label class="label" for="full_name">Your name *</label>
+                            <input class="field" id="full_name" name="full_name" type="text" required
+                                autocomplete="name">
+                        </div>
+                        <div>
+                            <label class="label" for="email">Email *</label>
+                            <input class="field" id="email" name="email" type="email" required autocomplete="email">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="label" for="phone">Phone</label>
+                            <input class="field" id="phone" name="phone" type="tel" autocomplete="tel">
+                        </div>
+
+                        <div class="sm:col-span-2 pt-4 border-t border-slate-100">
+                            <label class="label" for="brand_assets_link">Link to your brand files</label>
+                            <input class="field" id="brand_assets_link" name="brand_assets_link" type="url"
+                                placeholder="https://drive.google.com/…">
+                            <p class="hint">Upload your files to Google Drive, Dropbox or WeTransfer and paste a
+                                share link that works for anyone with the link. Open/source files (AI, PSD, EPS,
+                                SVG or PDF) are best.</p>
+                        </div>
+                        <div class="sm:col-span-2 checkgroup" data-name="brand_assets_included">
+                            <span class="label">What's in the folder?</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Logo source files (AI/PSD/EPS/PDF)"><span>Logo source files (AI / PSD /
+                                        EPS / PDF)</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Logo PNG/SVG"><span>Logo PNG / SVG</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Brand guidelines"><span>Brand
+                                        guidelines</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Fonts"><span>Fonts</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Photos"><span>Photos of team
+                                        / location</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Videos"><span>Videos</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Marketing collateral"><span>Brochures
+                                        / print collateral</span></label>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="label" for="brand_colors">Brand colors (optional)</label>
+                            <input class="field" id="brand_colors" name="brand_colors" type="text"
+                                placeholder="e.g. Navy #1E3A8A, Teal #14B8A6">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: Website -->
+                <section class="step" data-title="Website">
+                    <h2 class="text-2xl font-display font-bold mb-1">Website</h2>
+                    <p class="text-slate-500 mb-8">Tell us how your site is built and give us access.</p>
+                    <div class="grid sm:grid-cols-2 gap-5 mb-8">
+                        <div class="sm:col-span-2">
+                            <label class="label" for="website">Website address</label>
+                            <input class="field" id="website" name="website" type="url"
+                                placeholder="https://yourpractice.com">
+                        </div>
+                        <div>
+                            <label class="label" for="website_platform">Website platform *</label>
+                            <select class="field" id="website_platform" name="website_platform" required>
+                                <option value="">Select…</option>
+                                <option>WordPress</option>
+                                <option>Wix</option>
+                                <option>Squarespace</option>
+                                <option>Webflow</option>
+                                <option>Shopify</option>
+                                <option>Custom-coded</option>
+                                <option>Other</option>
+                                <option>Not sure</option>
+                                <option>No website yet</option>
+                            </select>
+                        </div>
+                        <div data-show="hosting">
+                            <label class="label" for="hosting_provider">Hosting company</label>
+                            <input class="field" id="hosting_provider" name="hosting_provider" type="text"
+                                placeholder="GoDaddy, Hostinger, SiteGround, Bluehost…">
+                        </div>
+                        <div data-show="domain">
+                            <label class="label" for="domain_registrar">Where is your domain registered?</label>
+                            <input class="field" id="domain_registrar" name="domain_registrar" type="text"
+                                placeholder="GoDaddy, Namecheap, Squarespace, Cloudflare…">
+                        </div>
+                        <div data-show="hosting">
+                            <label class="label" for="ssl_managed_by">Who manages your SSL certificate?</label>
+                            <select class="field" id="ssl_managed_by" name="ssl_managed_by">
+                                <option value="">Select…</option>
+                                <option>Included with hosting</option>
+                                <option>Cloudflare</option>
+                                <option>Bought separately</option>
+                                <option>Not sure</option>
+                            </select>
+                        </div>
+                        <div data-show="hosting">
+                            <label class="label" for="website_backups">Do you have website backups?</label>
+                            <select class="field" id="website_backups" name="website_backups">
+                                <option value="">Select…</option>
+                                <option>Yes, automatic through hosting</option>
+                                <option>Yes, through a plugin</option>
+                                <option>Yes, I keep my own copies</option>
+                                <option>No</option>
+                                <option>Not sure</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-4" data-tasks="website"></div>
+                </section>
+
+                <!-- Step 3: Google -->
+                <section class="step" data-title="Google">
+                    <h2 class="text-2xl font-display font-bold mb-1">Google accounts</h2>
+                    <p class="text-slate-500 mb-8">Select the Google products you use. We'll show how to add us to each
+                        one.</p>
+                    <div class="space-y-6 mb-8">
+                        <div class="checkgroup" data-name="google_products">
+                            <span class="label">Which of these do you have?</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Google Business Profile"><span>Google Business Profile
+                                        (Maps)</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Google Analytics"><span>Google
+                                        Analytics</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Search Console"><span>Search Console</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Google Ads"><span>Google
+                                        Ads</span></label>
+                                <label class="chip relative"><input type="checkbox" value="Tag Manager"><span>Tag
+                                        Manager</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="YouTube"><span>YouTube</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Merchant Center"><span>Merchant Center</span></label>
+                                <label class="chip relative"><input type="checkbox" value="None"
+                                        data-exclusive><span>None / not sure</span></label>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-5" data-show="google">
+                            <div>
+                                <label class="label" for="google_one_login">Are they all under one Google
+                                    account?</label>
+                                <select class="field" id="google_one_login" name="google_one_login">
+                                    <option value="">Select…</option>
+                                    <option>Yes, one account</option>
+                                    <option>No, different accounts</option>
+                                    <option>Not sure</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="label" for="google_account_email">Google account email that owns
+                                    them</label>
+                                <input class="field" id="google_account_email" name="google_account_email" type="email"
+                                    placeholder="name@gmail.com">
+                                <p class="hint">Just the email address, not the password.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4" data-tasks="google"></div>
+                </section>
+
+                <!-- Step 4: Social -->
+                <section class="step" data-title="Social Media">
+                    <h2 class="text-2xl font-display font-bold mb-1">Social media</h2>
+                    <p class="text-slate-500 mb-8">Select your social profiles and add our team to them.</p>
+                    <div class="space-y-6 mb-8">
+                        <div class="checkgroup" data-name="social_platforms">
+                            <span class="label">Which profiles do you have?</span>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="chip relative"><input type="checkbox" value="Facebook"><span>Facebook
+                                        page</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Instagram"><span>Instagram</span></label>
+                                <label class="chip relative"><input type="checkbox" value="LinkedIn"><span>LinkedIn
+                                        page</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="TikTok"><span>TikTok</span></label>
+                                <label class="chip relative"><input type="checkbox" value="X (Twitter)"><span>X
+                                        (Twitter)</span></label>
+                                <label class="chip relative"><input type="checkbox"
+                                        value="Pinterest"><span>Pinterest</span></label>
+                                <label class="chip relative"><input type="checkbox" value="None"
+                                        data-exclusive><span>None yet</span></label>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div data-show="facebook">
+                                <label class="label" for="facebook_url">Facebook page link</label>
+                                <input class="field" id="facebook_url" name="facebook_url" type="url"
+                                    placeholder="https://facebook.com/yourpage">
+                            </div>
+                            <div data-show="instagram">
+                                <label class="label" for="instagram_handle">Instagram handle</label>
+                                <input class="field" id="instagram_handle" name="instagram_handle" type="text"
+                                    placeholder="@yourpractice">
+                            </div>
+                            <div data-show="linkedin">
+                                <label class="label" for="linkedin_url">LinkedIn page link</label>
+                                <input class="field" id="linkedin_url" name="linkedin_url" type="url"
+                                    placeholder="https://linkedin.com/company/…">
+                            </div>
+                            <div data-show="fbig">
+                                <label class="label" for="instagram_connected_to_facebook">Is Instagram connected to
+                                    your Facebook page?</label>
+                                <select class="field" id="instagram_connected_to_facebook"
+                                    name="instagram_connected_to_facebook">
+                                    <option value="">Select…</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                    <option>Not sure</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2" data-show="othersocial">
+                                <label class="label" for="other_social_links">Other profile links</label>
+                                <input class="field" id="other_social_links" name="other_social_links" type="text"
+                                    placeholder="TikTok, X, Pinterest links">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4" data-tasks="social"></div>
+                </section>
+
+                <!-- Step 5: Review -->
+                <section class="step" data-title="Review">
+                    <h2 class="text-2xl font-display font-bold mb-1">Almost done</h2>
+                    <p class="text-slate-500 mb-8">Here's where things stand.</p>
+                    <div id="review" class="mb-8"></div>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="label" for="anything_else">Anything else we should know?</label>
+                            <textarea class="field" id="anything_else" name="anything_else" rows="3"
+                                placeholder="Other tools you use, people we should coordinate with, previous agencies…"></textarea>
+                        </div>
+                        <label class="flex items-start gap-3 text-sm text-slate-700">
+                            <input type="checkbox" id="help_call" name="help_call" value="Yes"
+                                class="mt-1 h-4 w-4 rounded border-slate-300">
+                            <span>I'd like a quick screen-share call to finish any steps I couldn't complete.</span>
+                        </label>
+                        <div data-show="helpcall">
+                            <label class="label" for="help_call_time">Best time for the call</label>
+                            <input class="field" id="help_call_time" name="help_call_time" type="text"
+                                placeholder="e.g. Tue or Thu, 10am–12pm ET">
+                        </div>
+                        <label class="flex items-start gap-3 text-sm text-slate-700">
+                            <input type="checkbox" id="no_passwords" name="no_passwords_confirmed" value="Yes" required
+                                class="mt-1 h-4 w-4 rounded border-slate-300">
+                            <span>I confirm I haven't typed any passwords into this form. *</span>
+                        </label>
+                        <div class="g-recaptcha" data-sitekey="6LeE7VItAAAAABTQF8a_CbVZaTwZZy3uD-JhSvrb"></div>
+                        <p id="captcha-error" class="hidden text-sm text-rose-600">Please check the "I'm not a robot"
+                            box.</p>
+                    </div>
+                </section>
+
+                <!-- Hidden fields filled on submit -->
+                <input type="hidden" name="brand_assets_included">
+                <input type="hidden" name="google_products">
+                <input type="hidden" name="social_platforms">
+                <input type="hidden" name="access_summary">
+
+                <div class="flex items-center justify-between gap-4 mt-10 pt-6 border-t border-slate-100">
+                    <button type="button" id="back-btn"
+                        class="invisible px-6 py-3 rounded-full border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 transition-all">←
+                        Back</button>
+                    <button type="button" id="next-btn"
+                        class="px-8 py-3 rounded-full bg-slate-900 text-white font-semibold hover:bg-brand-700 transition-all shadow-lg">Continue
+                        →</button>
+                    <button type="submit" id="submit-btn"
+                        class="hidden px-8 py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-purple text-white font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-60">Submit</button>
+                </div>
+            </form>
+
+            <p class="text-center text-xs text-slate-400 mt-6">You can remove our access from any account at any time.
+            </p>
+        </div>
+    </main>
+
+    <script defer src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        // ---- Settings: change these for your team ----
+        // Formester submission URL for this form (create a separate Formester form for it).
+        const FORM_ACTION = 'https://app.formester.com/forms/zlDKo8NDY/submissions';
+        // The email/profile clients should invite on each platform.
+        const INVITE = {
+            web: 'marketing@mykohi.com',       // WordPress, website builders, hosting, domain
+            google: 'marketing@mykohi.com',    // Google Business Profile, Analytics, Search Console, Ads, GTM, YouTube
+            meta: 'marketing@mykohi.com',      // Facebook & Instagram (Meta Business Suite)
+            linkedin: 'MyKohi',             // LinkedIn: name of the person/profile to add as page admin
+        };
+
+        // ---- Access steps ----
+        const TASKS = [
+            {
+                key: 'access_wordpress', group: 'website', title: 'WordPress admin', invite: 'web',
+                show: s => s.platform === 'WordPress',
+                steps: ['Log in to <b>yourwebsite.com/wp-admin</b>', 'Go to <b>Users → Add New User</b>', 'Enter the email below, set <b>Role: Administrator</b>', 'Click <b>Add New User</b>']
+            },
+            {
+                key: 'access_website_builder', group: 'website', title: 'Website builder access', invite: 'web',
+                show: s => ['Wix', 'Squarespace', 'Webflow', 'Shopify'].includes(s.platform),
+                steps: ['<b>Wix:</b> Settings → Roles & Permissions → Invite People → Admin', '<b>Squarespace:</b> Settings → Permissions & Ownership → Invite contributor → Administrator', '<b>Webflow:</b> Site settings → Collaborators (or Workspace → Members) → Invite', '<b>Shopify:</b> Settings → Users → Add users → full permissions']
+            },
+            {
+                key: 'access_hosting', group: 'website', title: 'Hosting / cPanel', invite: 'web',
+                show: s => ['WordPress', 'Custom-coded', 'Other', 'Not sure'].includes(s.platform),
+                steps: ['Log in to your hosting account', 'Look for <b>Team</b>, <b>Users</b>, <b>Delegate access</b> or <b>Account sharing</b> (GoDaddy: Delegate Access · Hostinger: Account Sharing · SiteGround: Collaborators · Bluehost: User Management)', 'Invite the email below with full access', 'No team option? Choose <b>Need help</b> and we\'ll sort it out on a call']
+            },
+            {
+                key: 'access_domain', group: 'website', title: 'Domain & DNS', invite: 'web',
+                show: s => s.platform && s.platform !== 'No website yet',
+                steps: ['Log in where your domain is registered', 'Find <b>Delegate access</b>, <b>Share access</b> or <b>Members</b> (Cloudflare: Manage Account → Members)', 'Invite the email below', 'We only use this for DNS records (e.g. connecting tools and verifying Google)']
+            },
+            {
+                key: 'access_gbp', group: 'google', title: 'Google Business Profile', invite: 'google',
+                show: s => s.google.includes('Google Business Profile'),
+                steps: ['Search your business name on Google while signed in, or open <b>business.google.com</b>', 'Click <b>⋮ → Business Profile settings → People and access</b>', 'Click <b>Add</b>, enter the email below, choose <b>Manager</b>', 'Click <b>Invite</b>']
+            },
+            {
+                key: 'access_ga4', group: 'google', title: 'Google Analytics', invite: 'google',
+                show: s => s.google.includes('Google Analytics'),
+                steps: ['Open <b>analytics.google.com</b> → <b>Admin</b> (gear icon)', 'Under Property, open <b>Property access management</b>', 'Click <b>+ → Add users</b>, enter the email below', 'Choose <b>Administrator</b> (or Editor) → <b>Add</b>']
+            },
+            {
+                key: 'access_gsc', group: 'google', title: 'Google Search Console', invite: 'google',
+                show: s => s.google.includes('Search Console'),
+                steps: ['Open <b>search.google.com/search-console</b> and pick your site', 'Go to <b>Settings → Users and permissions</b>', 'Click <b>Add user</b>, enter the email below', 'Permission: <b>Full</b> → <b>Add</b>']
+            },
+            {
+                key: 'access_google_ads', group: 'google', title: 'Google Ads', invite: 'google',
+                show: s => s.google.includes('Google Ads'),
+                steps: ['Open <b>ads.google.com</b>', 'Go to <b>Admin → Access and security</b>', 'Click <b>+</b>, enter the email below', 'Access level: <b>Admin</b> → <b>Send invitation</b>']
+            },
+            {
+                key: 'access_gtm', group: 'google', title: 'Google Tag Manager', invite: 'google',
+                show: s => s.google.includes('Tag Manager'),
+                steps: ['Open <b>tagmanager.google.com</b> → <b>Admin</b>', 'Under Account, open <b>User Management</b>', 'Click <b>+ → Add users</b>, enter the email below', 'Give Account <b>Admin</b> and Container <b>Publish</b> → <b>Invite</b>']
+            },
+            {
+                key: 'access_youtube', group: 'google', title: 'YouTube channel', invite: 'google',
+                show: s => s.google.includes('YouTube'),
+                steps: ['Open <b>studio.youtube.com</b>', 'Go to <b>Settings → Permissions</b>', 'Click <b>Invite</b>, enter the email below', 'Role: <b>Manager</b> → <b>Done → Save</b>']
+            },
+            {
+                key: 'access_merchant', group: 'google', title: 'Google Merchant Center', invite: 'google',
+                show: s => s.google.includes('Merchant Center'),
+                steps: ['Open <b>merchants.google.com</b>', 'Click the gear → <b>People and access</b>', 'Click <b>Add person</b>, enter the email below', 'Access: <b>Admin</b> → <b>Save</b>']
+            },
+            {
+                key: 'access_meta', group: 'social', title: 'Facebook & Instagram', invite: 'meta',
+                show: s => s.social.includes('Facebook') || s.social.includes('Instagram'),
+                steps: ['Open <b>business.facebook.com</b> (Meta Business Suite)', 'Go to <b>Settings → People</b> and click <b>Add people</b>', 'Enter the email below and give <b>Full control</b> (or Admin access)', 'Assign your <b>Facebook Page</b> and <b>Instagram account</b> → <b>Send request</b>']
+            },
+            {
+                key: 'access_linkedin', group: 'social', title: 'LinkedIn page', invite: 'linkedin',
+                show: s => s.social.includes('LinkedIn'),
+                steps: ['Open your LinkedIn company page in <b>admin view</b>', 'Go to <b>Settings → Manage admins</b>', 'Click <b>Add admin</b> and search for the name below', 'Role: <b>Super admin</b> (or Content admin) → <b>Save</b>']
+            },
+            {
+                key: 'access_other_social', group: 'social', title: 'Other social profiles', invite: 'meta',
+                show: s => ['TikTok', 'X (Twitter)', 'Pinterest'].some(p => s.social.includes(p)),
+                steps: ['Most platforms let you add team members from <b>Settings → Team / Members / Business account</b>', 'Invite the email below where that option exists', 'If a platform has no team option, choose <b>Need help</b>']
+            },
+        ];
+        const STATUSES = [['Done', '✓ Done'], ['Will do later', 'Later'], ['Need help', 'Need help'], ['Not applicable', 'Not applicable']];
+
+        (function () {
+            const form = document.getElementById('access-form');
+            const steps = Array.from(form.querySelectorAll('.step'));
+            const backBtn = document.getElementById('back-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            let current = 0;
+
+            form.action = FORM_ACTION;
+            const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            const checked = name => Array.from(form.querySelectorAll(`.checkgroup[data-name="${name}"] input:checked`)).map(i => i.value);
+
+            // Build a card for each access step.
+            TASKS.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'task border border-slate-200 rounded-2xl p-5 bg-white transition-colors';
+                card.dataset.task = t.key;
+                const who = INVITE[t.invite];
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <h3 class="font-semibold text-slate-900">${esc(t.title)}</h3>
+                        <span class="task-badge hidden text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2 py-0.5">Done</span>
+                    </div>
+                    <ol class="list-decimal pl-5 space-y-1 text-sm text-slate-600 mb-4">${t.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                    <div class="flex flex-wrap items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 mb-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-slate-500">${t.invite === 'linkedin' ? 'Add' : 'Invite'}</span>
+                        <code class="text-sm font-semibold text-brand-700 break-all">${esc(who)}</code>
+                        <button type="button" class="copy ml-auto text-xs font-medium px-3 py-1 rounded-full border border-slate-200 bg-white hover:bg-brand-50" data-copy="${esc(who)}">Copy</button>
+                    </div>
+                    <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="${esc(t.title)} status">
+                        ${STATUSES.map(([v, l]) => `<label class="status relative"><input type="radio" name="${t.key}" value="${v}"><span>${l}</span></label>`).join('')}
+                    </div>
+                    <p class="task-error hidden text-sm text-rose-600 mt-2">Please choose one option.</p>`;
+                form.querySelector(`[data-tasks="${t.group}"]`).appendChild(card);
+            });
+
+            form.addEventListener('click', e => {
+                const btn = e.target.closest('.copy');
+                if (!btn) return;
+                navigator.clipboard?.writeText(btn.dataset.copy).then(() => {
+                    btn.textContent = 'Copied ✓';
+                    setTimeout(() => btn.textContent = 'Copy', 1500);
+                });
+            });
+
+            function state() {
+                const platform = form.website_platform.value;
+                const google = checked('google_products').filter(v => v !== 'None');
+                const social = checked('social_platforms').filter(v => v !== 'None');
+                return { platform, google, social };
+            }
+
+            const SHOW = {
+                hosting: s => ['WordPress', 'Custom-coded', 'Other', 'Not sure'].includes(s.platform),
+                domain: s => s.platform && s.platform !== 'No website yet',
+                google: s => s.google.length > 0,
+                facebook: s => s.social.includes('Facebook'),
+                instagram: s => s.social.includes('Instagram'),
+                linkedin: s => s.social.includes('LinkedIn'),
+                fbig: s => s.social.includes('Facebook') && s.social.includes('Instagram'),
+                othersocial: s => ['TikTok', 'X (Twitter)', 'Pinterest'].some(p => s.social.includes(p)),
+                helpcall: () => form.help_call.checked,
+            };
+
+            // Hidden parts are disabled so they are neither validated nor submitted.
+            function setVisible(el, visible) {
+                el.classList.toggle('hidden', !visible);
+                el.querySelectorAll('input, select, textarea').forEach(i => i.disabled = !visible);
+            }
+
+            function refresh() {
+                const s = state();
+                form.querySelectorAll('[data-show]').forEach(el => setVisible(el, SHOW[el.dataset.show](s)));
+                TASKS.forEach(t => setVisible(form.querySelector(`[data-task="${t.key}"]`), !!t.show(s)));
+                form.querySelectorAll('[data-tasks]').forEach(box => {
+                    const any = box.querySelector('.task:not(.hidden)');
+                    let empty = box.querySelector('.empty-note');
+                    if (!any && !empty) {
+                        empty = document.createElement('p');
+                        empty.className = 'empty-note text-sm text-slate-400 italic';
+                        empty.textContent = 'Make a selection above to see the access steps.';
+                        box.appendChild(empty);
+                    }
+                    if (empty) empty.classList.toggle('hidden', !!any);
+                });
+                form.querySelectorAll('.task').forEach(card => {
+                    const v = card.querySelector('input:checked')?.value;
+                    card.classList.toggle('done', v === 'Done');
+                    card.querySelector('.task-badge').classList.toggle('hidden', v !== 'Done');
+                    if (v) card.querySelector('.task-error').classList.add('hidden');
+                });
+            }
+
+            function visibleTasks() {
+                return TASKS.filter(t => !form.querySelector(`[data-task="${t.key}"]`).classList.contains('hidden'));
+            }
+
+            function summary() {
+                const list = visibleTasks().map(t => ({ t, v: form.querySelector(`input[name="${t.key}"]:checked`)?.value || '' }));
+                const relevant = list.filter(x => x.v !== 'Not applicable');
+                return {
+                    list,
+                    total: relevant.length,
+                    done: relevant.filter(x => x.v === 'Done').length,
+                    help: relevant.filter(x => x.v === 'Need help'),
+                    later: relevant.filter(x => x.v === 'Will do later'),
+                };
+            }
+
+            function renderReview() {
+                const s = summary();
+                const row = (x) => {
+                    const color = { 'Done': 'text-teal-700 bg-teal-50', 'Need help': 'text-rose-700 bg-rose-50', 'Will do later': 'text-amber-700 bg-amber-50' }[x.v] || 'text-slate-500 bg-slate-100';
+                    return `<li class="flex items-center justify-between gap-3 py-2.5"><span class="text-sm text-slate-700">${esc(x.t.title)}</span><span class="text-xs font-semibold px-2.5 py-1 rounded-full ${color}">${esc(x.v || '—')}</span></li>`;
+                };
+                const pct = s.total ? Math.round(s.done / s.total * 100) : 100;
+                document.getElementById('review').innerHTML = s.list.length ? `
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                        <div class="flex items-end justify-between mb-2">
+                            <p class="font-semibold">${s.done} of ${s.total} access steps done</p>
+                            <p class="text-sm text-slate-500">${pct}%</p>
+                        </div>
+                        <div class="h-2 rounded-full bg-slate-200 overflow-hidden mb-4"><div class="h-full bg-teal-500 rounded-full" style="width:${pct}%"></div></div>
+                        <ul class="divide-y divide-slate-200">${s.list.map(row).join('')}</ul>
+                        ${s.help.length ? `<p class="text-sm text-rose-700 mt-4">You marked ${s.help.length} step${s.help.length > 1 ? 's' : ''} as <b>Need help</b>. We've ticked the call option below so we can finish ${s.help.length > 1 ? 'them' : 'it'} together.</p>` : ''}
+                    </div>` : '<p class="text-sm text-slate-500">No access steps needed based on your answers.</p>';
+                if (s.help.length && !form.help_call.checked) { form.help_call.checked = true; refresh(); }
+            }
+
+            function show(i) {
+                steps.forEach((s, idx) => s.classList.toggle('active', idx === i));
+                current = i;
+                const p = Math.round(((i + 1) / steps.length) * 100);
+                document.getElementById('step-label').textContent = `Step ${i + 1} of ${steps.length} · ${steps[i].dataset.title}`;
+                document.getElementById('step-pct').textContent = p + '%';
+                document.getElementById('progress-bar').style.width = p + '%';
+                backBtn.classList.toggle('invisible', i === 0);
+                nextBtn.classList.toggle('hidden', i === steps.length - 1);
+                submitBtn.classList.toggle('hidden', i !== steps.length - 1);
+                if (i === steps.length - 1) renderReview();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function validateStep(step) {
+                let firstBad = null;
+                step.querySelectorAll('.task:not(.hidden)').forEach(card => {
+                    const ok = !!card.querySelector('input:checked');
+                    card.querySelector('.task-error').classList.toggle('hidden', ok);
+                    if (!ok && !firstBad) firstBad = card;
+                });
+                const fields = Array.from(step.querySelectorAll('input, select, textarea'))
+                    .filter(el => el.willValidate && !el.closest('.task') && !el.closest('.checkgroup'));
+                for (const el of fields) {
+                    if (!el.checkValidity()) { el.reportValidity(); return false; }
+                }
+                if (firstBad) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
+                return true;
+            }
+
+            // "None" is exclusive with the other options in its group.
+            form.querySelectorAll('.checkgroup input').forEach(cb => cb.addEventListener('change', () => {
+                const group = cb.closest('.checkgroup');
+                if (cb.checked && cb.hasAttribute('data-exclusive')) group.querySelectorAll('input').forEach(o => { if (o !== cb) o.checked = false; });
+                if (cb.checked && !cb.hasAttribute('data-exclusive')) group.querySelectorAll('input[data-exclusive]').forEach(o => o.checked = false);
+            }));
+            form.addEventListener('change', refresh);
+
+            nextBtn.addEventListener('click', () => { if (validateStep(steps[current])) show(current + 1); });
+            backBtn.addEventListener('click', () => show(current - 1));
+            form.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && e.target.tagName === 'INPUT' && current < steps.length - 1) {
+                    e.preventDefault();
+                    nextBtn.click();
+                }
+            });
+
+            form.addEventListener('submit', e => {
+                if (!validateStep(steps[current])) { e.preventDefault(); return; }
+                if (FORM_ACTION.startsWith('PASTE_')) {
+                    e.preventDefault();
+                    alert('This form is not connected yet. Please contact the MyKohi team.');
+                    return;
+                }
+                const captcha = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+                document.getElementById('captcha-error').classList.toggle('hidden', !!captcha);
+                if (!captcha) { e.preventDefault(); return; }
+
+                ['brand_assets_included', 'google_products', 'social_platforms'].forEach(n => {
+                    form.querySelector(`input[type=hidden][name="${n}"]`).value = checked(n).join(', ');
+                });
+                const s = summary();
+                form.querySelector('input[name="access_summary"]').value =
+                    `${s.done}/${s.total} done` + (s.help.length ? `; need help: ${s.help.map(x => x.t.title).join(', ')}` : '') +
+                    (s.later.length ? `; later: ${s.later.map(x => x.t.title).join(', ')}` : '');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting…';
+            });
+
+            refresh();
+        })();
+    </script>
+</body>
+
+</html>

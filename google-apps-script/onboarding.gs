@@ -8,8 +8,9 @@
  * Setup:
  *  1. Open the Google Sheet that Formester writes to. Extensions > Apps Script.
  *     Paste this file in as Code.gs.
- *  2. (Optional) Set SOURCE_SHEET below to the tab name Formester writes into.
- *     Leave it as '' to use the first tab in the spreadsheet.
+ *  2. Check SOURCES below: the tab names Formester writes each form into.
+ *     For a form that writes to a different spreadsheet, also set its spreadsheetId
+ *     (the long ID in that spreadsheet's URL, between /d/ and /edit) and optionally gid.
  *  3. Project Settings > Script Properties > add ADMIN_KEY = a long random password.
  *     This is the password for admin-dashboard.html.
  *  4. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
@@ -19,7 +20,14 @@
  * so the same URL serves the new code.
  */
 
-const SOURCE_SHEET = 'my-kohi-website-onboarding-form';
+// One entry per form shown on the dashboard.
+const SOURCES = {
+  // Practice onboarding (onboarding.html). Falls back to the first tab if the name doesn't match.
+  onboarding: { sheet: 'my-kohi-website-onboarding-form', spreadsheetId: '', fallbackToFirstTab: true },
+  // Access & brand assets (access-onboarding.html). `gid` is the number after "gid=" in the tab's URL
+  // and keeps working if the tab is renamed.
+  access: { sheet: 'mykohi-onboarding-new', spreadsheetId: '1qYsZKqMm2MxRXWUGjtH__N3eaTpvVa953VZ-PCWC2NE', gid: 1417064006 },
+};
 const TRACKING_SHEET = 'Tracking';
 const STATUSES = ['New', 'Contacted', 'In Progress', 'Onboarded', 'Not a Fit'];
 
@@ -29,7 +37,7 @@ function doPost(e) {
     requireAdmin_(body.key);
     switch (body.action) {
       case 'login': return json({ ok: true });
-      case 'list': return json({ ok: true, rows: list_(), statuses: STATUSES });
+      case 'list': return json(Object.assign({ ok: true, statuses: STATUSES }, list_(body.source || 'onboarding')));
       case 'update': return json(update_(body.rowKey, body.changes || {}));
       default: return json({ ok: false, error: 'Unknown action' });
     }
@@ -42,18 +50,30 @@ function doGet() {
   return json({ ok: true, service: 'mykohi-onboarding-dashboard' });
 }
 
-function list_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  // Use the named tab if it exists, otherwise the first tab that isn't ours.
-  const source = (SOURCE_SHEET && ss.getSheetByName(SOURCE_SHEET))
-    || ss.getSheets().find(sh => sh.getName() !== TRACKING_SHEET);
-  if (!source) throw new Error('No submissions tab found in this spreadsheet.');
+function sourceSheet_(name) {
+  const cfg = SOURCES[name];
+  if (!cfg) throw new Error('Unknown source: ' + name);
+  const ss = cfg.spreadsheetId ? SpreadsheetApp.openById(cfg.spreadsheetId) : SpreadsheetApp.getActiveSpreadsheet();
+  const byGid = cfg.gid !== undefined ? ss.getSheets().find(sh => sh.getSheetId() === cfg.gid) : null;
+  const named = byGid || ss.getSheetByName(cfg.sheet);
+  if (named || !cfg.fallbackToFirstTab) return named;
+  // First tab that isn't the tracking tab or another source's tab.
+  const others = Object.keys(SOURCES).map(k => SOURCES[k].sheet).concat(TRACKING_SHEET);
+  return ss.getSheets().find(sh => others.indexOf(sh.getName()) === -1) || null;
+}
+
+function list_(name) {
+  const source = sourceSheet_(name);
+  if (!source) return { rows: [], connected: false };
 
   const values = source.getDataRange().getValues();
+  if (values.length < 2) return { rows: [], connected: true };
   const headers = values.shift().map(String);
   const tracking = trackingMap_();
+  // Onboarding keys stay unsalted so statuses saved before multi-source support still match.
+  const salt = name === 'onboarding' ? '' : name + ':';
 
-  return values
+  const rows = values
     .filter(row => row.some(v => v !== ''))
     .map(row => {
       const fields = {};
@@ -62,11 +82,12 @@ function list_() {
         const v = row[i];
         fields[h] = v instanceof Date ? v.toISOString() : String(v);
       });
-      const rowKey = rowKey_(row);
+      const rowKey = rowKey_(row, salt);
       const t = tracking[rowKey] || {};
       return { rowKey: rowKey, fields: fields, status: t.status || 'New', adminNotes: t.adminNotes || '' };
     })
     .reverse();
+  return { rows: rows, connected: true };
 }
 
 function update_(rowKey, changes) {
@@ -114,8 +135,8 @@ function getTrackingSheet_() {
 }
 
 // Stable ID for a submission row, derived from its contents (Formester rows are append-only).
-function rowKey_(row) {
-  const raw = row.map(v => v instanceof Date ? v.toISOString() : String(v)).join('␟');
+function rowKey_(row, salt) {
+  const raw = (salt || '') + row.map(v => v instanceof Date ? v.toISOString() : String(v)).join('␟');
   const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, raw, Utilities.Charset.UTF_8);
   // "k" prefix stops Sheets from reading keys like "1e40..." as numbers.
   return 'k' + digest.map(b => ((b + 256) % 256).toString(16).padStart(2, '0')).join('').slice(0, 16);
