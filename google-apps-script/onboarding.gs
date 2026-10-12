@@ -8,7 +8,8 @@
  * Setup:
  *  1. Open the Google Sheet that Formester writes to. Extensions > Apps Script.
  *     Paste this file in as Code.gs.
- *  2. Set SOURCE_SHEET below to the tab name Formester writes into (often "Sheet1").
+ *  2. (Optional) Set SOURCE_SHEET below to the tab name Formester writes into.
+ *     Leave it as '' to use the first tab in the spreadsheet.
  *  3. Project Settings > Script Properties > add ADMIN_KEY = a long random password.
  *     This is the password for admin-dashboard.html.
  *  4. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
@@ -18,7 +19,7 @@
  * so the same URL serves the new code.
  */
 
-const SOURCE_SHEET = 'Sheet1';
+const SOURCE_SHEET = 'my-kohi-website-onboarding-form';
 const TRACKING_SHEET = 'Tracking';
 const STATUSES = ['New', 'Contacted', 'In Progress', 'Onboarded', 'Not a Fit'];
 
@@ -43,8 +44,10 @@ function doGet() {
 
 function list_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const source = ss.getSheetByName(SOURCE_SHEET);
-  if (!source) throw new Error('Sheet tab "' + SOURCE_SHEET + '" not found. Update SOURCE_SHEET in the script.');
+  // Use the named tab if it exists, otherwise the first tab that isn't ours.
+  const source = (SOURCE_SHEET && ss.getSheetByName(SOURCE_SHEET))
+    || ss.getSheets().find(sh => sh.getName() !== TRACKING_SHEET);
+  if (!source) throw new Error('No submissions tab found in this spreadsheet.');
 
   const values = source.getDataRange().getValues();
   const headers = values.shift().map(String);
