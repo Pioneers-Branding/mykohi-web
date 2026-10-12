@@ -2,8 +2,8 @@
  * MyKohi Onboarding dashboard backend (Google Apps Script)
  *
  * Formester writes each onboarding submission into a Google Sheet. This script lets
- * admin-dashboard.html read those rows and track a status/notes for each one.
- * It never edits Formester's rows: status and notes live in a separate "Tracking" tab.
+ * admin-dashboard.html read those rows, track a status/notes for each one, and correct
+ * submitted answers. Status and notes live in a separate "Tracking" tab.
  *
  * Setup:
  *  1. Open the Google Sheet that Formester writes to. Extensions > Apps Script.
@@ -39,6 +39,7 @@ function doPost(e) {
       case 'login': return json({ ok: true });
       case 'list': return json(Object.assign({ ok: true, statuses: STATUSES }, list_(body.source || 'onboarding')));
       case 'update': return json(update_(body.rowKey, body.changes || {}));
+      case 'editFields': return json(editFields_(body.source || 'onboarding', body.rowKey, body.fields || {}));
       default: return json({ ok: false, error: 'Unknown action' });
     }
   } catch (err) {
@@ -71,23 +72,69 @@ function list_(name) {
   const headers = values.shift().map(String);
   const tracking = trackingMap_();
   // Onboarding keys stay unsalted so statuses saved before multi-source support still match.
-  const salt = name === 'onboarding' ? '' : name + ':';
+  const salt = saltFor_(name);
 
   const rows = values
     .filter(row => row.some(v => v !== ''))
     .map(row => {
-      const fields = {};
-      headers.forEach((h, i) => {
-        if (!h) return;
-        const v = row[i];
-        fields[h] = v instanceof Date ? v.toISOString() : String(v);
-      });
+      const fields = rowFields_(headers, row);
       const rowKey = rowKey_(row, salt);
       const t = tracking[rowKey] || {};
       return { rowKey: rowKey, fields: fields, status: t.status || 'New', adminNotes: t.adminNotes || '' };
     })
     .reverse();
   return { rows: rows, connected: true };
+}
+
+function rowFields_(headers, row) {
+  const fields = {};
+  headers.forEach((h, i) => {
+    if (!h) return;
+    const v = row[i];
+    fields[h] = v instanceof Date ? v.toISOString() : String(v);
+  });
+  return fields;
+}
+
+const saltFor_ = name => name === 'onboarding' ? '' : name + ':';
+
+// Overwrite answers in a submission row. The row's key is derived from its contents, so the
+// matching Tracking entry is moved to the new key to keep its status and notes.
+function editFields_(name, rowKey, changes) {
+  if (!rowKey) throw new Error('Missing rowKey');
+  const source = sourceSheet_(name);
+  if (!source) throw new Error('Source sheet not found');
+  const salt = saltFor_(name);
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const values = source.getDataRange().getValues();
+    const headers = values[0].map(String);
+    const r = values.findIndex((row, i) => i > 0 && rowKey_(row, salt) === rowKey);
+    if (r === -1) throw new Error('This submission changed in the Sheet since you loaded it. Refresh and try again.');
+
+    Object.keys(changes).forEach(h => {
+      const col = headers.indexOf(h);
+      if (col === -1 || values[r][col] instanceof Date) return;   // unknown column or timestamp
+      let v = String(changes[h] == null ? '' : changes[h]).slice(0, 5000);
+      if (/^[=+\-@]/.test(v)) v = "'" + v;   // keep text from being read as a formula
+      source.getRange(r + 1, col + 1).setValue(v);
+    });
+    SpreadsheetApp.flush();
+
+    const updated = source.getRange(r + 1, 1, 1, headers.length).getValues()[0];
+    const newKey = rowKey_(updated, salt);
+    if (newKey !== rowKey) {
+      const tracking = getTrackingSheet_();
+      const keys = tracking.getRange(1, 1, Math.max(tracking.getLastRow(), 1), 1).getValues();
+      const t = keys.findIndex((k, i) => i > 0 && k[0] === rowKey);
+      if (t !== -1) tracking.getRange(t + 1, 1).setValue(newKey);
+    }
+    return { ok: true, rowKey: newKey, fields: rowFields_(headers, updated) };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function update_(rowKey, changes) {

@@ -242,7 +242,22 @@
             <div id="d-facts" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
             <div id="d-sections" class="space-y-5"></div>
 
-            <div class="bg-white border border-slate-200 rounded-2xl p-5">
+            <!-- Edit mode -->
+            <form id="d-edit" class="hidden space-y-5" novalidate>
+                <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl px-4 py-3 text-sm">
+                    <span aria-hidden="true">✎</span>
+                    <p>You're editing this submission. Changes are saved to the Google Sheet; the original copy in
+                        Formester stays as the client sent it.</p>
+                </div>
+                <div id="d-edit-fields" class="space-y-5"></div>
+                <div class="sticky bottom-0 -mx-6 sm:-mx-8 px-6 sm:px-8 py-4 bg-[#f6f8fb]/95 backdrop-blur border-t border-slate-200 flex items-center gap-3">
+                    <button type="submit" id="d-edit-save" class="btn btn-dark">Save changes</button>
+                    <button type="button" id="d-edit-cancel" class="btn">Cancel</button>
+                    <span id="d-edit-msg" class="text-sm text-slate-500"></span>
+                </div>
+            </form>
+
+            <div id="d-tracking" class="bg-white border border-slate-200 rounded-2xl p-5">
                 <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">Internal tracking</h3>
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
@@ -780,8 +795,8 @@
             return `<div class="bg-white border border-slate-200 rounded-2xl p-5">${head}
                 ${short.length ? `<dl class="grid sm:grid-cols-2 gap-x-6 gap-y-4">${short.map(([k, v]) => `
                     <div><dt class="text-xs text-slate-500 mb-0.5">${esc(labelFor(k))}</dt><dd class="text-sm text-slate-900 font-medium">${valueHtml(k, v)}</dd></div>`).join('')}</dl>` : ''}
-                ${wide.map(([k, v]) => `
-                    <div class="${short.length ? 'mt-5' : ''}">
+                ${wide.map(([k, v], i) => `
+                    <div class="${short.length || i ? 'mt-5' : ''}">
                         <p class="text-xs text-slate-500 mb-1.5">${esc(labelFor(k))}</p>
                         ${s.long.includes(k)
                     ? `<blockquote class="text-sm text-slate-800 bg-slate-50 border-l-4 border-brand-400 rounded-r-xl px-4 py-3 whitespace-pre-wrap">${esc(v)}</blockquote>`
@@ -808,8 +823,11 @@
                 (phone ? action('tel:' + phone.replace(/[^\d+]/g, ''), '☎ Call') : '') +
                 (/^https?:\/\//i.test(site) ? action(site, '↗ Website') : '') +
                 (/^https?:\/\//i.test(files) ? action(files, '📁 Brand files') : '') +
+                `<button id="d-edit-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-sm font-medium">✎ Edit details</button>` +
                 `<button id="d-pdf" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-slate-900 hover:bg-brand-50 text-sm font-semibold">⤓ Download PDF</button>`;
             $('d-pdf').addEventListener('click', e => withBusy(e.currentTarget, () => profilePdf(row)));
+            $('d-edit-btn').addEventListener('click', () => startEdit(row));
+            setEditMode(false);
 
             $('d-facts').innerHTML = s.facts(row).map(([l, v]) => `
                 <div class="bg-white border border-slate-200 rounded-2xl px-4 py-3">
@@ -832,6 +850,99 @@
             $('overlay').classList.remove('hidden');
             $('drawer').classList.remove('translate-x-full');
             $('drawer').setAttribute('aria-hidden', 'false');
+        }
+
+        // ---------- Editing submitted answers ----------
+        function setEditMode(on) {
+            ['d-facts', 'd-sections', 'd-tracking'].forEach(id => $(id).classList.toggle('hidden', on));
+            $('d-edit').classList.toggle('hidden', !on);
+            $('d-edit-btn')?.classList.toggle('hidden', on);
+            $('d-edit-msg').textContent = '';
+        }
+
+        // Sheet columns grouped like the detail view: [title, [[key, header], ...]].
+        function editGroups(row) {
+            const s = src(), dk = dateKey(row);
+            const hidden = new Set(s.hide.map(norm));
+            const editable = Object.keys(row.fields).filter(h => h && !HIDDEN.test(h) && h !== dk && !hidden.has(norm(h)));
+            const used = new Set(), groups = [];
+            const take = (title, keys) => {
+                const pairs = keys.map(k => [k, headerFor(row, k)]).filter(([, h]) => h && editable.includes(h) && !used.has(h));
+                pairs.forEach(([, h]) => used.add(h));
+                if (pairs.length) groups.push([title, pairs]);
+            };
+            take('Overview', [s.nameKey, ...s.factKeys]);
+            s.sections.forEach(sec => take(sec.title, sec.keys));
+            take('Additional details', editable);
+            return groups;
+        }
+
+        function editInput(k, h, v) {
+            const s = src(), attrs = `class="field mt-1" data-header="${esc(h)}"`;
+            if (TASK_KEYS.includes(k)) {
+                const opts = ['', ...Object.keys(TASK_STYLE)];
+                if (v && !opts.includes(v)) opts.push(v);
+                return `<select ${attrs}>${opts.map(o => `<option value="${esc(o)}" ${o === v ? 'selected' : ''}>${esc(o || '—')}</option>`).join('')}</select>`;
+            }
+            if (s.long.includes(k) || String(v).length > 80) return `<textarea ${attrs} rows="3">${esc(v)}</textarea>`;
+            return `<input ${attrs} type="text" value="${esc(v)}">`;
+        }
+
+        function startEdit(row) {
+            const s = src();
+            $('d-edit-fields').innerHTML = editGroups(row).map(([title, pairs]) => `
+                <div class="bg-white border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">${esc(title)}</h3>
+                    <div class="grid sm:grid-cols-2 gap-4">${pairs.map(([k, h]) => `
+                        <label class="block ${s.long.includes(k) || s.chips.includes(k) ? 'sm:col-span-2' : ''}">
+                            <span class="text-xs text-slate-500">${esc(labelFor(k))}</span>
+                            ${editInput(k, h, String(row.fields[h] ?? ''))}
+                            ${s.chips.includes(k) ? '<span class="block text-[11px] text-slate-400 mt-1">Separate items with commas</span>' : ''}
+                        </label>`).join('')}
+                    </div>
+                </div>`).join('');
+            setEditMode(true);
+            $('drawer').scrollTop = 0;
+            $('d-edit-fields').querySelector('[data-header]')?.focus();
+        }
+
+        async function saveEdit(e) {
+            e.preventDefault();
+            if (!active) return;
+            const row = active;
+            const changes = {};
+            $('d-edit-fields').querySelectorAll('[data-header]').forEach(el => {
+                const h = el.dataset.header, v = el.value.trim();
+                if (v !== String(row.fields[h] ?? '').trim()) changes[h] = v;
+            });
+            if (!Object.keys(changes).length) { setEditMode(false); return; }
+
+            $('d-edit-save').disabled = true;
+            $('d-edit-msg').textContent = 'Saving…';
+            try {
+                const res = await api('editFields', { source: current, rowKey: row.rowKey, fields: changes });
+                row.rowKey = res.rowKey;
+                row.fields = res.fields;
+                fillFilters();
+                render();
+                openDrawer(row);
+                $('d-saved').textContent = '';
+                flash('Changes saved to the Google Sheet ✓');
+            } catch (err) {
+                $('d-edit-msg').textContent = /unknown action/i.test(err.message)
+                    ? 'Editing needs the latest Apps Script. Paste it in and redeploy as a New version.'
+                    : 'Error: ' + err.message;
+            } finally {
+                $('d-edit-save').disabled = false;
+            }
+        }
+
+        function flash(msg) {
+            const n = document.createElement('div');
+            n.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-sm font-medium px-5 py-3 rounded-full shadow-xl';
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 2600);
         }
 
         function closeDrawer() {
@@ -1177,7 +1288,13 @@
         $('close-drawer').addEventListener('click', closeDrawer);
         $('overlay').addEventListener('click', closeDrawer);
         $('d-save').addEventListener('click', saveActive);
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+        $('d-edit').addEventListener('submit', saveEdit);
+        $('d-edit-cancel').addEventListener('click', () => setEditMode(false));
+        document.addEventListener('keydown', e => {
+            if (e.key !== 'Escape') return;
+            if (!$('d-edit').classList.contains('hidden')) setEditMode(false);
+            else closeDrawer();
+        });
 
         if (adminKey) login(adminKey).catch(logout);
     </script>
