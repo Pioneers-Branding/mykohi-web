@@ -142,15 +142,13 @@ function load_(client) {
 
 function readSpreadsheet_(id) {
   const ss = SpreadsheetApp.openById(id);
-  // Sheets created by form tools can have no time zone set; fall back to the script's (Project Settings).
-  const tz = ss.getSpreadsheetTimeZone() || Session.getScriptTimeZone() || 'America/Phoenix';
-  const tabs = ss.getSheets().map(sh => readTab_(sh, tz)).filter(Boolean);
+  const tabs = ss.getSheets().map(readTab_).filter(Boolean);
   const labels = tabLabels_(tabs.map(t => t.name));
   tabs.forEach(t => { t.label = labels[t.name]; });
   return { connected: true, tabs: tabs };
 }
 
-function readTab_(sh, tz) {
+function readTab_(sh) {
   if (sh.isSheetHidden()) return null;
   const range = sh.getDataRange();
   const values = range.getValues();
@@ -169,11 +167,11 @@ function readTab_(sh, tz) {
     name: sh.getName(),
     kind: header.kind,
     hasStatus: header.hasStatus,
-    rows: parseRows_(sh.getName(), header.kind, values, display, header.row, tz),
+    rows: parseRows_(sh.getName(), header.kind, values, display, header.row),
   };
 }
 
-function parseRows_(tabName, kind, values, display, headerRow, tz) {
+function parseRows_(tabName, kind, values, display, headerRow) {
   const headers = values[headerRow].map(h => String(h).trim());
   const keys = headers.map(normKey_);
   const idx = name => keys.indexOf(name);
@@ -184,12 +182,13 @@ function parseRows_(tabName, kind, values, display, headerRow, tz) {
     const raw = values[r];
     if (!raw.some(v => v !== '' && v !== null)) continue;
     const text = c => (c === -1 ? '' : String(display[r][c]).trim());
-    const when = timeCol === -1 ? null : toDate_(raw[timeCol], tz);
+    const when = timeCol === -1 ? null : toDate_(raw[timeCol]);
 
     const row = {
       kind: kind,
       ts: when ? when.getTime() : null,
-      when: when ? Utilities.formatDate(when, tz, 'MMM d, yyyy h:mm a') : text(timeCol),
+      // Dates show as they appear in the sheet; only bare serial numbers get formatted.
+      when: typeof raw[timeCol] === 'number' && when ? Utilities.formatDate(when, 'UTC', 'MMM dd, yyyy, HH:mm') : text(timeCol),
       details: [],
     };
 
@@ -250,11 +249,10 @@ function normStatus_(s) {
 }
 
 // Sheet cells hold real dates, date serial numbers, or text like "Sep 01, 2026, 20:40".
-function toDate_(v, tz) {
+function toDate_(v) {
   if (v instanceof Date && !isNaN(v)) return v;
   if (typeof v === 'number' && v > 20000 && v < 80000) {
-    const utc = new Date(Math.round((v - 25569) * 86400000));
-    return Utilities.parseDate(Utilities.formatDate(utc, 'UTC', 'yyyy-MM-dd HH:mm:ss'), tz, 'yyyy-MM-dd HH:mm:ss');
+    return new Date(Math.round((v - 25569) * 86400000));
   }
   const s = String(v || '').trim().replace(/,(\s*\d{1,2}:\d{2})/, ' $1');
   if (!s) return null;
