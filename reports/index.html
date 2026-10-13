@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>Lead Report | MyKohi</title>
+    <link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Syne', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8',
+                            500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --series-form: #2a78d6;
+            --series-call: #eb6834;
+            --grid: #e8edf3;
+        }
+
+        .field {
+            padding: 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            outline: none;
+            font-size: 0.875rem;
+            min-width: 0;
+        }
+
+        .field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px #e0f2fe;
+        }
+
+        textarea.field,
+        input.field.block {
+            border-radius: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .5rem 1rem;
+            border-radius: 9999px;
+            font-size: .875rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            transition: all .15s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .btn-dark {
+            background: #0f172a;
+            color: #fff;
+            border-color: #0f172a;
+        }
+
+        .btn-dark:hover {
+            background: #0369a1;
+            border-color: #0369a1;
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.25rem;
+        }
+
+        .seg-btn {
+            padding: .45rem 1rem;
+            border-radius: 9999px;
+            font-size: .875rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .seg-btn[aria-selected="true"] {
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .col:hover .stack,
+        .col:focus-visible .stack {
+            filter: brightness(1.12);
+        }
+
+        .col:focus-visible {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .lead-row:hover {
+            background: #f8fafc;
+        }
+
+        #drawer {
+            transition: transform .3s ease;
+        }
+
+        .bar-fill {
+            transition: width .6s cubic-bezier(.16, 1, .3, 1);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f6f8fb] text-slate-900 antialiased">
+
+    <!-- Loading / error -->
+    <section id="state-view" class="min-h-screen flex items-center justify-center px-4">
+        <div class="text-center max-w-sm">
+            <img src="/img/brain-bulb-logo.png" alt="MyKohi" class="h-16 mx-auto mb-4">
+            <p id="state-title" class="font-display text-xl font-bold mb-1">Loading your report…</p>
+            <p id="state-text" class="text-sm text-slate-500">Pulling the latest leads.</p>
+        </div>
+    </section>
+
+    <div id="app" class="hidden">
+        <header class="bg-white border-b border-slate-200">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-3">
+                <div id="logo-wrap" class="shrink-0 rounded-xl flex items-center">
+                    <img id="client-logo" src="/img/brain-bulb-logo.png" alt="" class="h-10 w-auto max-w-[140px] object-contain">
+                </div>
+                <div class="min-w-0 flex-1">
+                    <h1 id="client-name" class="font-display text-lg sm:text-xl font-bold truncate"></h1>
+                    <p class="text-xs text-slate-500">Lead report · <span id="updated"></span></p>
+                </div>
+                <button id="refresh" class="btn" title="Refresh">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 1 1-3-6.7L21 8" />
+                        <path d="M21 3v5h-5" />
+                    </svg>
+                    <span class="hidden sm:inline">Refresh</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-6 space-y-5">
+            <!-- Section + filters -->
+            <div class="flex flex-col gap-3">
+                <div id="sections" role="tablist" class="inline-flex self-start bg-white border border-slate-200 rounded-full p-1">
+                </div>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <select id="f-range" class="field" aria-label="Date range">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="thismonth">This month</option>
+                        <option value="lastmonth">Last month</option>
+                        <option value="all">All time</option>
+                    </select>
+                    <select id="f-tab" class="field" aria-label="Campaign"></select>
+                    <select id="f-status" class="field" aria-label="Lead status"></select>
+                    <input id="f-q" type="search" class="field flex-1 min-w-[160px]" placeholder="Search name, phone, email…">
+                    <button id="csv" class="btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16" />
+                        </svg>
+                        CSV
+                    </button>
+                </div>
+            </div>
+
+            <div id="not-connected" class="hidden card p-8 text-center text-slate-500"></div>
+
+            <div id="report" class="space-y-5">
+                <!-- KPI tiles -->
+                <div id="kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+
+                <!-- Charts -->
+                <div class="grid lg:grid-cols-3 gap-5">
+                    <div class="card p-5 lg:col-span-2">
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div>
+                                <h2 class="font-semibold">Leads over time</h2>
+                                <p id="timeline-sub" class="text-xs text-slate-500"></p>
+                            </div>
+                            <div id="timeline-legend" class="flex gap-3 text-xs text-slate-600"></div>
+                        </div>
+                        <div id="timeline"></div>
+                    </div>
+                    <div class="card p-5">
+                        <h2 id="breakdown-title" class="font-semibold">Lead quality</h2>
+                        <p id="breakdown-sub" class="text-xs text-slate-500 mb-4">Status of form leads</p>
+                        <div id="statuses" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <div id="campaigns-card" class="card p-5">
+                    <h2 class="font-semibold">Leads by campaign</h2>
+                    <p class="text-xs text-slate-500 mb-4">Click a campaign to filter</p>
+                    <div id="campaigns" class="space-y-2"></div>
+                </div>
+
+                <!-- Leads list -->
+                <div class="card overflow-hidden">
+                    <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+                        <h2 class="font-semibold">All leads <span id="lead-count" class="text-slate-400 font-normal"></span></h2>
+                        <span class="text-xs text-slate-500">Click a lead to view details or comment</span>
+                    </div>
+                    <div class="hidden md:grid grid-cols-[150px_1.2fr_1.3fr_1fr_130px_40px] gap-3 px-5 py-2 text-xs font-medium text-slate-500 border-b border-slate-100">
+                        <span>Date</span><span>Lead</span><span>Contact</span><span>Campaign</span><span id="status-head">Status</span><span></span>
+                    </div>
+                    <div id="leads"></div>
+                    <div id="more-wrap" class="hidden p-4 text-center border-t border-slate-100">
+                        <button id="more" class="btn">Show more</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-xs text-slate-400 py-4">
+                Prepared by <a href="https://mykohi.com" class="underline">MyKohi</a>. Test submissions are excluded.
+            </p>
+        </main>
+    </div>
+
+    <!-- Lead drawer -->
+    <div id="overlay" class="fixed inset-0 bg-slate-900/30 hidden z-40"></div>
+    <aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-name"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 translate-x-full flex flex-col">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-start gap-3">
+            <div class="min-w-0 flex-1">
+                <h3 id="d-name" class="font-display text-lg font-bold break-words"></h3>
+                <p id="d-meta" class="text-xs text-slate-500"></p>
+            </div>
+            <button id="d-close" class="btn !px-2.5" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto px-5 py-4 space-y-5">
+            <div id="d-contact" class="flex flex-wrap gap-2"></div>
+            <dl id="d-details" class="space-y-3 text-sm"></dl>
+            <div>
+                <h4 class="font-semibold text-sm mb-2">Comments</h4>
+                <div id="d-comments" class="space-y-2"></div>
+            </div>
+        </div>
+        <form id="c-form" class="border-t border-slate-100 p-4 space-y-2">
+            <input id="c-author" class="field block w-full" placeholder="Your name" maxlength="80" required>
+            <textarea id="c-text" class="field w-full block" rows="3" maxlength="2000"
+                placeholder="Add a comment, e.g. booked for consult, no answer, not a fit…" required></textarea>
+            <div class="flex items-center justify-between gap-2">
+                <span id="c-msg" class="text-xs text-slate-500"></span>
+                <button id="c-submit" class="btn btn-dark" type="submit">Post comment</button>
+            </div>
+        </form>
+    </aside>
+
+    <div id="tip" role="tooltip"
+        class="hidden fixed z-50 pointer-events-none bg-white border border-slate-200 shadow-lg rounded-xl px-3 py-2 text-xs">
+    </div>
+
+    <script>
+        // Paste the Apps Script Web app URL here (see google-apps-script/client-reports.gs).
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxE8f_7zH_DQ79_yizlnmazeFFmdeOMRk6ad--T_mfqoh74-sa2tvD4ah-a-YO3Tj9c/exec';
+
+        const CODE = new URLSearchParams(location.search).get('c') || '';
+        const SECTION_LABELS = { ads: 'Ads leads', website: 'Website leads' };
+        // Status colors pair with an icon + label, never color alone.
+        const STATUS = {
+            'Valid': { color: '#0ca30c', icon: '✓' },
+            'Existing patient': { color: '#6250d6', icon: '↺' },
+            'Out of location': { color: '#ec835a', icon: '⌖' },
+            'Invalid': { color: '#d03b3b', icon: '✕' },
+            'Not reviewed': { color: '#94a3b8', icon: '•' },
+        };
+        const KIND = {
+            form: { label: 'Form leads', color: 'var(--series-form)' },
+            call: { label: 'Phone calls', color: 'var(--series-call)' },
+        };
+        // Detail columns used for the breakdown card and the note shown under a lead's name.
+        const REASON_KEYS = ['reasonforinquiry', 'reason', 'interestedin'];
+        const NOTE_PATTERN = /^(office )?(comments?|notes?)$/i;
+        const PAGE = 50;
+        const DAY = 864e5;
+
+        let data = null;
+        let section = 'ads';
+        let rows = [];           // rows of the current section
+        let comments = {};       // leadKey -> [{at, author, text}]
+        let openKey = null;
+        const state = { range: '30d', tab: 'all', status: 'all', q: '', shown: PAGE };
+        try { state.range = localStorage.getItem('mykohi_report_range') || state.range; } catch (e) { }
+
+        const $ = id => document.getElementById(id);
+        function esc(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        const fmt = n => n.toLocaleString();
+        const normKey = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+        const reasonOf = r => {
+            for (const k of REASON_KEYS) {
+                const d = r.details.find(([label]) => normKey(label) === k);
+                if (d) return d[1];
+            }
+            return '';
+        };
+        const noteOf = r => (r.details.find(([label]) => NOTE_PATTERN.test(label.trim())) || [])[1] || '';
+        const fmtDur = s => s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`;
+
+        async function api(action, extra = {}) {
+            if (SCRIPT_URL.startsWith('PASTE_')) throw new Error('This report is not connected yet.');
+            const res = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action, code: CODE, ...extra })
+            });
+            const json = await res.json();
+            if (!json.ok) throw new Error(json.error || 'Request failed');
+            return json;
+        }
+
+        // ---------- Load ----------
+        async function load() {
+            const btn = $('refresh');
+            btn.disabled = true;
+            try {
+                data = await api('load');
+                comments = {};
+                data.comments.forEach(c => (comments[c.leadKey] ||= []).push(c));
+                $('client-name').textContent = data.client.name || 'Your practice';
+                document.title = `${data.client.name || 'Lead'} Report | MyKohi`;
+                if (data.client.logo) {
+                    $('client-logo').src = data.client.logo;
+                    $('client-logo').alt = data.client.name || '';
+                    // White logos need a dark tile behind them (set per client in the registry sheet).
+                    if (data.client.logoBg) {
+                        $('logo-wrap').style.background = data.client.logoBg;
+                        $('logo-wrap').classList.add('px-3', 'py-1.5');
+                    }
+                }
+                $('updated').textContent = 'updated ' + new Date(data.updatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+                const available = Object.keys(SECTION_LABELS).filter(k => data.sections[k]?.connected);
+                if (!available.includes(section)) section = available[0] || 'ads';
+                renderSections(available);
+                selectSection(section, false);
+                $('state-view').classList.add('hidden');
+                $('app').classList.remove('hidden');
+            } catch (err) {
+                if (!data) {
+                    $('state-title').textContent = /invalid link/i.test(err.message) ? 'This link isn’t valid' : 'Couldn’t load the report';
+                    $('state-text').textContent = /invalid link/i.test(err.message)
+                        ? 'Please check the link, or ask your MyKohi contact for a new one.'
+                        : err.message;
+                } else {
+                    alert('Couldn’t refresh: ' + err.message);
+                }
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function renderSections(available) {
+            const el = $('sections');
+            el.classList.toggle('hidden', available.length < 2);
+            el.innerHTML = available.map(k =>
+                `<button role="tab" class="seg-btn" data-section="${k}" aria-selected="${k === section}">${SECTION_LABELS[k]}</button>`).join('');
+        }
+
+        function selectSection(key, resetFilters = true) {
+            section = key;
+            document.querySelectorAll('[data-section]').forEach(b => b.setAttribute('aria-selected', b.dataset.section === key));
+            const sec = data.sections[key] || { connected: false, tabs: [] };
+            rows = sec.tabs.flatMap(t => t.rows.map(r => ({ ...r, tab: t.name, tabLabel: t.label, hasStatus: t.hasStatus })))
+                .sort((a, b) => (b.ts ?? -Infinity) - (a.ts ?? -Infinity));
+            if (resetFilters) Object.assign(state, { tab: 'all', status: 'all', q: '' });
+            $('f-q').value = state.q;
+            $('f-range').value = state.range;
+            $('f-tab').innerHTML = '<option value="all">All campaigns</option>' +
+                sec.tabs.map(t => `<option value="${esc(t.name)}">${esc(t.label)}</option>`).join('');
+            $('f-tab').value = state.tab;
+            const statuses = [...new Set(rows.filter(r => r.kind === 'form' && r.hasStatus).map(r => r.status))];
+            const ordered = Object.keys(STATUS).filter(s => statuses.includes(s)).concat(statuses.filter(s => !STATUS[s]));
+            $('f-status').innerHTML = '<option value="all">All statuses</option>' +
+                ordered.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('') +
+                (rows.some(r => r.kind === 'call') ? '<option value="__calls">Phone calls only</option>' : '');
+            $('f-status').value = state.status;
+            $('f-status').classList.toggle('hidden', $('f-status').options.length < 2);
+            $('campaigns-card').classList.toggle('hidden', sec.tabs.length < 2);
+            $('f-tab').classList.toggle('hidden', sec.tabs.length < 2);
+            $('status-head').textContent = sec.tabs.some(t => t.hasStatus) ? 'Status' : 'Reason';
+
+            const empty = !sec.connected || rows.length === 0;
+            $('report').classList.toggle('hidden', empty);
+            $('not-connected').classList.toggle('hidden', !empty);
+            $('not-connected').textContent = !sec.connected
+                ? `${SECTION_LABELS[key]} aren’t connected yet.`
+                : 'No leads yet. They’ll appear here as they come in.';
+            render();
+        }
+
+        // ---------- Filtering ----------
+        function rangeWindow(r) {
+            const now = new Date();
+            const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+            const tomorrow = new Date(y, m, d + 1);
+            const days = n => {
+                const start = new Date(y, m, d - n + 1);
+                return { start, end: tomorrow, prev: { start: new Date(y, m, d - 2 * n + 1), end: start }, prevLabel: `previous ${n} days` };
+            };
+            switch (r) {
+                case '7d': return days(7);
+                case '30d': return days(30);
+                case '90d': return days(90);
+                case 'thismonth': {
+                    const start = new Date(y, m, 1);
+                    // Compare month-to-date with the same days of last month.
+                    const prevEnd = new Date(Math.min(new Date(y, m - 1, d + 1), start));
+                    return { start, end: tomorrow, prev: { start: new Date(y, m - 1, 1), end: prevEnd }, prevLabel: 'same days last month' };
+                }
+                case 'lastmonth': {
+                    const start = new Date(y, m - 1, 1), end = new Date(y, m, 1);
+                    return { start, end, prev: { start: new Date(y, m - 2, 1), end: start }, prevLabel: 'month before' };
+                }
+                default: return { start: null, end: null, prev: null };
+            }
+        }
+
+        const inWindow = (r, w) => !w.start || (r.ts != null && r.ts >= +w.start && r.ts < +w.end);
+
+        function matchesOther(r, ignoreTab = false) {
+            if (!ignoreTab && state.tab !== 'all' && r.tab !== state.tab) return false;
+            if (state.status === '__calls' && r.kind !== 'call') return false;
+            if (state.status !== 'all' && state.status !== '__calls' && (r.kind !== 'form' || r.status !== state.status)) return false;
+            if (state.q) {
+                const q = state.q.toLowerCase();
+                const hay = [r.name, r.email, r.phone, r.tabLabel, r.campaign, ...r.details.map(d => d[1])].join(' ').toLowerCase();
+                if (!hay.includes(q)) return false;
+            }
+            return true;
+        }
+
+        // ---------- Render ----------
+        function render() {
+            if (!rows.length) return;
+            const win = rangeWindow(state.range);
+            const base = rows.filter(matchesOther);
+            const cur = base.filter(r => inWindow(r, win));
+            const prev = win.prev ? base.filter(r => inWindow(r, win.prev)) : null;
+            renderKpis(cur, prev, win);
+            renderTimeline(cur, win);
+            renderBreakdown(cur);
+            // The campaign chart keeps every campaign visible so the client can switch between them.
+            renderCampaigns(rows.filter(r => inWindow(r, win) && matchesOther(r, true)));
+            renderLeads(cur);
+        }
+
+        function kpiTile(label, value, prevValue, prevLabel, sub) {
+            let delta = '';
+            if (prevValue != null) {
+                const diff = value - prevValue;
+                const pct = prevValue ? Math.round((diff / prevValue) * 100) : null;
+                const arrow = diff > 0 ? '▲' : diff < 0 ? '▼' : '';
+                const tone = diff > 0 ? 'text-emerald-700' : diff < 0 ? 'text-rose-700' : 'text-slate-500';
+                const amount = pct != null ? `${Math.abs(pct)}%` : (diff ? `${Math.abs(diff)}` : 'No change');
+                delta = `<p class="text-xs ${tone} mt-1">${arrow} ${amount} <span class="text-slate-500">vs ${esc(prevLabel)}</span></p>`;
+            }
+            return `<div class="card p-4">
+                <p class="text-xs font-medium text-slate-500">${esc(label)}</p>
+                <p class="font-display ${typeof value === 'number' ? 'text-3xl' : 'text-xl leading-tight'} font-bold mt-1">${esc(typeof value === 'number' ? fmt(value) : value)}</p>
+                ${sub ? `<p class="text-xs text-slate-500 mt-1">${esc(sub)}</p>` : ''}${delta}
+            </div>`;
+        }
+
+        // Days covered by a window, for per-week averages. "All time" spans first to last lead.
+        function spanDays(list, w) {
+            if (w && w.start) return Math.max(1, (Math.min(+w.end, Date.now()) - +w.start) / DAY);
+            const ts = list.filter(r => r.ts != null).map(r => r.ts);
+            return ts.length ? Math.max(7, (Math.max(...ts) - Math.min(...ts)) / DAY) : 7;
+        }
+
+        function renderKpis(cur, prev, win) {
+            const count = (list, fn) => list ? list.filter(fn).length : null;
+            const forms = r => r.kind === 'form';
+            const calls = r => r.kind === 'call';
+            const valid = r => r.kind === 'form' && r.hasStatus && r.status === 'Valid';
+            const hasCalls = rows.some(calls);
+            const hasStatus = rows.some(r => r.hasStatus);
+            const tiles = [kpiTile('Total leads', cur.length, prev?.length ?? null, win.prevLabel)];
+            if (hasCalls) {
+                tiles.push(kpiTile('Form submissions', count(cur, forms), count(prev, forms), win.prevLabel));
+                tiles.push(kpiTile('Phone calls', count(cur, calls), count(prev, calls), win.prevLabel));
+            } else {
+                const perWeek = list => Math.round((list.length / spanDays(list, list === cur ? win : win.prev)) * 7 * 10) / 10;
+                tiles.push(kpiTile('Average per week', perWeek(cur), prev ? perWeek(prev) : null, win.prevLabel));
+            }
+            if (hasStatus) {
+                const scored = count(cur, r => r.kind === 'form' && r.hasStatus);
+                const v = count(cur, valid);
+                tiles.push(kpiTile('Valid leads', v, count(prev, valid), win.prevLabel,
+                    scored ? `${Math.round((v / scored) * 100)}% of form leads` : ''));
+            } else {
+                const top = topReasons(cur)[0];
+                if (top) tiles.push(kpiTile('Top reason', top[0], null, '', `${top[1]} of ${cur.length} leads`));
+            }
+            $('kpis').className = `grid grid-cols-2 gap-3 ${tiles.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`;
+            $('kpis').innerHTML = tiles.join('');
+        }
+
+        function topReasons(list) {
+            const counts = {};
+            list.forEach(r => {
+                const reason = reasonOf(r);
+                if (reason) counts[reason] = (counts[reason] || 0) + 1;
+            });
+            return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        }
+
+        function niceMax(v) {
+            if (v <= 4) return 4;
+            const p = Math.pow(10, Math.floor(Math.log10(v)));
+            return [1, 2, 2.5, 5, 10].map(s => s * p).find(s => s >= v);
+        }
+
+        function renderTimeline(cur, win) {
+            const dated = cur.filter(r => r.ts != null);
+            const el = $('timeline');
+            const kinds = ['form', 'call'].filter(k => rows.some(r => r.kind === k));
+            $('timeline-legend').innerHTML = kinds.length < 2 ? '' : kinds.map(k =>
+                `<span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm" style="background:${KIND[k].color}"></span>${KIND[k].label}</span>`).join('');
+            if (!dated.length) {
+                el.innerHTML = '<p class="text-sm text-slate-500 py-12 text-center">No leads in this period.</p>';
+                $('timeline-sub').textContent = '';
+                return;
+            }
+            const start = win.start ? +win.start : Math.min(...dated.map(r => r.ts));
+            const end = win.end ? Math.min(+win.end, Date.now()) : Math.max(...dated.map(r => r.ts));
+            const spanDays = Math.max(1, Math.ceil((end - start) / DAY));
+            const unit = spanDays <= 45 ? 'day' : spanDays <= 400 ? 'week' : 'month';
+            $('timeline-sub').textContent = `Per ${unit}`;
+
+            const floor = ts => {
+                const d = new Date(ts);
+                if (unit === 'month') return new Date(d.getFullYear(), d.getMonth(), 1);
+                const day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+                if (unit === 'week') day.setDate(day.getDate() - ((day.getDay() + 6) % 7));
+                return day;
+            };
+            const step = d => unit === 'month' ? new Date(d.getFullYear(), d.getMonth() + 1, 1)
+                : new Date(d.getFullYear(), d.getMonth(), d.getDate() + (unit === 'week' ? 7 : 1));
+            const buckets = [];
+            for (let d = floor(start); +d <= end; d = step(d)) buckets.push({ start: d, form: 0, call: 0 });
+            const index = new Map(buckets.map((b, i) => [+b.start, i]));
+            dated.forEach(r => {
+                const i = index.get(+floor(r.ts));
+                if (i != null) buckets[i][r.kind]++;
+            });
+
+            const max = niceMax(Math.max(...buckets.map(b => b.form + b.call)));
+            const label = d => unit === 'month'
+                ? d.toLocaleDateString([], { month: 'short', year: 'numeric' })
+                : d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+            const rangeLabel = b => unit === 'week'
+                ? `Week of ${label(b.start)}` : unit === 'month' ? label(b.start)
+                    : b.start.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+
+            const ticks = [max, max / 2, 0];
+            const gap = buckets.length > 60 ? 1 : 2;
+            el.innerHTML = `
+                <div class="flex gap-2">
+                    <div class="flex flex-col justify-between text-[11px] text-slate-400 h-48 text-right w-6 shrink-0">
+                        ${ticks.map(t => `<span class="leading-none">${Number.isInteger(t) ? t : ''}</span>`).join('')}
+                    </div>
+                    <div class="relative flex-1 h-48">
+                        ${ticks.map((t, i) => `<div class="absolute inset-x-0 border-t ${i === 2 ? 'border-slate-300' : 'border-[var(--grid)]'}" style="top:${(i / 2) * 100}%"></div>`).join('')}
+                        <div class="absolute inset-0 flex items-end" style="gap:${gap}px">
+                            ${buckets.map((b, i) => {
+                const total = b.form + b.call;
+                const segs = ['call', 'form'].filter(k => b[k]).map((k, j, arr) =>
+                    `<div style="height:${(b[k] / total) * 100}%;background:${KIND[k].color};${j === 0 ? 'border-radius:4px 4px 0 0;' : ''}${j < arr.length - 1 ? 'margin-bottom:2px;' : ''}"></div>`).join('');
+                return `<div class="col flex-1 h-full flex items-end cursor-default" tabindex="0" data-i="${i}"
+                                    aria-label="${esc(rangeLabel(b))}: ${total} leads">
+                                    <div class="stack w-full flex flex-col" style="height:${(total / max) * 100}%">${segs}</div>
+                                </div>`;
+            }).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-500 mt-2 pl-8">
+                    <span>${esc(label(buckets[0].start))}</span>
+                    ${buckets.length > 2 ? `<span>${esc(label(buckets[Math.floor(buckets.length / 2)].start))}</span>` : ''}
+                    <span>${esc(label(buckets[buckets.length - 1].start))}</span>
+                </div>`;
+
+            el.querySelectorAll('.col').forEach(col => {
+                const b = buckets[+col.dataset.i];
+                const show = e => {
+                    const tip = $('tip');
+                    tip.replaceChildren();
+                    const head = document.createElement('p');
+                    head.className = 'font-semibold text-slate-900 mb-1';
+                    head.textContent = `${b.form + b.call} leads`;
+                    const when = document.createElement('p');
+                    when.className = 'text-slate-500 mb-1';
+                    when.textContent = rangeLabel(b);
+                    tip.append(head, when);
+                    if (kinds.length > 1) kinds.forEach(k => {
+                        const line = document.createElement('p');
+                        line.className = 'flex items-center gap-2 text-slate-600';
+                        line.innerHTML = `<span class="inline-block w-3 h-0.5" style="background:${KIND[k].color}"></span>`;
+                        const strong = document.createElement('strong');
+                        strong.className = 'text-slate-900';
+                        strong.textContent = b[k];
+                        line.append(strong, document.createTextNode(' ' + KIND[k].label.toLowerCase()));
+                        tip.append(line);
+                    });
+                    tip.classList.remove('hidden');
+                    const rect = col.getBoundingClientRect();
+                    const x = e && e.clientX != null ? e.clientX : rect.left + rect.width / 2;
+                    const w = tip.offsetWidth;
+                    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x - w / 2)) + 'px';
+                    tip.style.top = Math.max(8, rect.top + rect.height - (rect.height * (b.form + b.call) / max) - tip.offsetHeight - 10) + 'px';
+                };
+                const hide = () => $('tip').classList.add('hidden');
+                col.addEventListener('pointermove', show);
+                col.addEventListener('focus', () => show());
+                col.addEventListener('pointerleave', hide);
+                col.addEventListener('blur', hide);
+            });
+        }
+
+        function statusBadge(status) {
+            const s = STATUS[status] || { color: '#64748b', icon: '•' };
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border"
+                style="color:${s.color};border-color:${s.color}33;background:${s.color}0f">
+                <span aria-hidden="true">${s.icon}</span><span class="text-slate-700">${esc(status)}</span></span>`;
+        }
+
+        function renderBreakdown(cur) {
+            if (!rows.some(r => r.hasStatus)) return renderReasons(cur);
+            $('breakdown-title').textContent = 'Lead quality';
+            $('breakdown-sub').textContent = 'Status of form leads';
+            const forms = cur.filter(r => r.kind === 'form' && r.hasStatus);
+            const el = $('statuses');
+            if (!forms.length) {
+                el.innerHTML = '<p class="text-sm text-slate-500">No form leads in this period.</p>';
+                return;
+            }
+            const counts = {};
+            forms.forEach(r => { counts[r.status] = (counts[r.status] || 0) + 1; });
+            const order = Object.keys(STATUS).filter(s => counts[s]).concat(Object.keys(counts).filter(s => !STATUS[s]));
+            el.innerHTML = order.map(s => {
+                const pct = Math.round((counts[s] / forms.length) * 100);
+                const color = (STATUS[s] || {}).color || '#64748b';
+                return `<button class="w-full text-left group" data-status="${esc(s)}">
+                    <div class="flex items-center justify-between text-sm mb-1">
+                        <span class="flex items-center gap-1.5"><span aria-hidden="true" style="color:${color}">${(STATUS[s] || {}).icon || '•'}</span>
+                            <span class="group-hover:underline">${esc(s)}</span></span>
+                        <span><strong>${counts[s]}</strong> <span class="text-slate-500 text-xs">${pct}%</span></span>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div class="bar-fill h-full rounded-full" style="width:${pct}%;background:${color}"></div>
+                    </div>
+                </button>`;
+            }).join('');
+        }
+
+        // Sections without a Lead Status column show what people asked about instead.
+        function renderReasons(cur) {
+            $('breakdown-title').textContent = 'Reason for inquiry';
+            $('breakdown-sub').textContent = 'What leads asked about';
+            const el = $('statuses');
+            const reasons = topReasons(cur);
+            if (!reasons.length) {
+                el.innerHTML = '<p class="text-sm text-slate-500">No reasons recorded in this period.</p>';
+                return;
+            }
+            const shown = reasons.slice(0, 7);
+            const other = reasons.slice(7).reduce((n, [, c]) => n + c, 0);
+            if (other) shown.push(['Other', other]);
+            const max = Math.max(...shown.map(([, c]) => c));
+            el.innerHTML = shown.map(([reason, n]) => `<div>
+                    <div class="flex items-center justify-between gap-2 text-sm mb-1">
+                        <span class="truncate">${esc(reason)}</span>
+                        <span><strong>${n}</strong> <span class="text-slate-500 text-xs">${Math.round((n / cur.length) * 100)}%</span></span>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div class="bar-fill h-full rounded-full" style="width:${(n / max) * 100}%;background:var(--series-form)"></div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderCampaigns(list) {
+            const el = $('campaigns');
+            const sec = data.sections[section];
+            const counts = sec.tabs.map(t => ({ tab: t, n: list.filter(r => r.tab === t.name).length }))
+                .sort((a, b) => b.n - a.n);
+            const max = Math.max(1, ...counts.map(c => c.n));
+            el.innerHTML = counts.map(({ tab, n }) => {
+                const active = state.tab === tab.name;
+                const dim = state.tab !== 'all' && !active;
+                return `<button class="w-full grid grid-cols-[minmax(0,180px)_1fr_40px] sm:grid-cols-[220px_1fr_48px] items-center gap-3 text-left rounded-lg px-2 py-1.5 hover:bg-slate-50 ${dim ? 'opacity-50' : ''}"
+                    data-tab="${esc(tab.name)}" aria-pressed="${active}">
+                    <span class="text-sm truncate ${active ? 'font-semibold' : ''}">${esc(tab.label)}</span>
+                    <span class="h-3 rounded bg-slate-100 overflow-hidden">
+                        <span class="bar-fill block h-full" style="width:${(n / max) * 100}%;background:${KIND[tab.kind].color};border-radius:0 4px 4px 0"></span>
+                    </span>
+                    <span class="text-sm font-semibold text-right">${fmt(n)}</span>
+                </button>`;
+            }).join('');
+        }
+
+        function renderLeads(cur) {
+            $('lead-count').textContent = `(${fmt(cur.length)})`;
+            const shown = cur.slice(0, state.shown);
+            $('leads').innerHTML = shown.length ? shown.map(r => {
+                const n = (comments[r.key] || []).length;
+                const contact = r.kind === 'call'
+                    ? `${esc(fmtDur(r.duration))} call${r.campaign ? ` · ${esc(r.campaign)}` : ''}`
+                    : [r.phone, r.email].filter(Boolean).map(esc).join('<br>');
+                return `<button class="lead-row w-full text-left grid md:grid-cols-[150px_1.2fr_1.3fr_1fr_130px_40px] gap-x-3 gap-y-1 px-5 py-3 border-b border-slate-100 items-center"
+                    data-key="${esc(r.key)}">
+                    <span class="text-xs text-slate-500 order-2 md:order-none">${esc(r.when)}</span>
+                    <span class="min-w-0 order-1 md:order-none">
+                        <span class="block font-medium text-sm truncate">${r.kind === 'call' ? '📞 ' : ''}${esc(r.name || '(no name)')}</span>
+                        ${noteOf(r) ? `<span class="block text-xs text-slate-500 truncate" title="${esc(noteOf(r))}">📝 ${esc(noteOf(r))}</span>` : ''}
+                    </span>
+                    <span class="text-xs text-slate-600 break-all order-3 md:order-none">${contact}</span>
+                    <span class="text-xs text-slate-600 order-4 md:order-none">${esc(r.tabLabel)}</span>
+                    <span class="order-5 md:order-none">${r.kind === 'form'
+                        ? (r.hasStatus ? statusBadge(r.status) : `<span class="text-xs text-slate-500">${esc(reasonOf(r))}</span>`)
+                        : `<span class="text-xs text-slate-500">${esc(r.status)}</span>`}</span>
+                    <span class="text-xs text-slate-500 order-6 md:order-none md:text-right">${n ? `💬 ${n}` : ''}</span>
+                </button>`;
+            }).join('') : '<p class="px-5 py-10 text-center text-sm text-slate-500">No leads match these filters.</p>';
+            $('more-wrap').classList.toggle('hidden', cur.length <= state.shown);
+        }
+
+        // ---------- Drawer ----------
+        function openLead(key) {
+            const r = rows.find(x => x.key === key);
+            if (!r) return;
+            openKey = key;
+            $('d-name').textContent = r.name || '(no name)';
+            $('d-meta').textContent = [r.when, r.tabLabel].filter(Boolean).join(' · ');
+            const contact = [];
+            if (r.phone) contact.push(`<a class="btn" href="tel:${esc(r.phone.replace(/[^\d+]/g, ''))}">📞 ${esc(r.phone)}</a>`);
+            if (r.email) contact.push(`<a class="btn" href="mailto:${esc(r.email)}">✉️ ${esc(r.email)}</a>`);
+            $('d-contact').innerHTML = (r.kind === 'form' && r.hasStatus ? statusBadge(r.status) : '') + contact.join('');
+            // Office notes lead the details so the client sees follow-up status first.
+            const details = r.kind === 'call'
+                ? [['Duration', fmtDur(r.duration)], ...r.details.filter(d => !/^duration/i.test(d[0]))]
+                : [...r.details.filter(d => NOTE_PATTERN.test(d[0].trim())), ...r.details.filter(d => !NOTE_PATTERN.test(d[0].trim()))];
+            $('d-details').innerHTML = details.map(([k, v]) =>
+                `<div><dt class="text-xs text-slate-500">${esc(k)}</dt><dd class="whitespace-pre-wrap break-words">${esc(v)}</dd></div>`).join('');
+            renderComments();
+            try { $('c-author').value = localStorage.getItem('mykohi_report_author') || ''; } catch (e) { }
+            $('c-msg').textContent = '';
+            $('overlay').classList.remove('hidden');
+            $('drawer').classList.remove('translate-x-full');
+            $('d-close').focus();
+        }
+
+        function renderComments() {
+            const list = (comments[openKey] || []).slice().sort((a, b) => new Date(a.at) - new Date(b.at));
+            $('d-comments').innerHTML = list.length ? list.map(c => `
+                <div class="bg-slate-50 rounded-xl px-3 py-2">
+                    <p class="text-xs text-slate-500"><strong class="text-slate-700">${esc(c.author)}</strong> ·
+                        ${esc(new Date(c.at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }))}</p>
+                    <p class="text-sm whitespace-pre-wrap break-words mt-0.5">${esc(c.text)}</p>
+                </div>`).join('') : '<p class="text-sm text-slate-500">No comments yet.</p>';
+        }
+
+        function closeLead() {
+            openKey = null;
+            $('overlay').classList.add('hidden');
+            $('drawer').classList.add('translate-x-full');
+        }
+
+        $('c-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const r = rows.find(x => x.key === openKey);
+            const text = $('c-text').value.trim();
+            const author = $('c-author').value.trim();
+            if (!r || !text || !author) return;
+            const btn = $('c-submit');
+            btn.disabled = true;
+            $('c-msg').textContent = 'Posting…';
+            try {
+                const res = await api('comment', { leadKey: r.key, leadName: r.name, author, text });
+                (comments[r.key] ||= []).push(res.comment);
+                try { localStorage.setItem('mykohi_report_author', author); } catch (e) { }
+                $('c-text').value = '';
+                $('c-msg').textContent = 'Posted.';
+                renderComments();
+                render();
+            } catch (err) {
+                $('c-msg').textContent = 'Couldn’t post: ' + err.message;
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        // ---------- CSV ----------
+        function downloadCsv() {
+            const win = rangeWindow(state.range);
+            const list = rows.filter(r => matchesOther(r) && inWindow(r, win));
+            const detailKeys = [...new Set(list.flatMap(r => r.details.map(d => d[0])))];
+            const head = ['Date', 'Type', 'Campaign', 'Name', 'Phone', 'Email', 'Status', ...detailKeys, 'Comments'];
+            // Leading = + - @ would run as a formula when opened in a spreadsheet.
+            const cell = v => {
+                let s = String(v ?? '');
+                if (/^[=+\-@]/.test(s)) s = "'" + s;
+                return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+            };
+            const lines = [head.map(cell).join(',')].concat(list.map(r => {
+                const det = Object.fromEntries(r.details);
+                return [r.when, r.kind === 'call' ? 'Phone call' : 'Form', r.tabLabel, r.kind === 'call' ? '' : r.name,
+                r.phone, r.email || '', r.status, ...detailKeys.map(k => det[k] || ''),
+                (comments[r.key] || []).map(c => `${c.author}: ${c.text}`).join(' | ')].map(cell).join(',');
+            }));
+            const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${(data.client.name || 'leads').replace(/[^\w-]+/g, '-')}-${section}-leads.csv`;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        }
+
+        // ---------- Events ----------
+        $('sections').addEventListener('click', e => {
+            const b = e.target.closest('[data-section]');
+            if (b && b.dataset.section !== section) selectSection(b.dataset.section);
+        });
+        $('f-range').addEventListener('change', e => {
+            state.range = e.target.value; state.shown = PAGE;
+            try { localStorage.setItem('mykohi_report_range', state.range); } catch (err) { }
+            render();
+        });
+        $('f-tab').addEventListener('change', e => { state.tab = e.target.value; state.shown = PAGE; render(); });
+        $('f-status').addEventListener('change', e => { state.status = e.target.value; state.shown = PAGE; render(); });
+        let qTimer;
+        $('f-q').addEventListener('input', e => {
+            clearTimeout(qTimer);
+            qTimer = setTimeout(() => { state.q = e.target.value.trim(); state.shown = PAGE; render(); }, 150);
+        });
+        $('campaigns').addEventListener('click', e => {
+            const b = e.target.closest('[data-tab]');
+            if (!b) return;
+            state.tab = state.tab === b.dataset.tab ? 'all' : b.dataset.tab;
+            $('f-tab').value = state.tab; state.shown = PAGE; render();
+        });
+        $('statuses').addEventListener('click', e => {
+            const b = e.target.closest('[data-status]');
+            if (!b) return;
+            state.status = state.status === b.dataset.status ? 'all' : b.dataset.status;
+            $('f-status').value = state.status; state.shown = PAGE; render();
+        });
+        $('leads').addEventListener('click', e => {
+            const b = e.target.closest('[data-key]');
+            if (b) openLead(b.dataset.key);
+        });
+        $('more').addEventListener('click', () => { state.shown += PAGE; render(); });
+        $('csv').addEventListener('click', downloadCsv);
+        $('refresh').addEventListener('click', load);
+        $('d-close').addEventListener('click', closeLead);
+        $('overlay').addEventListener('click', closeLead);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && openKey) closeLead(); });
+
+        if (!CODE) {
+            $('state-title').textContent = 'This link isn’t valid';
+            $('state-text').textContent = 'Please use the full report link from your MyKohi contact.';
+        } else {
+            load();
+        }
+    </script>
+</body>
+
+</html>
