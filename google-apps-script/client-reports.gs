@@ -142,7 +142,8 @@ function load_(client) {
 
 function readSpreadsheet_(id) {
   const ss = SpreadsheetApp.openById(id);
-  const tz = ss.getSpreadsheetTimeZone();
+  // Sheets created by form tools can have no time zone set; fall back to the script's (Project Settings).
+  const tz = ss.getSpreadsheetTimeZone() || Session.getScriptTimeZone() || 'America/Phoenix';
   const tabs = ss.getSheets().map(sh => readTab_(sh, tz)).filter(Boolean);
   const labels = tabLabels_(tabs.map(t => t.name));
   tabs.forEach(t => { t.label = labels[t.name]; });
