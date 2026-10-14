@@ -237,7 +237,7 @@
                         <span class="text-xs text-slate-500">Click a lead to view details or comment</span>
                     </div>
                     <div class="hidden md:grid grid-cols-[150px_1.2fr_1.3fr_1fr_130px_40px] gap-3 px-5 py-2 text-xs font-medium text-slate-500 border-b border-slate-100">
-                        <span>Date</span><span>Lead</span><span>Contact</span><span>Campaign</span><span id="status-head">Status</span><span></span>
+                        <span>Date</span><span>Lead</span><span>Contact</span><span>Campaign</span><span>Status</span><span></span>
                     </div>
                     <div id="leads"></div>
                     <div id="more-wrap" class="hidden p-4 text-center border-t border-slate-100">
@@ -268,6 +268,13 @@
             </button>
         </div>
         <div class="flex-1 overflow-y-auto px-5 py-4 space-y-5">
+            <div>
+                <label for="d-status" class="text-xs text-slate-500">Lead status</label>
+                <div class="flex items-center gap-2 mt-1">
+                    <select id="d-status" class="field"></select>
+                    <span id="d-status-msg" class="text-xs text-slate-500"></span>
+                </div>
+            </div>
             <div id="d-contact" class="flex flex-wrap gap-2"></div>
             <dl id="d-details" class="space-y-3 text-sm"></dl>
             <div>
@@ -299,11 +306,14 @@
         // Status colors pair with an icon + label, never color alone.
         const STATUS = {
             'Valid': { color: '#0ca30c', icon: '✓' },
+            'Client contacted': { color: '#0284c7', icon: '☎' },
             'Existing patient': { color: '#6250d6', icon: '↺' },
             'Out of location': { color: '#ec835a', icon: '⌖' },
             'Invalid': { color: '#d03b3b', icon: '✕' },
             'Not reviewed': { color: '#94a3b8', icon: '•' },
         };
+        // Statuses the client can set from the lead panel (the backend accepts only these).
+        const EDITABLE_STATUSES = ['Not reviewed', 'Client contacted', 'Valid', 'Invalid', 'Existing patient'];
         const KIND = {
             form: { label: 'Form leads', color: 'var(--series-form)' },
             call: { label: 'Phone calls', color: 'var(--series-call)' },
@@ -409,16 +419,9 @@
             $('f-tab').innerHTML = '<option value="all">All campaigns</option>' +
                 sec.tabs.map(t => `<option value="${esc(t.name)}">${esc(t.label)}</option>`).join('');
             $('f-tab').value = state.tab;
-            const statuses = [...new Set(rows.filter(r => r.kind === 'form' && r.hasStatus).map(r => r.status))];
-            const ordered = Object.keys(STATUS).filter(s => statuses.includes(s)).concat(statuses.filter(s => !STATUS[s]));
-            $('f-status').innerHTML = '<option value="all">All statuses</option>' +
-                ordered.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('') +
-                (rows.some(r => r.kind === 'call') ? '<option value="__calls">Phone calls only</option>' : '');
-            $('f-status').value = state.status;
-            $('f-status').classList.toggle('hidden', $('f-status').options.length < 2);
+            refreshStatusFilter();
             $('campaigns-card').classList.toggle('hidden', sec.tabs.length < 2);
             $('f-tab').classList.toggle('hidden', sec.tabs.length < 2);
-            $('status-head').textContent = sec.tabs.some(t => t.hasStatus) ? 'Status' : 'Reason';
 
             const empty = !sec.connected || rows.length === 0;
             $('report').classList.toggle('hidden', empty);
@@ -427,6 +430,16 @@
                 ? `${SECTION_LABELS[key]} aren’t connected yet.`
                 : 'No leads yet. They’ll appear here as they come in.';
             render();
+        }
+
+        function refreshStatusFilter() {
+            const statuses = [...new Set(rows.map(r => r.status))];
+            const ordered = Object.keys(STATUS).filter(s => statuses.includes(s)).concat(statuses.filter(s => !STATUS[s]));
+            $('f-status').innerHTML = '<option value="all">All statuses</option>' +
+                ordered.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('') +
+                (rows.some(r => r.kind === 'call') ? '<option value="__calls">Phone calls only</option>' : '');
+            $('f-status').value = state.status;
+            $('f-status').classList.toggle('hidden', $('f-status').options.length < 2);
         }
 
         // ---------- Filtering ----------
@@ -461,7 +474,7 @@
         function matchesOther(r, ignoreTab = false) {
             if (!ignoreTab && state.tab !== 'all' && r.tab !== state.tab) return false;
             if (state.status === '__calls' && r.kind !== 'call') return false;
-            if (state.status !== 'all' && state.status !== '__calls' && (r.kind !== 'form' || r.status !== state.status)) return false;
+            if (state.status !== 'all' && state.status !== '__calls' && r.status !== state.status) return false;
             if (state.q) {
                 const q = state.q.toLowerCase();
                 const hay = [r.name, r.email, r.phone, r.tabLabel, r.campaign, ...r.details.map(d => d[1])].join(' ').toLowerCase();
@@ -513,9 +526,9 @@
             const count = (list, fn) => list ? list.filter(fn).length : null;
             const forms = r => r.kind === 'form';
             const calls = r => r.kind === 'call';
-            const valid = r => r.kind === 'form' && r.hasStatus && r.status === 'Valid';
+            const valid = r => r.status === 'Valid';
             const hasCalls = rows.some(calls);
-            const hasStatus = rows.some(r => r.hasStatus);
+            const hasStatus = statusTracked();
             const tiles = [kpiTile('Total leads', cur.length, prev?.length ?? null, win.prevLabel)];
             if (hasCalls) {
                 tiles.push(kpiTile('Form submissions', count(cur, forms), count(prev, forms), win.prevLabel));
@@ -525,10 +538,9 @@
                 tiles.push(kpiTile('Average per week', perWeek(cur), prev ? perWeek(prev) : null, win.prevLabel));
             }
             if (hasStatus) {
-                const scored = count(cur, r => r.kind === 'form' && r.hasStatus);
                 const v = count(cur, valid);
                 tiles.push(kpiTile('Valid leads', v, count(prev, valid), win.prevLabel,
-                    scored ? `${Math.round((v / scored) * 100)}% of form leads` : ''));
+                    cur.length ? `${Math.round((v / cur.length) * 100)}% of leads` : ''));
             } else {
                 const top = topReasons(cur)[0];
                 if (top) tiles.push(kpiTile('Top reason', top[0], null, '', `${top[1]} of ${cur.length} leads`));
@@ -666,14 +678,17 @@
                 <span aria-hidden="true">${s.icon}</span><span class="text-slate-700">${esc(status)}</span></span>`;
         }
 
+        // Lead status is in use once the sheet has a Lead Status column or anyone has set one.
+        const statusTracked = () => rows.some(r => r.hasStatus || r.status !== 'Not reviewed');
+
         function renderBreakdown(cur) {
-            if (!rows.some(r => r.hasStatus)) return renderReasons(cur);
+            if (!statusTracked()) return renderReasons(cur);
             $('breakdown-title').textContent = 'Lead quality';
-            $('breakdown-sub').textContent = 'Status of form leads';
-            const forms = cur.filter(r => r.kind === 'form' && r.hasStatus);
+            $('breakdown-sub').textContent = 'Status of leads';
+            const forms = cur;
             const el = $('statuses');
             if (!forms.length) {
-                el.innerHTML = '<p class="text-sm text-slate-500">No form leads in this period.</p>';
+                el.innerHTML = '<p class="text-sm text-slate-500">No leads in this period.</p>';
                 return;
             }
             const counts = {};
@@ -757,9 +772,7 @@
                     </span>
                     <span class="text-xs text-slate-600 break-all order-3 md:order-none">${contact}</span>
                     <span class="text-xs text-slate-600 order-4 md:order-none">${esc(r.tabLabel)}</span>
-                    <span class="order-5 md:order-none">${r.kind === 'form'
-                        ? (r.hasStatus ? statusBadge(r.status) : `<span class="text-xs text-slate-500">${esc(reasonOf(r))}</span>`)
-                        : `<span class="text-xs text-slate-500">${esc(r.status)}</span>`}</span>
+                    <span class="order-5 md:order-none">${statusBadge(r.status)}</span>
                     <span class="text-xs text-slate-500 order-6 md:order-none md:text-right">${n ? `💬 ${n}` : ''}</span>
                 </button>`;
             }).join('') : '<p class="px-5 py-10 text-center text-sm text-slate-500">No leads match these filters.</p>';
@@ -776,7 +789,11 @@
             const contact = [];
             if (r.phone) contact.push(`<a class="btn" href="tel:${esc(r.phone.replace(/[^\d+]/g, ''))}">📞 ${esc(r.phone)}</a>`);
             if (r.email) contact.push(`<a class="btn" href="mailto:${esc(r.email)}">✉️ ${esc(r.email)}</a>`);
-            $('d-contact').innerHTML = (r.kind === 'form' && r.hasStatus ? statusBadge(r.status) : '') + contact.join('');
+            $('d-contact').innerHTML = contact.join('');
+            const options = EDITABLE_STATUSES.includes(r.status) ? EDITABLE_STATUSES : [r.status, ...EDITABLE_STATUSES];
+            $('d-status').innerHTML = options.map(st => `<option value="${esc(st)}">${esc(st)}</option>`).join('');
+            $('d-status').value = r.status;
+            $('d-status-msg').textContent = '';
             // Office notes lead the details so the client sees follow-up status first.
             const details = r.kind === 'call'
                 ? [['Duration', fmtDur(r.duration)], ...r.details.filter(d => !/^duration/i.test(d[0]))]
@@ -828,6 +845,33 @@
                 $('c-msg').textContent = 'Couldn’t post: ' + err.message;
             } finally {
                 btn.disabled = false;
+            }
+        });
+
+        $('d-status').addEventListener('change', async e => {
+            const r = rows.find(x => x.key === openKey);
+            if (!r) return;
+            const before = r.status;
+            const status = e.target.value;
+            let author = '';
+            try { author = localStorage.getItem('mykohi_report_author') || ''; } catch (err) { }
+            r.status = status;
+            render();
+            $('d-status').disabled = true;
+            $('d-status-msg').textContent = 'Saving…';
+            try {
+                await api('status', { section, leadKey: r.key, leadName: r.name, status, author: author || $('c-author').value.trim() });
+                // Keep the loaded data in step so switching sections doesn't bring back the old status.
+                data.sections[section].tabs.forEach(t => t.rows.forEach(x => { if (x.key === r.key) x.status = status; }));
+                $('d-status-msg').textContent = 'Saved.';
+                refreshStatusFilter();
+            } catch (err) {
+                r.status = before;
+                $('d-status').value = before;
+                render();
+                $('d-status-msg').textContent = 'Couldn’t save: ' + err.message;
+            } finally {
+                $('d-status').disabled = false;
             }
         });
 

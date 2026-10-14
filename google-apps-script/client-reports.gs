@@ -3,13 +3,17 @@
  *
  * Powers mykohi.com/reports/?c=<code>. Each client has an ads lead spreadsheet and a website
  * lead spreadsheet. This script reads every lead tab in them, drops test leads, and lets the
- * client leave comments on a lead. Clients and comments live in a private "registry" sheet,
- * so no access codes are stored in this file (this repo is publicly served).
+ * client leave comments on a lead and set its status. Clients, comments and status changes live in
+ * a private "registry" sheet, so no access codes are stored in this file (this repo is publicly served).
+ *
+ * Status changes: when the lead's tab has a "Lead Status" column, the new status is written straight
+ * into it. Otherwise (no such column, or the cell rejects the value) it is kept in the "Statuses" tab
+ * and applied on top of the sheet. Every change is logged in "Statuses" either way.
  *
  * Setup (one time):
  *  1. Create a new Google Sheet, e.g. "MyKohi Client Reports". Extensions > Apps Script.
  *     Paste this file in as Code.gs and save. Reload the sheet: a "Client Reports" menu appears.
- *  2. Client Reports > Set up tabs. This creates the "Clients" and "Comments" tabs.
+ *  2. Client Reports > Set up tabs. This creates the "Clients", "Comments" and "Statuses" tabs.
  *  3. Add one row per client in "Clients": Client name, Ads sheet URL, Website sheet URL.
  *     Leave Code blank and run Client Reports > Fill missing codes. Logo URL is optional; for a white
  *     logo, set Logo Background to a dark color such as #0f172a.
@@ -31,6 +35,13 @@ const CLIENTS_TAB = 'Clients';
 const COMMENTS_TAB = 'Comments';
 const CLIENT_HEADERS = ['Code', 'Client', 'Ads Sheet', 'Website Sheet', 'Logo URL', 'Logo Background', 'Active'];
 const COMMENT_HEADERS = ['Timestamp', 'Client Code', 'Client', 'Lead Key', 'Lead', 'Author', 'Comment'];
+const STATUSES_TAB = 'Statuses';
+const STATUS_HEADERS = ['Timestamp', 'Client Code', 'Client', 'Lead Key', 'Lead', 'Status', 'Changed By', 'Written To Sheet'];
+// Statuses a client can pick, and how each is written into a sheet's Lead Status column.
+const SHEET_STATUS_LABELS = {
+  'Not reviewed': '', 'Client contacted': 'Client Contacted', 'Valid': 'Valid',
+  'Invalid': 'Invalid', 'Existing patient': 'Existing Patient',
+};
 const SECTIONS = [{ key: 'ads', column: 'Ads Sheet' }, { key: 'website', column: 'Website Sheet' }];
 // Normalized header names never sent to the client.
 const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'xtwitter', 'company', 'submit', 'recaptchav3token'];
@@ -48,7 +59,7 @@ function onOpen() {
 
 function setupTabs() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  [[CLIENTS_TAB, CLIENT_HEADERS], [COMMENTS_TAB, COMMENT_HEADERS]].forEach(([name, headers]) => {
+  [[CLIENTS_TAB, CLIENT_HEADERS], [COMMENTS_TAB, COMMENT_HEADERS], [STATUSES_TAB, STATUS_HEADERS]].forEach(([name, headers]) => {
     const sh = ss.getSheetByName(name) || ss.insertSheet(name);
     if (sh.getLastRow() === 0) sh.appendRow(headers);
     sh.getRange(1, 1, 1, headers.length).setFontWeight('bold');
@@ -77,6 +88,7 @@ function doPost(e) {
     switch (body.action) {
       case 'load': return json(load_(client));
       case 'comment': return json(addComment_(client, body));
+      case 'status': return json(setStatus_(client, body));
       default: return json({ ok: false, error: 'Unknown action' });
     }
   } catch (err) {
@@ -127,9 +139,13 @@ function spreadsheetId_(urlOrId) {
 
 function load_(client) {
   const sections = {};
+  const overrides = statusOverrides_(client.code);
   SECTIONS.forEach(s => {
     const id = spreadsheetId_(client.sheets[s.key]);
     sections[s.key] = id ? readSpreadsheet_(id) : { connected: false, tabs: [] };
+    sections[s.key].tabs.forEach(t => t.rows.forEach(r => {
+      if (overrides[r.key]) r.status = overrides[r.key];
+    }));
   });
   return {
     ok: true,
@@ -205,7 +221,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
     } else {
       row.name = text(idx('callerphonenumber'));
       row.phone = row.name;
-      row.status = text(idx('status')) || 'Call';
+      row.status = 'Not reviewed';
       row.duration = Number(raw[idx('durationseconds')]) || 0;
       row.campaign = text(idx('campaign'));
       row.key = tabName + '|' + row.ts + '|' + row.phone;
@@ -241,6 +257,7 @@ function normStatus_(s) {
   const k = normKey_(s);
   if (!k) return 'Not reviewed';
   if (k === 'test') return 'Test';
+  if (k.indexOf('contacted') !== -1) return 'Client contacted';
   if (k.indexOf('invalid') === 0) return 'Invalid';
   if (k.indexOf('valid') === 0) return 'Valid';
   if (k.indexOf('existing') === 0) return 'Existing patient';
@@ -323,5 +340,85 @@ function addComment_(client, body) {
     return { ok: true, comment: { at: now.toISOString(), leadKey: leadKey, author: author, text: text } };
   } finally {
     lock.releaseLock();
+  }
+}
+
+// ---------- Statuses ----------
+
+function statusesSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(STATUSES_TAB);
+  if (!sh) {
+    sh = ss.insertSheet(STATUSES_TAB);
+    sh.appendRow(STATUS_HEADERS);
+  }
+  return sh;
+}
+
+// Latest status per lead that could not be written into the lead's own sheet. Statuses that were
+// written to the sheet are left to the sheet, so later edits by the team there still win.
+function statusOverrides_(code) {
+  const values = statusesSheet_().getDataRange().getValues();
+  values.shift();
+  const out = {};
+  values.forEach(r => {
+    if (String(r[1]) !== code) return;
+    if (r[7] === true || String(r[7]).toUpperCase() === 'TRUE') delete out[String(r[3])];
+    else out[String(r[3])] = String(r[5]);
+  });
+  return out;
+}
+
+function setStatus_(client, body) {
+  const status = String(body.status || '');
+  if (!Object.prototype.hasOwnProperty.call(SHEET_STATUS_LABELS, status)) throw new Error('Unknown status');
+  const leadKey = String(body.leadKey || '').slice(0, 300);
+  const section = SECTIONS.find(s => s.key === body.section);
+  if (!leadKey || !section) throw new Error('Missing lead');
+  const author = String(body.author || '').trim().slice(0, 80) || 'Client';
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const written = writeStatusToSheet_(spreadsheetId_(client.sheets[section.key]), leadKey, SHEET_STATUS_LABELS[status]);
+    const cell = s => (/^[=+\-@]/.test(s) ? "'" + s : s);
+    statusesSheet_().appendRow([new Date(), client.code, client.name, cell(leadKey),
+      cell(String(body.leadName || '').slice(0, 120)), status, cell(author), written]);
+    return { ok: true, status: status, writtenToSheet: written };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// Writes into the lead's "Lead Status" cell, found by tab name + ID. Returns false when the tab has
+// no such column, the lead has no ID, or the cell refuses the value (e.g. strict data validation).
+function writeStatusToSheet_(spreadsheetId, leadKey, label) {
+  const sep = leadKey.indexOf('|');
+  if (!spreadsheetId || sep === -1) return false;
+  const tabName = leadKey.slice(0, sep);
+  const leadId = leadKey.slice(sep + 1);
+  try {
+    const sh = SpreadsheetApp.openById(spreadsheetId).getSheetByName(tabName);
+    if (!sh) return false;
+    const values = sh.getDataRange().getDisplayValues();
+    let header = -1;
+    for (let i = 0; i < Math.min(values.length, HEADER_SCAN_ROWS); i++) {
+      const keys = values[i].map(normKey_);
+      if (keys.indexOf('leadstatus') !== -1 && keys.indexOf('id') !== -1) header = i;
+    }
+    if (header === -1) return false;
+    const keys = values[header].map(normKey_);
+    const idCol = keys.indexOf('id');
+    const statusCol = keys.indexOf('leadstatus');
+    for (let r = header + 1; r < values.length; r++) {
+      if (String(values[r][idCol]).trim() === leadId) {
+        sh.getRange(r + 1, statusCol + 1).setValue(label);
+        SpreadsheetApp.flush();
+        return true;
+      }
+    }
+    return false;
+  } catch (err) {
+    return false;
   }
 }
