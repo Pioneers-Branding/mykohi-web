@@ -197,14 +197,22 @@ function parseRows_(tabName, kind, values, display, headerRow) {
   for (let r = headerRow + 1; r < values.length; r++) {
     const raw = values[r];
     if (!raw.some(v => v !== '' && v !== null)) continue;
-    const text = c => (c === -1 ? '' : String(display[r][c]).trim());
-    const when = timeCol === -1 ? null : toDate_(raw[timeCol]);
+    const text = c => (c === -1 ? '' : cleanText_(display[r][c]));
+    // Some rows have the date in another column (older form versions) or none in the date column;
+    // fall back to the first other cell that looks like a date.
+    let dateCol = timeCol;
+    let when = timeCol === -1 ? null : toDate_(raw[timeCol]);
+    for (let c = 0; !when && c < raw.length; c++) {
+      if (c === timeCol || !(raw[c] instanceof Date || DATE_TEXT.test(text(c)))) continue;
+      when = toDate_(raw[c]);
+      if (when) dateCol = c;
+    }
 
     const row = {
       kind: kind,
       ts: when ? when.getTime() : null,
       // Dates show as they appear in the sheet; only bare serial numbers get formatted.
-      when: typeof raw[timeCol] === 'number' && when ? Utilities.formatDate(when, 'UTC', 'MMM dd, yyyy, HH:mm') : text(timeCol),
+      when: !when ? '' : typeof raw[dateCol] === 'number' ? Utilities.formatDate(when, 'UTC', 'MMM dd, yyyy, HH:mm') : text(dateCol),
       details: [],
     };
 
@@ -266,12 +274,20 @@ function normStatus_(s) {
 }
 
 // Sheet cells hold real dates, date serial numbers, or text like "Sep 01, 2026, 20:40".
+// Text like "Sep 25, 2026, 1:00:00 PM".
+const DATE_TEXT = /^[A-Z][a-z]{2,8}\.? \d{1,2}, \d{4}/;
+
+// Exports can leave non-breaking spaces, or their mis-encoded form "â€¯", inside values.
+function cleanText_(v) {
+  return String(v === null || v === undefined ? '' : v).replace(/â€¯|[\u202f\u00a0]/g, ' ').trim();
+}
+
 function toDate_(v) {
   if (v instanceof Date && !isNaN(v)) return v;
   if (typeof v === 'number' && v > 20000 && v < 80000) {
     return new Date(Math.round((v - 25569) * 86400000));
   }
-  const s = String(v || '').trim().replace(/,(\s*\d{1,2}:\d{2})/, ' $1');
+  const s = cleanText_(v).replace(/,(\s*\d{1,2}:\d{2})/, ' $1');
   if (!s) return null;
   const d = new Date(s);
   return isNaN(d) ? null : d;

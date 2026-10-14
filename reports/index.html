@@ -765,7 +765,7 @@
                     : [r.phone, r.email].filter(Boolean).map(esc).join('<br>');
                 return `<button class="lead-row w-full text-left grid md:grid-cols-[150px_1.2fr_1.3fr_1fr_130px_40px] gap-x-3 gap-y-1 px-5 py-3 border-b border-slate-100 items-center"
                     data-key="${esc(r.key)}">
-                    <span class="text-xs text-slate-500 order-2 md:order-none">${esc(r.when)}</span>
+                    <span class="text-xs text-slate-500 order-2 md:order-none">${esc(r.when || "No date")}</span>
                     <span class="min-w-0 order-1 md:order-none">
                         <span class="block font-medium text-sm truncate">${r.kind === 'call' ? '📞 ' : ''}${esc(r.name || '(no name)')}</span>
                         ${noteOf(r) ? `<span class="block text-xs text-slate-500 truncate" title="${esc(noteOf(r))}">📝 ${esc(noteOf(r))}</span>` : ''}
