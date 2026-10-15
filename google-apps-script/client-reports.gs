@@ -26,7 +26,8 @@
  * Lead tabs are found automatically: any tab with a header row containing "Email" plus "ID" or
  * "Lead Status" is a form-lead tab, and any tab with "Caller phone number" is a call tab. The
  * header row can sit below a summary block; when a tab has more than one (an old header left at
- * the top), the lowest one wins. New campaign tabs show up without changes here.
+ * the top), the lowest one wins. A pasted Google Ads call export with no header row is also
+ * recognised (see CALL_EXPORT_COLUMNS). New campaign tabs show up without changes here.
  *
  * After editing this file: Deploy > Manage deployments > Edit > Version: New version.
  */
@@ -44,11 +45,14 @@ const SHEET_STATUS_LABELS = {
 };
 const SECTIONS = [{ key: 'ads', column: 'Ads Sheet' }, { key: 'website', column: 'Website Sheet' }];
 // Normalized header names never sent to the client.
-const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'xtwitter', 'company', 'submit', 'recaptchav3token'];
+const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'leadform', 'xtwitter', 'company', 'submit', 'recaptchav3token'];
 // A lead is a test if its name or email has a word starting with "test" (test@, Testm, test2 — but
 // not "greatest" or "contest"), or its status is "Test".
 const TEST_PATTERN = /(^|[^a-z])test/i;
 const HEADER_SCAN_ROWS = 40;
+// Column order of a Google Ads "call details" export, for call tabs pasted without their header row.
+const CALL_EXPORT_COLUMNS = ['Start time', 'Duration (seconds)', 'Caller country code', 'Caller area code',
+  'Caller phone number', 'Status', 'Call source', 'Call type', 'Campaign'];
 
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('Client Reports')
@@ -142,7 +146,7 @@ function load_(client) {
   const overrides = statusOverrides_(client.code);
   SECTIONS.forEach(s => {
     const id = spreadsheetId_(client.sheets[s.key]);
-    sections[s.key] = id ? readSpreadsheet_(id) : { connected: false, tabs: [] };
+    sections[s.key] = id ? readSpreadsheet_(id, client.name) : { connected: false, tabs: [] };
     sections[s.key].tabs.forEach(t => t.rows.forEach(r => {
       if (overrides[r.key]) r.status = overrides[r.key];
     }));
@@ -156,10 +160,10 @@ function load_(client) {
   };
 }
 
-function readSpreadsheet_(id) {
+function readSpreadsheet_(id, clientName) {
   const ss = SpreadsheetApp.openById(id);
   const tabs = ss.getSheets().map(readTab_).filter(Boolean);
-  const labels = tabLabels_(tabs.map(t => t.name));
+  const labels = tabLabels_(tabs.map(t => t.name), clientName);
   tabs.forEach(t => { t.label = labels[t.name]; });
   return { connected: true, tabs: tabs };
 }
@@ -178,6 +182,7 @@ function readTab_(sh) {
       header = { row: i, kind: 'call', hasStatus: false };
     }
   }
+  if (!header) header = headerlessCallExport_(values, display);
   if (!header) return null;
   return {
     name: sh.getName(),
@@ -185,6 +190,27 @@ function readTab_(sh) {
     hasStatus: header.hasStatus,
     rows: parseRows_(sh.getName(), header.kind, values, display, header.row),
   };
+}
+
+// A call export pasted without its header: first column is a date, a later one says "click-to-call"
+// or holds a ###-###-#### number. The row above the first such row becomes the header, using the
+// export's column names and keeping any titles the team added past them (e.g. "Notes from Sandra").
+function headerlessCallExport_(values, display) {
+  const first = display.findIndex(row => DATE_TEXT.test(cleanText_(row[0])) &&
+    row.some(v => /click-to-call|^\d{3}-\d{3}-\d{4}$/i.test(cleanText_(v))));
+  if (first === -1 || first > HEADER_SCAN_ROWS) return null;
+  const above = first > 0 ? values[first - 1] : [];
+  const width = values[first].length;
+  const names = [];
+  for (let c = 0; c < width; c++) names.push(CALL_EXPORT_COLUMNS[c] || String(above[c] || '').trim());
+  if (first > 0) {
+    values[first - 1] = names;
+    display[first - 1] = names;
+  } else {
+    values.unshift(names);
+    display.unshift(names);
+  }
+  return { row: first > 0 ? first - 1 : 0, kind: 'call', hasStatus: false };
 }
 
 function parseRows_(tabName, kind, values, display, headerRow) {
@@ -277,9 +303,13 @@ function normStatus_(s) {
 // Text like "Sep 25, 2026, 1:00:00 PM".
 const DATE_TEXT = /^[A-Z][a-z]{2,8}\.? \d{1,2}, \d{4}/;
 
-// Exports can leave non-breaking spaces, or their mis-encoded form "â€¯", inside values.
+// Exports can leave non-breaking spaces and mis-encoded punctuation ("â€¯", "â€“") inside values.
+const MOJIBAKE = { 'â€¯': ' ', 'â€“': '–', 'â€”': '—', 'â€™': '’', 'â€˜': '‘', 'â€œ': '“', 'â€\u009d': '”' };
 function cleanText_(v) {
-  return String(v === null || v === undefined ? '' : v).replace(/â€¯|[\u202f\u00a0]/g, ' ').trim();
+  return String(v === null || v === undefined ? '' : v)
+    .replace(/â€[¯“”™˜œ\u009d]/g, m => MOJIBAKE[m] || m)
+    .replace(/[\u202f\u00a0]/g, ' ')
+    .trim();
 }
 
 function toDate_(v) {
@@ -293,8 +323,11 @@ function toDate_(v) {
   return isNaN(d) ? null : d;
 }
 
-// "interpsychaz-g-spravato" -> "Spravato · Google". Drops the prefix all tabs share.
-function tabLabels_(names) {
+// "interpsychaz-g-spravato" -> "Spravato · Google". Drops the prefix all tabs share, the client's
+// own name ("Anew Era Google Ads Lead Sheet" -> "Google Ads") and a trailing "Lead Sheet".
+const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx'];
+function tabLabels_(names, clientName) {
+  const client = normKey_(clientName || '');
   const hyphenated = names.filter(n => n.indexOf('-') !== -1);
   const firsts = hyphenated.map(n => n.split('-')[0].toLowerCase());
   const shared = hyphenated.length > 1 && firsts.every(f => f === firsts[0]) ? firsts[0] : '';
@@ -309,8 +342,14 @@ function tabLabels_(names) {
       if (pl) { platform = pl; return false; }
       return true;
     });
-    const words = parts.join(' ').split(/\s+/).filter(Boolean).map(w =>
-      w.length <= 3 && /^[a-z]+$/i.test(w) && w.toLowerCase() !== 'ads' ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1));
+    let words = parts.join(' ').replace(/\s*\b(leads?\s+)?sheet$/i, '').split(/\s+/).filter(Boolean);
+    // Drop leading words that spell the client's name ("Anew Era ...", "Interpsychaz ...").
+    for (let i = 1; client && i <= words.length; i++) {
+      const joined = normKey_(words.slice(0, i).join(''));
+      if (joined === client && i < words.length) { words = words.slice(i); break; }
+      if (client.indexOf(joined) !== 0) break;
+    }
+    words = words.map(w => ACRONYMS.indexOf(w.toLowerCase()) !== -1 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1));
     labels[n] = (words.join(' ') || n) + (platform ? ' · ' + platform : '');
   });
   return labels;
