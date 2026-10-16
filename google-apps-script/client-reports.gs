@@ -45,10 +45,14 @@ const SHEET_STATUS_LABELS = {
 };
 const SECTIONS = [{ key: 'ads', column: 'Ads Sheet' }, { key: 'website', column: 'Website Sheet' }];
 // Normalized header names never sent to the client.
-const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'leadform', 'xtwitter', 'company', 'submit', 'recaptchav3token'];
+const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'leadform', 'xtwitter', 'company', 'submit', 'recaptchav3token',
+  'hipaa', 'adid', 'adname', 'adsetid', 'adsetname', 'campaignid', 'formid', 'formname', 'isorganic'];
 // A lead is a test if its name or email has a word starting with "test" (test@, Testm, test2 — but
 // not "greatest" or "contest"), or its status is "Test".
-const TEST_PATTERN = /(^|[^a-z])test/i;
+const TEST_PATTERN = /(^|[^a-z])test|@(mailinator|example)\./i;
+// Contact-form spam: bot names where the last name is the first name plus two capitals
+// ("AndrewMom" / "AndrewMomCX"), or a link alongside crypto / lottery bait. Hidden like test leads.
+const SPAM_TEXT = /\b(btc|bitcoin|crypto|jackpot|promo code|withdraw|casino)\b/i;
 const HEADER_SCAN_ROWS = 40;
 // Column order of a Google Ads "call details" export, for call tabs pasted without their header row.
 const CALL_EXPORT_COLUMNS = ['Start time', 'Duration (seconds)', 'Caller country code', 'Caller area code',
@@ -217,7 +221,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
   const headers = values[headerRow].map(h => String(h).trim());
   const keys = headers.map(normKey_);
   const idx = name => keys.indexOf(name);
-  const timeCol = kind === 'call' ? idx('starttime') : idx('createdat');
+  const timeCol = kind === 'call' ? idx('starttime') : (idx('createdat') !== -1 ? idx('createdat') : idx('createdtime'));
   const out = [];
 
   for (let r = headerRow + 1; r < values.length; r++) {
@@ -238,18 +242,19 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       kind: kind,
       ts: when ? when.getTime() : null,
       // Dates show as they appear in the sheet; only bare serial numbers get formatted.
-      when: !when ? '' : typeof raw[dateCol] === 'number' ? Utilities.formatDate(when, 'UTC', 'MMM dd, yyyy, HH:mm') : text(dateCol),
+      when: !when ? '' : typeof raw[dateCol] === 'number' ? Utilities.formatDate(when, 'UTC', 'MMM dd, yyyy, HH:mm') : isoAsWritten_(text(dateCol)),
       details: [],
     };
 
     if (kind === 'form') {
       const first = text(idx('firstname'));
       const last = text(idx('lastname'));
-      row.name = [first, last].filter(Boolean).join(' ') || text(idx('name'));
+      row.name = [first, last].filter(Boolean).join(' ') || text(idx('name')) || text(idx('fullname'));
       row.email = text(idx('email'));
-      row.phone = text(idx('phone'));
+      row.phone = prettyValue_('phone', text(idx('phone') !== -1 ? idx('phone') : idx('phonenumber')));
       row.status = normStatus_(text(idx('leadstatus')));
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
+      if (isSpam_(first, last, text(idx('message')))) continue;
       const id = text(idx('id'));
       row.key = tabName + '|' + (id || row.ts + '|' + row.email);
     } else {
@@ -261,14 +266,14 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       row.key = tabName + '|' + row.ts + '|' + row.phone;
     }
 
-    const shown = ['firstname', 'lastname', 'name', 'email', 'phone', 'leadstatus', 'createdat',
-      'starttime', 'callerphonenumber', 'callercountrycode', 'callerareacode', 'durationseconds'];
+    const shown = ['firstname', 'lastname', 'name', 'fullname', 'email', 'phone', 'phonenumber', 'leadstatus',
+      'createdat', 'createdtime', 'starttime', 'callerphonenumber', 'callercountrycode', 'callerareacode', 'durationseconds'];
     // Forms that changed over time leave duplicate columns (Reason_for_inquiry / Reason_for_Inquiry);
     // the first non-empty one wins.
     const seen = {};
     headers.forEach((h, c) => {
       if (!h || seen[keys[c]] || shown.indexOf(keys[c]) !== -1 || HIDDEN_COLUMNS.indexOf(keys[c]) !== -1) return;
-      const v = text(c);
+      const v = prettyValue_(keys[c], text(c));
       if (!v) return;
       seen[keys[c]] = true;
       row.details.push([prettyHeader_(h), v]);
@@ -278,12 +283,39 @@ function parseRows_(tabName, kind, values, display, headerRow) {
   return out;
 }
 
+// Meta exports dates as "2026-08-28T00:51:39+05:30"; show them as written ("Aug 28, 2026, 00:51").
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function isoAsWritten_(s) {
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  return m ? MONTHS[Number(m[2]) - 1] + ' ' + m[3] + ', ' + m[1] + ', ' + m[4] + ':' + m[5] : s;
+}
+
+// Form tools export choices as codes ("blue_cross_blue_shield", "tms-neurology", "— Select a service —")
+// and Meta prefixes phone and zip values ("p:+1732…", "z:07726"). Turn those into readable text.
+function prettyValue_(key, v) {
+  v = v.replace(/^[pz]:(?=[+\d<])/, '');
+  if (/^[—-]+\s*select\b/i.test(v)) return '';
+  if (key === 'platform') return { fb: 'Facebook', ig: 'Instagram', an: 'Audience Network', msg: 'Messenger' }[v.toLowerCase()] || v;
+  if (/^[a-z]+$/.test(v)) return ACRONYMS.indexOf(v) !== -1 ? v.toUpperCase() : v.charAt(0).toUpperCase() + v.slice(1);
+  if (/^[a-z0-9]+(?:[_-]+[a-z0-9\/]+)+$/.test(v)) {
+    const t = v.split(/[_-]+/).map(w => (ACRONYMS.indexOf(w) !== -1 ? w.toUpperCase() : w)).join(' ').replace(/\s*\/\s*/g, ' / ');
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+  return v;
+}
+
+function isSpam_(first, last, message) {
+  if (first && last && last.length === first.length + 2 && last.indexOf(first) === 0 && /^[A-Z]{2}$/.test(last.slice(-2))) return true;
+  return /https?:\/\//i.test(message) && SPAM_TEXT.test(message);
+}
+
 function normKey_(s) {
   return String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 function prettyHeader_(h) {
-  const s = h.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+  // Meta lead forms use the question as the header: drop its "(e.g., ...)" hint.
+  const s = h.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\s*\(e\.g\.[^)]*\)?\s*$/i, '').trim();
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
@@ -296,6 +328,10 @@ function normStatus_(s) {
   if (k.indexOf('valid') === 0) return 'Valid';
   if (k.indexOf('existing') === 0) return 'Existing patient';
   if (k.indexOf('outof') === 0) return 'Out of location';
+  if (k === 'good') return 'Valid';
+  if (k === 'bad' || k === 'junk' || k === 'spam') return 'Invalid';
+  // Anything long or with digits is a stray value (e.g. an address pasted into the column).
+  if (s.length > 30 || /\d/.test(s)) return 'Not reviewed';
   return s;
 }
 
@@ -325,7 +361,7 @@ function toDate_(v) {
 
 // "interpsychaz-g-spravato" -> "Spravato · Google". Drops the prefix all tabs share, the client's
 // own name ("Anew Era Google Ads Lead Sheet" -> "Google Ads") and a trailing "Lead Sheet".
-const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx'];
+const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx', 'nj', 'ny', 'bcbs'];
 function tabLabels_(names, clientName) {
   const client = normKey_(clientName || '');
   const hyphenated = names.filter(n => n.indexOf('-') !== -1);
@@ -343,12 +379,12 @@ function tabLabels_(names, clientName) {
       return true;
     });
     let words = parts.join(' ').replace(/\s*\b(leads?\s+)?sheet$/i, '').split(/\s+/).filter(Boolean);
-    // Drop leading words that spell the client's name ("Anew Era ...", "Interpsychaz ...").
-    for (let i = 1; client && i <= words.length; i++) {
-      const joined = normKey_(words.slice(0, i).join(''));
-      if (joined === client && i < words.length) { words = words.slice(i); break; }
-      if (client.indexOf(joined) !== 0) break;
+    // Drop leading words that are part of the client's name ("Anew Era ...", "Interpsychaz ...",
+    // "ritesh website form" for Dr Ritesh Amin).
+    while (client && words.length > 1 && normKey_(words[0]).length >= 3 && client.indexOf(normKey_(words[0])) !== -1) {
+      words = words.slice(1);
     }
+    if (/^sheet\d*$/i.test(words.join(''))) words = ['Leads'];
     words = words.map(w => ACRONYMS.indexOf(w.toLowerCase()) !== -1 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1));
     labels[n] = (words.join(' ') || n) + (platform ? ' · ' + platform : '');
   });
