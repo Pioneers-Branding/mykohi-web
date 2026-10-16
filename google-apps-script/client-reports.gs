@@ -297,7 +297,8 @@ function prettyValue_(key, v) {
   if (/^[—-]+\s*select\b/i.test(v)) return '';
   if (key === 'platform') return { fb: 'Facebook', ig: 'Instagram', an: 'Audience Network', msg: 'Messenger' }[v.toLowerCase()] || v;
   if (/^[a-z]+$/.test(v)) return ACRONYMS.indexOf(v) !== -1 ? v.toUpperCase() : v.charAt(0).toUpperCase() + v.slice(1);
-  if (/^[a-z0-9]+(?:[_-]+[a-z0-9\/]+)+$/.test(v)) {
+  // Needs a letter, so phone numbers and zip+4 ("732-853-1725") stay as they are.
+  if (/[a-z]/.test(v) && /^[a-z0-9]+(?:[_-]+[a-z0-9\/]+)+$/.test(v)) {
     const t = v.split(/[_-]+/).map(w => (ACRONYMS.indexOf(w) !== -1 ? w.toUpperCase() : w)).join(' ').replace(/\s*\/\s*/g, ' / ');
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
