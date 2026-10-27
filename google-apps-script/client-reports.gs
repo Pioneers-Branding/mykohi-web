@@ -354,6 +354,8 @@ function isoAsWritten_(s) {
 // Form tools export choices as codes ("blue_cross_blue_shield", "tms-neurology", "— Select a service —")
 // and Meta prefixes phone and zip values ("p:+1732…", "z:07726"). Turn those into readable text.
 function prettyValue_(key, v) {
+  // Meta multiple-choice answers come joined: "depression_or_low_mood|anxiety_or_stress".
+  if (/^[^|\s]+(\|[^|\s]+)+$/.test(v)) return v.split('|').map(p => prettyValue_(key, p)).filter(Boolean).join(', ');
   v = v.replace(/^[pz]:(?=[+\d<])/, '').replace(/^_+|_+$/g, '');
   if (/^[—-]+\s*select\b/i.test(v)) return '';
   if (key === 'platform') return { fb: 'Facebook', ig: 'Instagram', an: 'Audience Network', msg: 'Messenger' }[v.toLowerCase()] || v;
