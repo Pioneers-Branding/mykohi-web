@@ -15,6 +15,9 @@
  *     Paste this file in as Code.gs and save. Reload the sheet: a "Client Reports" menu appears.
  *  2. Client Reports > Set up tabs. This creates the "Clients", "Comments" and "Statuses" tabs.
  *  3. Add one row per client in "Clients": Client name, Ads sheet URL, Website sheet URL.
+ *     A cell can hold several sheets, one per line, each optionally labelled:
+ *       Meta Ads: https://docs.google.com/spreadsheets/d/...
+ *       Google Ads: https://docs.google.com/spreadsheets/d/...
  *     Leave Code blank and run Client Reports > Fill missing codes. Logo URL is optional; for a white
  *     logo, set Logo Background to a dark color such as #0f172a.
  *     Set Active to FALSE to switch a client's link off.
@@ -46,7 +49,7 @@ const SHEET_STATUS_LABELS = {
 const SECTIONS = [{ key: 'ads', column: 'Ads Sheet' }, { key: 'website', column: 'Website Sheet' }];
 // Normalized header names never sent to the client.
 const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'leadform', 'xtwitter', 'company', 'submit', 'recaptchav3token',
-  'hipaa', 'adid', 'adname', 'adsetid', 'adsetname', 'campaignid', 'formid', 'formname', 'isorganic'];
+  'hipaa', 'consent', 'adid', 'adname', 'adsetid', 'adsetname', 'campaignid', 'formid', 'formname', 'isorganic'];
 // A lead is a test if its name or email has a word starting with "test" (test@, Testm, test2 — but
 // not "greatest" or "contest"), or its status is "Test".
 const TEST_PATTERN = /(^|[^a-z])test|@(mailinator|example)\./i;
@@ -137,6 +140,15 @@ function clientFor_(code) {
   };
 }
 
+// Every sheet listed in a cell, one per line: "Meta Ads: https://docs.google.com/..." or a bare link/ID.
+function sources_(cell) {
+  return String(cell || '').split(/[\n\r]+/).map(line => {
+    const id = spreadsheetId_(line.replace(/^[^:]*:\s*(?=https?:)/, ''));
+    const m = line.match(/^\s*(.*?)\s*[:|\-–]?\s*https?:/);
+    return id ? { id: id, label: m ? m[1].trim() : '' } : null;
+  }).filter(Boolean);
+}
+
 function spreadsheetId_(urlOrId) {
   const s = String(urlOrId || '').trim();
   const m = s.match(/\/d\/([a-zA-Z0-9_-]{20,})/);
@@ -149,8 +161,8 @@ function load_(client) {
   const sections = {};
   const overrides = statusOverrides_(client.code);
   SECTIONS.forEach(s => {
-    const id = spreadsheetId_(client.sheets[s.key]);
-    sections[s.key] = id ? readSpreadsheet_(id, client.name) : { connected: false, tabs: [] };
+    const list = sources_(client.sheets[s.key]);
+    sections[s.key] = list.length ? readSources_(list, client.name) : { connected: false, tabs: [] };
     sections[s.key].tabs.forEach(t => t.rows.forEach(r => {
       if (overrides[r.key]) r.status = overrides[r.key];
     }));
@@ -164,15 +176,40 @@ function load_(client) {
   };
 }
 
-function readSpreadsheet_(id, clientName) {
-  const ss = SpreadsheetApp.openById(id);
-  const tabs = ss.getSheets().map(readTab_).filter(Boolean);
-  const labels = tabLabels_(tabs.map(t => t.name), clientName);
-  tabs.forEach(t => { t.label = labels[t.name]; });
+// Reads every lead tab across the section's sheets. Tab names are made unique across files (a
+// second "Sheet1" becomes "Sheet1 (2)"); generic names like "Sheet1" are labelled by the file name,
+// and a label written in front of a link in the Clients tab wins.
+function readSources_(list, clientName) {
+  const found = [];
+  list.forEach(src => {
+    const ss = SpreadsheetApp.openById(src.id);
+    const sheets = ss.getSheets().filter(sh => !sh.isSheetHidden());
+    sheets.forEach(sh => found.push({ sh: sh, src: src, fileName: ss.getName() }));
+  });
+  const used = {};
+  const tabs = [];
+  found.forEach(f => {
+    let name = f.sh.getName();
+    for (let n = 2; used[name]; n++) name = f.sh.getName() + ' (' + n + ')';
+    const tab = readTab_(f.sh, name);
+    if (!tab) return;
+    used[name] = true;
+    tab.src = f.src;
+    tab.autoName = /^sheet\s*\d*$/i.test(f.sh.getName()) ? f.fileName : f.sh.getName();
+    tabs.push(tab);
+  });
+  const labels = tabLabels_(tabs.map(t => t.autoName), clientName);
+  tabs.forEach(t => {
+    const auto = labels[t.autoName];
+    const siblings = tabs.filter(o => o.src === t.src).length;
+    t.label = t.src.label ? (siblings > 1 ? t.src.label + ' · ' + auto : t.src.label) : auto;
+    delete t.src;
+    delete t.autoName;
+  });
   return { connected: true, tabs: tabs };
 }
 
-function readTab_(sh) {
+function readTab_(sh, tabName) {
   if (sh.isSheetHidden()) return null;
   const range = sh.getDataRange();
   const values = range.getValues();
@@ -189,10 +226,10 @@ function readTab_(sh) {
   if (!header) header = headerlessCallExport_(values, display);
   if (!header) return null;
   return {
-    name: sh.getName(),
+    name: tabName || sh.getName(),
     kind: header.kind,
     hasStatus: header.hasStatus,
-    rows: parseRows_(sh.getName(), header.kind, values, display, header.row),
+    rows: parseRows_(tabName || sh.getName(), header.kind, values, display, header.row),
   };
 }
 
@@ -223,6 +260,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
   const idx = name => keys.indexOf(name);
   const timeCol = kind === 'call' ? idx('starttime') : (idx('createdat') !== -1 ? idx('createdat') : idx('createdtime'));
   const out = [];
+  const submitted = {}; // signature -> timestamps, for dropping repeat submissions
 
   for (let r = headerRow + 1; r < values.length; r++) {
     const raw = values[r];
@@ -254,7 +292,8 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       row.phone = prettyValue_('phone', text(idx('phone') !== -1 ? idx('phone') : idx('phonenumber')));
       row.status = normStatus_(text(idx('leadstatus')));
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
-      if (isSpam_(first, last, text(idx('message')))) continue;
+      if (!row.name && !row.email && !row.phone) continue;
+      if (isSpam_(first, last, text(idx('message')) + ' ' + text(idx('comments')))) continue;
       const id = text(idx('id'));
       row.key = tabName + '|' + (id || row.ts + '|' + row.email);
     } else {
@@ -278,6 +317,12 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       seen[keys[c]] = true;
       row.details.push([prettyHeader_(h), v]);
     });
+    // Forms often fire several times for one person (double clicks, retries): an identical
+    // submission within an hour of another counts once.
+    const signature = [row.name, row.email, row.phone, JSON.stringify(row.details)].join('|').toLowerCase();
+    const times = submitted[signature] || (submitted[signature] = []);
+    if (row.ts !== null && times.some(t => Math.abs(t - row.ts) < 3600000)) continue;
+    if (row.ts !== null) times.push(row.ts);
     out.push(row);
   }
   return out;
@@ -293,7 +338,7 @@ function isoAsWritten_(s) {
 // Form tools export choices as codes ("blue_cross_blue_shield", "tms-neurology", "— Select a service —")
 // and Meta prefixes phone and zip values ("p:+1732…", "z:07726"). Turn those into readable text.
 function prettyValue_(key, v) {
-  v = v.replace(/^[pz]:(?=[+\d<])/, '');
+  v = v.replace(/^[pz]:(?=[+\d<])/, '').replace(/^_+|_+$/g, '');
   if (/^[—-]+\s*select\b/i.test(v)) return '';
   if (key === 'platform') return { fb: 'Facebook', ig: 'Instagram', an: 'Audience Network', msg: 'Messenger' }[v.toLowerCase()] || v;
   if (/^[a-z]+$/.test(v)) return ACRONYMS.indexOf(v) !== -1 ? v.toUpperCase() : v.charAt(0).toUpperCase() + v.slice(1);
@@ -307,6 +352,10 @@ function prettyValue_(key, v) {
 
 function isSpam_(first, last, message) {
   if (first && last && last.length === first.length + 2 && last.indexOf(first) === 0 && /^[A-Z]{2}$/.test(last.slice(-2))) return true;
+  // Same made-up word as first and last name, with capitals mid-word ("JosephBEala JosephBEala").
+  if (first && first === last && /[a-z][A-Z]/.test(first)) return true;
+  // Forum-style link markup is never typed by a patient.
+  if (/\[url=/i.test(message)) return true;
   return /https?:\/\//i.test(message) && SPAM_TEXT.test(message);
 }
 
@@ -330,6 +379,7 @@ function normStatus_(s) {
   if (k.indexOf('existing') === 0) return 'Existing patient';
   if (k.indexOf('outof') === 0) return 'Out of location';
   if (k === 'good') return 'Valid';
+  if (k === 'created' || k === 'new') return 'Not reviewed';
   if (k === 'bad' || k === 'junk' || k === 'spam') return 'Invalid';
   // Anything long or with digits is a stray value (e.g. an address pasted into the column).
   if (s.length > 30 || /\d/.test(s)) return 'Not reviewed';
@@ -362,7 +412,7 @@ function toDate_(v) {
 
 // "interpsychaz-g-spravato" -> "Spravato · Google". Drops the prefix all tabs share, the client's
 // own name ("Anew Era Google Ads Lead Sheet" -> "Google Ads") and a trailing "Lead Sheet".
-const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx', 'nj', 'ny', 'bcbs'];
+const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx', 'nj', 'ny', 'bcbs', 'gad', 'mdd', 'lp'];
 function tabLabels_(names, clientName) {
   const client = normKey_(clientName || '');
   const hyphenated = names.filter(n => n.indexOf('-') !== -1);
@@ -472,7 +522,8 @@ function setStatus_(client, body) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    const written = writeStatusToSheet_(spreadsheetId_(client.sheets[section.key]), leadKey, SHEET_STATUS_LABELS[status]);
+    const written = sources_(client.sheets[section.key])
+      .some(src => writeStatusToSheet_(src.id, leadKey, SHEET_STATUS_LABELS[status]));
     const cell = s => (/^[=+\-@]/.test(s) ? "'" + s : s);
     statusesSheet_().appendRow([new Date(), client.code, client.name, cell(leadKey),
       cell(String(body.leadName || '').slice(0, 120)), status, cell(author), written]);
