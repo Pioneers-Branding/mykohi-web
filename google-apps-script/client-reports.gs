@@ -177,14 +177,14 @@ function load_(client) {
 }
 
 // Reads every lead tab across the section's sheets. Tab names are made unique across files (a
-// second "Sheet1" becomes "Sheet1 (2)"); generic names like "Sheet1" are labelled by the file name,
-// and a label written in front of a link in the Clients tab wins.
+// second "Sheet1" becomes "Sheet1 (2)"), and a label written in front of a link in the Clients tab
+// replaces the label made from the tab name.
 function readSources_(list, clientName) {
   const found = [];
   list.forEach(src => {
     const ss = SpreadsheetApp.openById(src.id);
     const sheets = ss.getSheets().filter(sh => !sh.isSheetHidden());
-    sheets.forEach(sh => found.push({ sh: sh, src: src, fileName: ss.getName() }));
+    sheets.forEach(sh => found.push({ sh: sh, src: src }));
   });
   const used = {};
   const tabs = [];
@@ -195,7 +195,7 @@ function readSources_(list, clientName) {
     if (!tab) return;
     used[name] = true;
     tab.src = f.src;
-    tab.autoName = /^sheet\s*\d*$/i.test(f.sh.getName()) ? f.fileName : f.sh.getName();
+    tab.autoName = f.sh.getName();
     tabs.push(tab);
   });
   const labels = tabLabels_(tabs.map(t => t.autoName), clientName);
