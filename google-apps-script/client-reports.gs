@@ -397,8 +397,10 @@ function normStatus_(s) {
   if (k === 'good') return 'Valid';
   if (k === 'created' || k === 'new') return 'Not reviewed';
   if (k === 'bad' || k === 'junk' || k === 'spam') return 'Invalid';
-  // Anything long or with digits is a stray value (e.g. an address pasted into the column).
+  // Anything long or with digits is a stray value (e.g. an address pasted into the column), and so
+  // is a column name ("ad_id", "platform") left in it by a misaligned Meta append.
   if (s.length > 30 || /\d/.test(s)) return 'Not reviewed';
+  if (/_/.test(s) || ['id', 'platform', 'phone', 'email', 'name'].indexOf(k) !== -1) return 'Not reviewed';
   return s;
 }
 
