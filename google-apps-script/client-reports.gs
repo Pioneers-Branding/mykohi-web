@@ -49,7 +49,9 @@ const SHEET_STATUS_LABELS = {
 const SECTIONS = [{ key: 'ads', column: 'Ads Sheet' }, { key: 'website', column: 'Website Sheet' }];
 // Normalized header names never sent to the client.
 const HIDDEN_COLUMNS = ['id', 'ipaddress', 'leadsource', 'leadform', 'xtwitter', 'company', 'submit', 'recaptchav3token',
-  'hipaa', 'consent', 'adid', 'adname', 'adsetid', 'adsetname', 'campaignid', 'formid', 'formname', 'isorganic'];
+  'hipaa', 'consent', 'adid', 'adname', 'adsetid', 'adsetname', 'campaignid', 'formid', 'formname', 'isorganic',
+  'quizanswersjson', 'neutralcount', 'negativecount', 'positivecount', 'question1answer', 'question2answer',
+  'question3answer', 'question4answer', 'question5answer', 'question6answer'];
 // A lead is a test if its name or email has a word starting with "test" (test@, Testm, test2 — but
 // not "greatest" or "contest"), or its status is "Test".
 const TEST_PATTERN = /(^|[^a-z])test|@(mailinator|example)\./i;
@@ -217,6 +219,8 @@ function readTab_(sh, tabName) {
   let header = null;
   for (let i = 0; i < Math.min(values.length, HEADER_SCAN_ROWS); i++) {
     const keys = values[i].map(normKey_);
+    // A data row holding header text (Meta rows shifted by a broken append) is not a header.
+    if (display[i].some(v => /@/.test(v))) continue;
     if (keys.indexOf('email') !== -1 && (keys.indexOf('id') !== -1 || keys.indexOf('leadstatus') !== -1)) {
       header = { row: i, kind: 'form', hasStatus: keys.indexOf('leadstatus') !== -1 };
     } else if (keys.indexOf('callerphonenumber') !== -1) {
@@ -343,7 +347,7 @@ function prettyValue_(key, v) {
   if (key === 'platform') return { fb: 'Facebook', ig: 'Instagram', an: 'Audience Network', msg: 'Messenger' }[v.toLowerCase()] || v;
   if (/^[a-z]+$/.test(v)) return ACRONYMS.indexOf(v) !== -1 ? v.toUpperCase() : v.charAt(0).toUpperCase() + v.slice(1);
   // Needs a letter, so phone numbers and zip+4 ("732-853-1725") stay as they are.
-  if (/[a-z]/.test(v) && /^[a-z0-9]+(?:[_-]+[a-z0-9\/]+)+$/.test(v)) {
+  if (/[a-z]/.test(v) && /^[a-z0-9–]+(?:[_-]+[a-z0-9–\/]+)+$/.test(v)) {
     const t = v.split(/[_-]+/).map(w => (ACRONYMS.indexOf(w) !== -1 ? w.toUpperCase() : w)).join(' ').replace(/\s*\/\s*/g, ' / ');
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
@@ -365,7 +369,7 @@ function normKey_(s) {
 
 function prettyHeader_(h) {
   // Meta lead forms use the question as the header: drop its "(e.g., ...)" hint.
-  const s = h.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\s*\(e\.g\.[^)]*\)?\s*$/i, '').trim();
+  const s = h.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\s*\(e\.g\.[^)]*\)?\s*$/i, '').replace(/:$/, '').trim();
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
@@ -415,6 +419,7 @@ function toDate_(v) {
 const ACRONYMS = ['tms', 'ect', 'iv', 'lp', 'ocd', 'ptsd', 'adhd', 'ppc', 'seo', 'az', 'tx', 'nj', 'ny', 'bcbs', 'gad', 'mdd', 'lp'];
 function tabLabels_(names, clientName) {
   const client = normKey_(clientName || '');
+  const clientWords = String(clientName || '').split(/\s+/).map(normKey_);
   const hyphenated = names.filter(n => n.indexOf('-') !== -1);
   const firsts = hyphenated.map(n => n.split('-')[0].toLowerCase());
   const shared = hyphenated.length > 1 && firsts.every(f => f === firsts[0]) ? firsts[0] : '';
@@ -431,8 +436,9 @@ function tabLabels_(names, clientName) {
     });
     let words = parts.join(' ').replace(/\s*\b(leads?\s+)?sheet$/i, '').split(/\s+/).filter(Boolean);
     // Drop leading words that are part of the client's name ("Anew Era ...", "Interpsychaz ...",
-    // "ritesh website form" for Dr Ritesh Amin).
-    while (client && words.length > 1 && normKey_(words[0]).length >= 3 && client.indexOf(normKey_(words[0])) !== -1) {
+    // "ritesh website form" for Dr Ritesh Amin, "PA Quiz" for Options PA).
+    while (client && words.length > 1 && (normKey_(words[0]).length >= 3 && client.indexOf(normKey_(words[0])) !== -1 ||
+      clientWords.indexOf(normKey_(words[0])) !== -1)) {
       words = words.slice(1);
     }
     if (/^sheet\d*$/i.test(words.join(''))) words = ['Leads'];
