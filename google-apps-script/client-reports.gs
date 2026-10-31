@@ -382,8 +382,8 @@ function normKey_(s) {
 }
 
 function prettyHeader_(h) {
-  // Meta lead forms use the question as the header: drop its "(e.g., ...)" hint.
-  const s = h.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, (m, a, b) => a + ' ' + b.toLowerCase()).replace(/\s+/g, ' ').replace(/\s*\(e\.g\.[^)]*\)?\s*$/i, '').replace(/:$/, '').trim();
+  // Meta lead forms use the question as the header: drop its "(e.g., ...)" hint and any trailing ":" or " -".
+  const s = h.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, (m, a, b) => a + ' ' + b.toLowerCase()).replace(/\s+/g, ' ').replace(/\s*\(e\.g\.[^)]*\)?\s*$/i, '').replace(/\s*[:\-–]+$/, '').trim();
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
