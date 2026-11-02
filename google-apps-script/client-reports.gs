@@ -300,8 +300,11 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
       if (!row.name && !row.email && !row.phone) continue;
       if (isSpam_(first, last, text(idx('message')) + ' ' + text(idx('comments')))) continue;
-      // A link in the name or phone field, or a message that is just "test" / "ok test".
-      if (/https?:\/\//i.test(row.name + ' ' + row.phone) || /^\W*(ok\s+)?test(ing)?\b/i.test(text(idx('message')))) continue;
+      // A link in the name or phone field, a message that is just "test" / "ok test", or a message that
+      // is only the sender's own phone number (virtual-assistant outreach bots).
+      const message = text(idx('message'));
+      if (/https?:\/\//i.test(row.name + ' ' + row.phone) || /^\W*(ok\s+)?test(ing)?\b/i.test(message)) continue;
+      if (/^[\d\s()+.-]{10,}$/.test(message) && row.phone && message.replace(/\D/g, '').slice(-10) === row.phone.replace(/\D/g, '').slice(-10)) continue;
       if (!row.name && !row.phone && isAnonymousSpam_(row.email, text(idx('message')))) continue;
       const id = text(idx('id'));
       row.key = tabName + '|' + (id || row.ts + '|' + row.email);
