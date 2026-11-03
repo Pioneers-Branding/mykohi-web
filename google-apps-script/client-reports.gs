@@ -58,8 +58,6 @@ const TEST_PATTERN = /(^|[^a-z])test|@(mailinator|example)\./i;
 // Contact-form spam: bot names where the last name is the first name plus two capitals
 // ("AndrewMom" / "AndrewMomCX"), or a link alongside crypto / lottery bait. Hidden like test leads.
 const SPAM_TEXT = /\b(btc|bitcoin|crypto|jackpot|promo code|withdraw|casino)\b/i;
-// Pitches spammy enough to drop even without a link.
-const SPAM_PITCH = /\b(buy|order|store|stock)\b[^.]{0,40}\bantibiotics\b|\bantibiotics (are not|without)\b|\bwithout a doctor'?s? (permission|prescription)\b/i;
 const HEADER_SCAN_ROWS = 40;
 // Column order of a Google Ads "call details" export, for call tabs pasted without their header row.
 const CALL_EXPORT_COLUMNS = ['Start time', 'Duration (seconds)', 'Caller country code', 'Caller area code',
@@ -300,12 +298,6 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
       if (!row.name && !row.email && !row.phone) continue;
       if (isSpam_(first, last, text(idx('message')) + ' ' + text(idx('comments')))) continue;
-      // A link in the name or phone field, a message that is just "test" / "ok test", or a message that
-      // is only the sender's own phone number (virtual-assistant outreach bots).
-      const message = text(idx('message'));
-      if (/https?:\/\//i.test(row.name + ' ' + row.phone) || /^\W*(ok\s+)?test(ing)?\b/i.test(message)) continue;
-      if (/^[\d\s()+.-]{10,}$/.test(message) && row.phone && message.replace(/\D/g, '').slice(-10) === row.phone.replace(/\D/g, '').slice(-10)) continue;
-      if (!row.name && !row.phone && isAnonymousSpam_(row.email, text(idx('message')))) continue;
       const id = text(idx('id'));
       row.key = tabName + '|' + (id || row.ts + '|' + row.email);
     } else {
@@ -337,36 +329,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
     if (row.ts !== null) times.push(row.ts);
     out.push(row);
   }
-  if (kind !== 'form') return out;
-  // A bot posting under one address with no name or phone ("I wanted to know your price" in a
-  // dozen languages): three or more such submissions from the same email are all dropped.
-  const anonymous = {};
-  out.forEach(r => { if (!r.name && !r.phone) anonymous[r.email] = (anonymous[r.email] || 0) + 1; });
-  // Bulk outreach: one phone number behind three or more submissions from different addresses
-  // (SEO and virtual-assistant pitches), or one address behind four or more submissions under three or
-  // more different names or phone numbers (bots; a real person resubmitting keeps their name).
-  const byPhone = {};
-  const byEmail = {};
-  out.forEach(r => {
-    const digits = (r.phone || '').replace(/\D/g, '').slice(-10);
-    if (digits.length === 10) (byPhone[digits] = byPhone[digits] || []).push(r.email.toLowerCase());
-    if (r.email) (byEmail[r.email.toLowerCase()] = byEmail[r.email.toLowerCase()] || []).push(r);
-  });
-  const varied = (list, field) => new Set(list.map(r => String(r[field] || '').toLowerCase().replace(/\W/g, ''))).size >= 3;
-  const bulk = r => {
-    const phones = byPhone[(r.phone || '').replace(/\D/g, '').slice(-10)] || [];
-    const sent = (r.email && byEmail[r.email.toLowerCase()]) || [];
-    return (phones.length >= 3 && new Set(phones).size >= 2) ||
-      (sent.length >= 4 && (varied(sent, 'name') || varied(sent, 'phone')));
-  };
-  return out.filter(r => (r.name || r.phone || anonymous[r.email] < 3) && !bulk(r));
-}
-
-// With no name or phone to go on: an "email" that isn't one (probes like "/etc/passwd"), or a
-// message that is a single random token ("h6cb4a").
-function isAnonymousSpam_(email, message) {
-  if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) return true;
-  return /^(?=.*\d)(?=.*[a-z])[a-z0-9]{4,12}$/i.test(message);
+  return out;
 }
 
 // Meta exports dates as "2026-08-28T00:51:39+05:30"; show them as written ("Aug 28, 2026, 00:51").
@@ -398,7 +361,7 @@ function isSpam_(first, last, message) {
   // Same made-up word as first and last name, with capitals mid-word ("JosephBEala JosephBEala").
   if (first && first === last && /[a-z][A-Z]/.test(first)) return true;
   // Forum-style link markup is never typed by a patient.
-  if (/\[url=/i.test(message) || SPAM_PITCH.test(message)) return true;
+  if (/\[url=/i.test(message)) return true;
   return /https?:\/\//i.test(message) && SPAM_TEXT.test(message);
 }
 
