@@ -337,10 +337,11 @@ function parseRows_(tabName, kind, values, display, headerRow) {
     if (row.ts !== null) times.push(row.ts);
     out.push(row);
   }
+  if (kind !== 'form') return out;
   // A bot posting under one address with no name or phone ("I wanted to know your price" in a
   // dozen languages): three or more such submissions from the same email are all dropped.
   const anonymous = {};
-  out.forEach(r => { if (kind === 'form' && !r.name && !r.phone) anonymous[r.email] = (anonymous[r.email] || 0) + 1; });
+  out.forEach(r => { if (!r.name && !r.phone) anonymous[r.email] = (anonymous[r.email] || 0) + 1; });
   // Bulk outreach: one phone number behind three or more submissions from different addresses
   // (SEO and virtual-assistant pitches), or one address behind four or more submissions under three or
   // more different names or phone numbers (bots; a real person resubmitting keeps their name).
@@ -358,7 +359,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
     return (phones.length >= 3 && new Set(phones).size >= 2) ||
       (sent.length >= 4 && (varied(sent, 'name') || varied(sent, 'phone')));
   };
-  return out.filter(r => kind !== 'form' || ((r.name || r.phone || anonymous[r.email] < 3) && !bulk(r)));
+  return out.filter(r => (r.name || r.phone || anonymous[r.email] < 3) && !bulk(r));
 }
 
 // With no name or phone to go on: an "email" that isn't one (probes like "/etc/passwd"), or a
