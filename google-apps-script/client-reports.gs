@@ -265,6 +265,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
   const timeCol = kind === 'call' ? idx('starttime') : (idx('createdat') !== -1 ? idx('createdat') : idx('createdtime'));
   const out = [];
   const submitted = {}; // signature -> timestamps, for dropping repeat submissions
+  const keysUsed = {};
 
   for (let r = headerRow + 1; r < values.length; r++) {
     const raw = values[r];
@@ -301,12 +302,18 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       const id = text(idx('id'));
       row.key = tabName + '|' + (id || row.ts + '|' + row.email);
     } else {
-      row.name = text(idx('callerphonenumber'));
-      row.phone = row.name;
+      // Google Ads shows "--" when the caller's number is withheld.
+      const caller = text(idx('callerphonenumber'));
+      row.phone = /\d/.test(caller) ? caller : '';
+      row.name = row.phone || 'Unknown caller';
       row.status = 'Not reviewed';
-      row.duration = Number(raw[idx('durationseconds')]) || 0;
+      row.duration = Number(String(raw[idx('durationseconds')]).replace(/,/g, '')) || 0;
       row.campaign = text(idx('campaign'));
-      row.key = tabName + '|' + row.ts + '|' + row.phone;
+      // Exports round times to the hour, so one caller can have several calls at the same time:
+      // later ones get a counter so comments and statuses stay with the right call.
+      const base = tabName + '|' + row.ts + '|' + caller;
+      keysUsed[base] = (keysUsed[base] || 0) + 1;
+      row.key = keysUsed[base] > 1 ? base + '|' + keysUsed[base] : base;
     }
 
     const shown = ['firstname', 'lastname', 'name', 'fullname', 'email', 'phone', 'phonenumber', 'leadstatus',
@@ -322,7 +329,8 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       row.details.push([prettyHeader_(h), v]);
     });
     // Forms often fire several times for one person (double clicks, retries): an identical
-    // submission within an hour of another counts once.
+    // submission within an hour of another counts once. Every row of a call export is a real call.
+    if (kind === 'call') { out.push(row); continue; }
     const signature = [row.name, row.email, row.phone, JSON.stringify(row.details)].join('|').toLowerCase();
     const times = submitted[signature] || (submitted[signature] = []);
     if (row.ts !== null && times.some(t => Math.abs(t - row.ts) < 3600000)) continue;
