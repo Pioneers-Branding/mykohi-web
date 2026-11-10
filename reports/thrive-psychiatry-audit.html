@@ -3,24 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thrive Psychiatry Audit</title>
+<title>Thrive Psychiatry Audit | MyKohi</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow, noarchive">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
 <style>
-/* Layout: a single clinical-style report sheet. Score and category meters on top, findings by category below. */
 :root {
-  --bg: #f3f6f8; --sheet: #ffffff; --fg: #15232e; --muted: #566773; --line: #d9e1e7; --track: #e4eaef;
-  --accent: #14566e; --crit: #b3261e; --crit-bg: #fbe9e7; --high: #9a5b00; --high-bg: #fdf1dd; --med: #48606f; --med-bg: #e8eef2;
-  --body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
-  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark } }
-:root[data-theme="dark"] {
-  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
-  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark }
 * { box-sizing: border-box; }
 body { margin: 0; }
 body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
@@ -72,13 +69,45 @@ footer.notes p { margin: 0; }
   .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
   .num { font-size: 80px; }
 }
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
 </style>
 </head>
 <body>
 <main class="sheet">
   <header class="top">
-    <h1>Website &amp; On-Page SEO Audit: thrivepsychiatryandwellness.com</h1>
-    <div class="meta mono">Thrive Psychiatry and Wellness · Audited 10 Nov 2026 · 23 pages crawled</div>
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: thrivepsychiatryandwellness.com</h1>
+      <div class="meta mono">Thrive Psychiatry and Wellness · Audited 10 Nov 2026 · 23 pages crawled</div>
+    </div>
+    <a class="dl" href="thrive-psychiatry-audit.pdf" download="Thrive-Psychiatry-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
   </header>
 
   <div class="summary">
@@ -200,6 +229,7 @@ footer.notes p { margin: 0; }
       <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, reviews on third-party sites and real-user Core Web Vitals. These need account or tool access and are not part of the score. How the hidden links got there was not investigated.</p>
     </div>
   </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
 </main>
 </body>
 </html>
