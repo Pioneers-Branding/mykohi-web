@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thrive Psychiatry Audit</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single clinical-style report sheet. Score and category meters on top, findings by category below. */
+:root {
+  --bg: #f3f6f8; --sheet: #ffffff; --fg: #15232e; --muted: #566773; --line: #d9e1e7; --track: #e4eaef;
+  --accent: #14566e; --crit: #b3261e; --crit-bg: #fbe9e7; --high: #9a5b00; --high-bg: #fdf1dd; --med: #48606f; --med-bg: #e8eef2;
+  --body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
+  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
+  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark }
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <h1>Website &amp; On-Page SEO Audit: thrivepsychiatryandwellness.com</h1>
+    <div class="meta mono">Thrive Psychiatry and Wellness · Audited 10 Nov 2026 · 23 pages crawled</div>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">28<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The homepage contains hidden gambling links, which points to a possible site compromise. The review form sends only happy patients to Google, the TMS menu link is dead, and the homepage takes 18 seconds to fully appear on mobile.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">4</b></span>
+        <span><b class="chip h">High</b> <b class="mono">20</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">18</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:20%"></i></div><div class="v">20/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:20%"></i></div><div class="v">20/100</div></div>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:35%"></i></div><div class="v">35/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:35%"></i></div><div class="v">35/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Remove the hidden gambling links today.</b> Run a malware scan, update plugins and change all WordPress passwords.</li>
+      <li><b>Stop filtering reviews by star rating.</b> Offer every patient the same public review link.</li>
+      <li><b>Fix the TMS Therapy link</b> and publish a real TMS page on this site.</li>
+      <li><b>Cut homepage load time.</b> Compress the main image, and reduce the 50 stylesheets and 29 blocking scripts.</li>
+      <li><b>Correct the basics:</b> one spelling of the doctor's name, homepage placeholders, 13 missing descriptions, and clinic and physician schema.</li>
+      <li><b>Build local reach</b> with Plano service pages, nearby-city pages and clinician-reviewed articles.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Security &amp; accessibility</h3><span>20/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Hidden gambling links sit off-screen on the homepage, with anchors such as "bettilt", "pinco casino" and "casino siteleri 2026". Google's crawler receives them too. Treat the site as compromised until cleaned. <em>16 links to 16 domains.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>All standard security headers are missing: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Text fails color contrast. <em>7 elements on the homepage, 9 on the ADHD page.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Patient names and comments are collected through a review plugin on a psychiatry site. Needs HIPAA review of how they are stored.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The homepage publicly shows the WordPress and Elementor version numbers, which helps attackers target known flaws.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Link text and heading order fail basic checks. <em>5 vague links and 6 out-of-order headings on the homepage.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>20/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>No pages target nearby patients. <em>Frisco, Allen, McKinney, Dallas and Richardson appear on 0 of 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Service pages rarely mention the city where it counts. <em>Plano is in 1 of 23 title tags and 2 of 23 H1s.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Reviews load through a third-party widget, and the Google rating is an image with no alt text, so the HTML carries no review content.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Telepsychiatry has no page of its own, so Texas-wide patients have nothing to land on. <em>Telehealth or telepsychiatry appears on at most 3 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Different Google Maps short links appear across the site. Confirm they all open the same listing. <em>3 different links.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The review form filters by rating. 4 and 5-star patients get a prompt to post on Google, and 1 to 3-star patients only see a thank-you. Google's policy bars selectively soliciting positive reviews. Counsel should also check FTC exposure. <em><code>/swati/</code> and <code>/thrive/</code>.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The only physician's name is spelled two ways, "Ellendula" and "Ellendulla", including in the site menu. <em>All 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Template placeholders remain in homepage team popups: "A small river named Duden...", <code>info@example.com</code> and a +1 (859) phone number. <em>4 popups.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The blog is abandoned. <em>3 posts, all published Sept to Oct 2023.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Articles are authored by "admin" in their structured data, and the site has no "reviewed by" line on mental health information.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Crisis information appears only on Resources. A psychiatry site should show 988 on every page. <em>1 of 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Important services have no page: TMS, medication management, OCD and telepsychiatry.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The homepage promises care for children and seniors, but the footer calls the only listed provider an Adult Psychiatrist.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>"The Best Behavioral Health Clinic In Plano" is an unsupported superlative on a medical site.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Most pages are out of date. <em>15 of 20 pages were last modified in 2024 or earlier.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Footers show two different years, © 2023 and © 2025, and the awkward "Present by". <em>All 23 pages.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The main homepage content takes far too long to appear. Google's target is 2.5 s. <em>LCP is 18.3 s on the homepage and 4.7 s on the ADHD page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Nothing shows for seconds, and pages are slow to become usable. <em>First paint 5.1 s, usable at 13.3 s.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Elementor add-ons block rendering. <em>50 stylesheets and 29 of 30 scripts on the homepage, costing about 2.5 s.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The homepage is very heavy. <em>3.06 MB and 145 requests.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Images are wasteful. <em>420 KB saved with modern formats, 378 KB from off-screen images.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The menu is repeated in the HTML and browser caching is short. <em>1,791 page elements, 121 files with short cache times.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>35/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The TMS Therapy menu link goes to an external page that returns 404, and the site has no TMS page of its own. <em>In the menu on all 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>A hidden link, <code>&lt;a href="2"&gt;</code>, sits in invisible markup and leads to an error page. Check it during the malware cleanup. <em>All 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>No analytics or ad tracking loaded on the homepage in testing, so patient enquiries may not be measured.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Every missing URL returns 410 "Gone", which tells Google a page was removed on purpose. Normal missing pages should return 404.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Review forms and the patient forms page are open to indexing and listed in the sitemap. <em><code>/swati/</code>, <code>/thrive/</code>, <code>/new-patient-forms/</code>.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Phone and email links contain a stray space (<code>tel:%20</code>, <code>mailto:%20</code>). <em>All 23 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Redirects are wasted: the menu links to <code>/thrive</code> without its slash, and <code>http://www</code> takes 2 hops to reach the live site.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>35/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Meta descriptions are missing, including on Home, About, Services, Insurances and Contact. <em>13 of 23 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The homepage title is "Home - Thrive Psychiatry and Wellness". It has no search phrase such as "psychiatrist" and no city.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Key schema is absent: no Physician, MedicalClinic, LocalBusiness or Organization on any page, and no FAQPage on <code>/faqs/</code>.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Default page-name titles such as "Insurances - Thrive Psychiatry and Wellness" waste search space. <em>13 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Images have no alt text, including the doctor's homepage photo. <em>73 of 483 images on 19 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>H1s are weak or missing. <code>/resources/</code> and <code>/new-patient-forms/</code> have none, and others read "BLOG" or "Depression Treatment Plano".</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Headings are overused for layout. <em>34 H2s on Resources and 26 on the homepage.</em></p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a full crawl of all 23 sitemap URLs on 10 Nov 2026.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile homepage: Performance 56, Accessibility 95, Best Practices 74, SEO 79. All sitemap URLs load, HTTPS redirects work, canonicals are correct, and a Notice of Privacy Practices is published. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, reviews on third-party sites and real-user Core Web Vitals. These need account or tool access and are not part of the score. How the hidden links got there was not investigated.</p>
+    </div>
+  </footer>
+</main>
+</body>
+</html>

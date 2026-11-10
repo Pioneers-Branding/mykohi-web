@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pain Specialty Group Audit</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single clinical-style report sheet. Score and category meters on top, findings by category below. */
+:root {
+  --bg: #f3f6f8; --sheet: #ffffff; --fg: #15232e; --muted: #566773; --line: #d9e1e7; --track: #e4eaef;
+  --accent: #14566e; --crit: #b3261e; --crit-bg: #fbe9e7; --high: #9a5b00; --high-bg: #fdf1dd; --med: #48606f; --med-bg: #e8eef2;
+  --body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
+  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e171d; --sheet: #16232c; --fg: #e8eff3; --muted: #9db0bc; --line: #2b3b46; --track: #2b3b46;
+  --accent: #6dbcd8; --crit: #ff9a90; --crit-bg: #47201d; --high: #f2bd6b; --high-bg: #3f2f14; --med: #b5c6d1; --med-bg: #2a3944; color-scheme: dark }
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+</style>
+</head>
+<body>
+
+<main class="sheet">
+  <header class="top">
+    <h1>Website &amp; On-Page SEO Audit: painspecialtygroup.com</h1>
+    <div class="meta mono">Pain Specialty Group · Audited 10 Nov 2026 · 631 pages crawled</div>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">32<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The site is loaded with blog posts but weak where patients decide. Key treatment links are broken, 95% of pages are formula-style blog content without a named clinician, and the two offices have almost identical pages.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b id="n-c" class="mono">6</b></span>
+        <span><b class="chip h">High</b> <b id="n-h" class="mono">27</b></span>
+        <span><b class="chip g">Medium</b> <b id="n-g" class="mono">13</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:20%"></i></div><div class="v">20/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Accessibility &amp; security<span class="w">[10]</span></div><div class="bar"><i style="width:35%"></i></div><div class="v">35/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:50%"></i></div><div class="v">50/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Repair the 13 broken URLs</b> and 508 internal links to them. Point <code class="mono">/contact</code> to <code class="mono">/contactus</code>.</li>
+      <li><b>Build real service pages</b> for radiofrequency ablation, facet and SI joint care, spinal cord stimulation and kyphoplasty.</li>
+      <li><b>Review the 597 blog posts.</b> Merge or remove region-swapped posts, then name a clinician author and reviewer with dates on those that stay.</li>
+      <li><b>Write distinct Newington and Newmarket pages</b> with separate MedicalClinic schema.</li>
+      <li><b>Rewrite titles and H1s</b> to under 60 characters, led by condition and city, and fix the <code class="mono">&amp;amp;</code> encoding bug.</li>
+      <li><b>Have counsel review analytics on patient pages</b>, then add security headers and upgrade PHP.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>40/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>12 linked treatment URLs return a server error (HTTP 500), including <code>/services/radiofrequency-ablation</code> and <code>/services/pain-management-services</code>. <em>65 internal links, confirmed over 3 retests.</em></p></div>
+      <div class="row"><b class="chip c">Critical</b><p><code>/contact</code> returns 404, but the working page is <code>/contactus</code>. <em>Linked from 443 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The "For Clinicians" link goes to <code>painspecialtygrp.com</code>, which returns a 500 error.</p></div>
+      <div class="row"><b class="chip h">High</b><p>AI-assistant guide <code>llms.txt</code> is mostly dead, including <code>/contact-us</code>, <code>/visit</code> and <code>/pay-now</code>. <em>30 of 53 links fail.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Weak internal linking leaves most of the site barely connected. <em>502 of 631 pages have 2 or fewer internal links pointing to them.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Pages link to the homepage over <code>http://</code>, forcing a redirect. <em>599 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The XML sitemap has no <code>lastmod</code> dates, and <code>robots.txt</code> does not declare it. <em>631 URLs.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Pages linked sitewide are missing from the sitemap, including <code>/contents/aboutus/*</code> and patient forms. <em>7 URLs.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Menu items such as About and Patients use <code>javascript:void(0)</code>, which search engines cannot follow. <em>9 on the homepage.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Title tags are far too long and will be cut off in results. <em>626 of 631 exceed 60 characters. Blog median is 118, maximum 139.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Double-encoded <code>&amp;amp;</code> appears in the source of core page metadata. <em>31 titles and 21 descriptions.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The homepage title opens with "Now Offering Telehealth Appointments", and its H1 is only the brand name. "Pain management" is not the lead message.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Service H1s are bare labels such as "Botox" and "Epidural", with no intent or location. <em>20 service pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Images have no alt text. <em>1,181 images on 625 pages, including 52 of 96 on the homepage.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Key schema is absent: no MedicalClinic, BlogPosting, BreadcrumbList or FAQPage on any page, though service pages are written as Q&amp;A.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>AggregateRating is self-published on the practice's own pages, which Google does not show as review stars. <em>25 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The homepage has 2 H2s across about 1,490 words, and one of them is "QUICKLINKS".</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Home and Telehealth share a title and description. About, Services and Contact share a description. Home and About share an H1.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Template leftovers show in titles: "Newington, NH: Pain Management: : Pain Specialty Group" and "Request Now with Pain Specialty Group now."</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Social sharing data is incomplete. <em>No og:description or Twitter card on any page. 609 pages carry only og:image.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>20/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The site is badly out of balance, with blog posts swamping the pages that convert patients. <em>597 posts (95%) against 20 treatment pages.</em></p></div>
+      <div class="row"><b class="chip c">Critical</b><p>Posts follow a repeatable formula, a risk under Google's scaled-content policy. <em>311 URLs open with a place name. One sentence repeats on 257 posts, another on 170.</em></p></div>
+      <div class="row"><b class="chip c">Critical</b><p>Medical content has no named expert. Posts are credited to "Pain Specialty Group". <em>1 of 597 names a clinician, and the site has no "reviewed by" line.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Posts show no publish or review date, and there is no date markup, so patients and search engines cannot judge whether medical advice is current.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Main procedures have no service page: radiofrequency ablation, facet and SI joint care, spinal cord stimulation, peripheral nerve stimulation, kyphoplasty.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Near-identical regional posts compete with each other. <em>Kyphoplasty question posts repeat across 5 regional slugs, cervical epidural across 4.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The stem cell page calls the therapy "safe" and says it helps "generate new tissue" without qualification. Needs clinical and regulatory review.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Few pages cite medical sources such as NIH, FDA or AAOS. <em>23 of 631 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Key conversion pages are thin. <em><code>/schedule</code> has 160 words and <code>/services</code> has 336, both counting navigation.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>30/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The Newington and Newmarket pages are near duplicates with about 444 words each. <em>97.7% text match.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Posts target areas where the site lists no office. <em>201 posts: Southern Maine 72, Vermont 66, Northern Massachusetts 63.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The homepage claims a "Center of Excellence" for NH, MA and ME, but every listed address is in New Hampshire.</p></div>
+      <div class="row"><b class="chip h">High</b><p>No service-plus-city pages exist, and only 2 location pages serve the whole Seacoast. <em>Portsmouth appears on 5 of 34 non-blog pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Both offices share one phone number, listed for both appointments and general inquiries. <em>603-383-2020.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>50/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The largest element loads slowly. Google's target is 2.5 s. <em>LCP is 6.4 s on the homepage and 3.9 s on a service page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Pages take too long to become usable. <em>9.7 s on the homepage and 12.5 s on a service page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Images are oversized for mobile. <em>1.08 MB could be saved by resizing and 635 KB with modern formats.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The homepage is heavy. <em>2.5 MB, 94 requests, 433 KB of unused JavaScript.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Accessibility &amp; security</h3><span>35/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Text fails color contrast. <em>69 elements on the homepage, 45 on a service page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Links have no name for screen readers, even with the AudioEye overlay installed. <em>22 on the homepage, 20 on a service page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Google Tag Manager runs sitewide, and the Analytics ID is passed into the booking widget. Needs HIPAA review of what data is shared. <em>631 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>No Notice of Privacy Practices found in the footer or on the privacy, terms and accessibility pages.</p></div>
+      <div class="row"><b class="chip h">High</b><p>All standard security headers are missing: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The server publicly reports PHP 8.0.30, a version that stopped receiving security updates in November 2023.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The server allows requests from any origin with every HTTP method (<code>Access-Control-Allow-Origin: *</code>).</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Mobile tap targets are too small or too close together. <em>6 on the homepage.</em></p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a full crawl of all 631 sitemap URLs on 10 Nov 2026.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile homepage: Performance 71, Accessibility 84, Best Practices 78, SEO 92. It tests basics only. All sitemap URLs load, HTTPS redirects work, and canonical tags are correct. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, reviews on third-party sites and real-user Core Web Vitals. These need account or tool access and are not part of the score.</p>
+    </div>
+  </footer>
+</main>
+</body>
+</html>
