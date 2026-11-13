@@ -26,7 +26,7 @@
  *  5. Copy the Web app URL into SCRIPT_URL in reports/index.html.
  *  6. The client's link is https://mykohi.com/reports/?c=<their code>
  *
- * Lead tabs are found automatically: any tab with a header row containing "Email" plus "ID" or
+ * Lead tabs are found automatically: any tab with a header row containing "Email" (or "Email Address") plus "ID" or
  * "Lead Status" is a form-lead tab, and any tab with "Caller phone number" is a call tab. The
  * header row can sit below a summary block; when a tab has more than one (an old header left at
  * the top), the lowest one wins. A pasted Google Ads call export with no header row is also
@@ -221,7 +221,8 @@ function readTab_(sh, tabName) {
     const keys = values[i].map(normKey_);
     // A data row holding header text (Meta rows shifted by a broken append) is not a header.
     if (display[i].some(v => /@/.test(v))) continue;
-    if (keys.indexOf('email') !== -1 && (keys.indexOf('id') !== -1 || keys.indexOf('leadstatus') !== -1)) {
+    const hasEmail = keys.indexOf('email') !== -1 || keys.indexOf('emailaddress') !== -1;
+    if (hasEmail && (keys.indexOf('id') !== -1 || keys.indexOf('leadstatus') !== -1)) {
       header = { row: i, kind: 'form', hasStatus: keys.indexOf('leadstatus') !== -1 };
     } else if (keys.indexOf('callerphonenumber') !== -1) {
       header = { row: i, kind: 'call', hasStatus: false };
@@ -292,8 +293,10 @@ function parseRows_(tabName, kind, values, display, headerRow) {
     if (kind === 'form') {
       const first = text(idx('firstname'));
       const last = text(idx('lastname'));
-      row.name = [first, last].filter(Boolean).join(' ') || text(idx('name')) || text(idx('fullname'));
-      row.email = text(idx('email'));
+      // Pediatric forms ask for the parent (the contact) and the child; the child shows as a detail.
+      row.name = [first, last].filter(Boolean).join(' ') || text(idx('name')) || text(idx('fullname')) ||
+        text(idx('parentname')) || text(idx('childname'));
+      row.email = text(idx('email') !== -1 ? idx('email') : idx('emailaddress'));
       row.phone = prettyValue_('phone', text(idx('phone') !== -1 ? idx('phone') : idx('phonenumber')));
       row.status = normStatus_(text(idx('leadstatus')));
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
@@ -316,7 +319,7 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       row.key = keysUsed[base] > 1 ? base + '|' + keysUsed[base] : base;
     }
 
-    const shown = ['firstname', 'lastname', 'name', 'fullname', 'email', 'phone', 'phonenumber', 'leadstatus',
+    const shown = ['firstname', 'lastname', 'name', 'fullname', 'parentname', 'email', 'emailaddress', 'phone', 'phonenumber', 'leadstatus',
       'createdat', 'createdtime', 'starttime', 'callerphonenumber', 'callercountrycode', 'callerareacode', 'durationseconds'];
     // Forms that changed over time leave duplicate columns (Reason_for_inquiry / Reason_for_Inquiry);
     // the first non-empty one wins.
