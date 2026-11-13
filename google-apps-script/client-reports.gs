@@ -302,8 +302,13 @@ function parseRows_(tabName, kind, values, display, headerRow) {
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
       if (!row.name && !row.email && !row.phone) continue;
       if (isSpam_(first, last, text(idx('message')) + ' ' + text(idx('comments')))) continue;
-      const id = text(idx('id'));
-      row.key = tabName + '|' + (id || row.ts + '|' + row.email);
+      // Real IDs are long codes ("l:2216829422490878", "QHOxgBGLLbGaSYnPBs8p2"); a short word like
+      // "CREATED" is a value shifted into the column by a misaligned append, and is ignored.
+      let id = text(idx('id'));
+      if (/^[a-z_]{1,14}$/i.test(id)) id = '';
+      const base = tabName + '|' + (id || row.ts + '|' + row.email);
+      keysUsed[base] = (keysUsed[base] || 0) + 1;
+      row.key = keysUsed[base] > 1 ? base + '|' + keysUsed[base] : base;
     } else {
       // Google Ads shows "--" when the caller's number is withheld.
       const caller = text(idx('callerphonenumber'));
