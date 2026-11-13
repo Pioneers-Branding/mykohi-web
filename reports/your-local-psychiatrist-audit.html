@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Local Psychiatrist Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: yourlocalpsychiatrist.nyc</h1>
+      <div class="meta mono">Your Local Psychiatrist NYC, telehealth psychiatry &amp; therapy · Audited 13 Nov 2026 · 600 of 954 sitemap URLs crawled</div>
+    </div>
+    <a class="dl" href="your-local-psychiatrist-audit.pdf" download="Your-Local-Psychiatrist-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">27<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The Patient Portal link in the main menu leads to an error page, and the site lists four different phone numbers. The FAQ page still shows "Lorem ipsum" template text, provider credentials conflict between pages, and every footer reads "© 2023 LocalMD". The homepage takes 23 seconds to fully appear on mobile.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">4</b></span>
+        <span><b class="chip h">High</b> <b class="mono">18</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">16</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:15%"></i></div><div class="v">15/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:20%"></i></div><div class="v">20/100</div></div>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Fix the Patient Portal link</b> in the main menu. Existing patients currently land on an error page.</li>
+      <li><b>Use one phone number and one address everywhere:</b> header, schema, contact page and Google Business Profile.</li>
+      <li><b>Remove the FAQ placeholder text,</b> change the footer to the right brand and year, and correct provider credentials and duplicate profiles.</li>
+      <li><b>Decide on the neighborhood pages.</b> Make them genuinely useful and link them, or merge them. Do the same for the 158 unlinked pages.</li>
+      <li><b>Review the Meta Pixel with HIPAA counsel,</b> name a clinician reviewer on blog posts, and show 988 on every page.</li>
+      <li><b>Cut mobile load time:</b> load reCAPTCHA once, defer scripts, and fix the slow server response.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The FAQ page still contains page-builder placeholder text: "I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet..." <em><code>/faq/</code>.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Provider credentials conflict. Gloria Chi's URL says "md", but her page says LMSW. Stephanie English is "PMHNP, PhD" on one page and "MHNP" on another. Marta Laurette has two profiles, one LCSW and one LCSW-R.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Every footer reads "Copyright © 2023 LocalMD", which is a different brand name and three years out of date. <em>All 600 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Blog posts name no clinician. The author is "Your Local Psychiatrist", and only 1 post says it was reviewed by anyone. <em>285 posts.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Crisis information is rare on a site with pages about suicidal thoughts and self-harm. <em>988 appears on 9 of 600 pages. One page still lists the old 1-800-273-8255 Lifeline number.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Topics are duplicated across separate pages. <em>Grief counseling ×2, bereavement ×2, cyclothymia ×2, and COVID-19 ×2, one of which still says "Please Protect Yourself".</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Spelling mistakes appear in URLs and titles: "delerium" and "Bedford Stuyvessant".</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>20/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The site uses four phone numbers. <code>718-551-3770</code> is in the header of every page, <code>718-307-1577</code> is in the schema and on 15 pages, <code>718-215-9419</code> is on 11 pages, and <code>888-628-9454</code> is on 7.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The location doesn't add up. The schema address is 71-16 Grand Avenue in ZIP 11378 (Maspeth, Queens), but the map pin is in Brooklyn and page titles say "Brooklyn, NY". No page shows an address.</p></div>
+      <div class="row"><b class="chip h">High</b><p>24 neighborhood pages, such as "Our team of Dumbo psychiatrists", serve a practice where "All appointments are done through telehealth". Pages tested were about 45% word-for-word identical. Google may treat them as doorway pages. <em>22 of 24 have no internal links.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The Contact page has no H1, no address and only 239 words.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Upstate pages for Albany, Rochester, Syracuse and Buffalo exist, but nothing links to them.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Spanish page <code>/acerca-de/</code> has no hreflang tag and no internal links.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>15/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The main content takes far too long to appear. Google's target is 2.5 s. <em>LCP is 22.9 s on the homepage and 15.1 s on Services.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Pages are slow to become usable. <em>Usable at 20.1 s on the homepage, Speed Index 16 s.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>reCAPTCHA loads 5 times on the homepage (841 KB each), and a 596 KB HubSpot stylesheet loads as well. <em>3.9 MB and 153 requests.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The server is slow to respond. <em>740 ms on the homepage and 630 ms on Services, against Lighthouse's 600 ms threshold.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Render-blocking files delay first paint. <em>23 of 25 scripts block rendering, costing 1.4 to 2.5 s.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Images are not optimized. <em>331 KB could be saved with modern formats and 313 KB with correct sizing.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>25/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The Meta (Facebook) Pixel loads on every page, including condition pages such as suicidal thoughts and substance use, alongside Google tags. HHS guidance treats this tracking as a HIPAA risk.</p></div>
+      <div class="row"><b class="chip h">High</b><p>All standard security headers are missing: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy and Permissions-Policy.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Pinch-to-zoom is blocked (<code>maximum-scale=1, user-scalable=0</code>), so visitors with low vision cannot enlarge text. <em>All 600 pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The booking form is a HubSpot embed. Confirm the account is on a HIPAA-eligible plan with a signed BAA.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>XML-RPC accepts requests, and the page code shows WordPress 6.8.12, a major version behind. The author sitemap exposes the account names <code>rudoymedical</code> and <code>devenup</code>.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Text fails color contrast, and headings are out of order on both pages tested.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>30/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The "Patient Portal" link in the main menu goes to an eClinicalWorks login page that returned 404 in testing. <em>All 600 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>158 of 600 crawled pages have no internal links pointing to them. <em>81 service, 25 condition and 11 provider pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The sitemap lists 347 tag archives, which only repeat post excerpts. <em>36% of 954 sitemap URLs.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Two condition pages contain malformed links (<code>http://diseases/...</code>) that lead nowhere.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Some internal links point to the <code>www</code> address and have to redirect. <em>Contact, EMDR and Psychiatric Evaluation.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>A retired Universal Analytics tag (<code>UA-146993433-1</code>) still loads, alongside two separate GA4 properties, so reporting is split.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>40/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Key pages have no H1. <em>11 pages, including Services, Contact, Mission and a provider page. Insurance and Patient Guide have empty H1 tags.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The MedicalBusiness schema has errors. Social links are placed in <code>additionalType</code>, a 718 number is labeled toll-free, a Queens ZIP is paired with "New York", and the phone doesn't match the header.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The 37 provider profiles have no Physician or Person schema, and the FAQ has no FAQPage schema.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Titles are too long and will be cut off in results. <em>227 of 600 are over 60 characters.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Meta descriptions are too long. <em>108 of 600 are over 160 characters.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>H1s and descriptions are duplicated. <em>3 H1 pairs, plus a shared description on Brooklyn Heights and Fort Greene.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Category and author archives have no meta description. <em>8 pages.</em></p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. The crawl on 13 Nov 2026 covered every page, provider, category and author URL and 284 of 291 posts. Tag archives were counted but not crawled.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile scores were Performance 39, Accessibility 89, Best Practices 78 and SEO 100 on the homepage, and 46, 88, 78 and 93 on Services. HTTPS and www redirect in one hop. Every page has a title, a canonical, Open Graph tags and breadcrumbs. Condition pages are long and cite NIH sources. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, third-party reviews and real-user Core Web Vitals were not assessed. They need account or tool access and are not part of the score. HIPAA points are flags for review, not legal advice.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>
