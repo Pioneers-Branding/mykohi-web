@@ -175,6 +175,10 @@ function load_(client) {
     const list = sources_(client.sheets[s.key]);
     sections[s.key] = list.length ? readSources_(list, client.name) : { connected: false, tabs: [] };
     sections[s.key].tabs.forEach(t => t.rows.forEach(r => {
+      // A client's own statuses ("Contact 2") are kept as written in the sheet, digits and all.
+      const own = r.sheetStatus && client.statuses.find(st => normKey_(st) === normKey_(r.sheetStatus));
+      if (own) r.status = own;
+      delete r.sheetStatus;
       if (overrides[r.key]) r.status = overrides[r.key];
     }));
   });
@@ -310,7 +314,8 @@ function parseRows_(tabName, kind, values, display, headerRow) {
         text(idx('parentname')) || text(idx('childname'));
       row.email = text(idx('email') !== -1 ? idx('email') : idx('emailaddress'));
       row.phone = prettyValue_('phone', text(idx('phone') !== -1 ? idx('phone') : idx('phonenumber')));
-      row.status = normStatus_(text(idx('leadstatus')));
+      row.sheetStatus = text(idx('leadstatus'));
+      row.status = normStatus_(row.sheetStatus);
       if (row.status === 'Test' || TEST_PATTERN.test(row.name + ' ' + row.email)) continue;
       if (!row.name && !row.email && !row.phone) continue;
       if (isSpam_(first, last, text(idx('message')) + ' ' + text(idx('comments')))) continue;
