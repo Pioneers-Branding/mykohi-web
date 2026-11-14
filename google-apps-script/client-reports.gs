@@ -20,7 +20,8 @@
  *       Google Ads: https://docs.google.com/spreadsheets/d/...
  *     Leave Code blank and run Client Reports > Fill missing codes. Logo URL is optional; for a white
  *     logo, set Logo Background to a dark color such as #0f172a.
- *     Set Active to FALSE to switch a client's link off.
+ *     Set Active to FALSE to switch a client's link off. Extra Statuses (optional) adds statuses that
+ *     client can pick, comma-separated (e.g. "Attempted").
  *  4. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone.
  *     Approve access to your spreadsheets when asked.
  *  5. Copy the Web app URL into SCRIPT_URL in reports/index.html.
@@ -37,7 +38,7 @@
 
 const CLIENTS_TAB = 'Clients';
 const COMMENTS_TAB = 'Comments';
-const CLIENT_HEADERS = ['Code', 'Client', 'Ads Sheet', 'Website Sheet', 'Logo URL', 'Logo Background', 'Active'];
+const CLIENT_HEADERS = ['Code', 'Client', 'Ads Sheet', 'Website Sheet', 'Logo URL', 'Logo Background', 'Active', 'Extra Statuses'];
 const COMMENT_HEADERS = ['Timestamp', 'Client Code', 'Client', 'Lead Key', 'Lead', 'Author', 'Comment'];
 const STATUSES_TAB = 'Statuses';
 const STATUS_HEADERS = ['Timestamp', 'Client Code', 'Client', 'Lead Key', 'Lead', 'Status', 'Changed By', 'Written To Sheet'];
@@ -135,11 +136,19 @@ function clientFor_(code) {
     name: String(row[col('Client')] || ''),
     logo: col('Logo URL') === -1 ? '' : String(row[col('Logo URL')] || ''),
     logoBg: col('Logo Background') === -1 ? '' : String(row[col('Logo Background')] || '').trim(),
+    statuses: statusesFor_(col('Extra Statuses') === -1 ? '' : row[col('Extra Statuses')]),
     sheets: SECTIONS.reduce((acc, s) => {
       acc[s.key] = col(s.column) === -1 ? '' : String(row[col(s.column)] || '');
       return acc;
     }, {}),
   };
+}
+
+// Statuses this client can pick: the standard ones, with the client's extras after "Not reviewed".
+function statusesFor_(cell) {
+  const base = Object.keys(SHEET_STATUS_LABELS);
+  const extra = String(cell || '').split(/[,\n]+/).map(v => v.trim().slice(0, 30)).filter(v => v && base.indexOf(v) === -1);
+  return [base[0]].concat(extra, base.slice(1));
 }
 
 // Every sheet listed in a cell, one per line: "Meta Ads: https://docs.google.com/..." or a bare link/ID.
@@ -171,7 +180,10 @@ function load_(client) {
   });
   return {
     ok: true,
-    client: { name: client.name, logo: client.logo, logoBg: /^#[0-9a-f]{3,8}$/i.test(client.logoBg) ? client.logoBg : '' },
+    client: {
+      name: client.name, logo: client.logo, statuses: client.statuses,
+      logoBg: /^#[0-9a-f]{3,8}$/i.test(client.logoBg) ? client.logoBg : '',
+    },
     sections: sections,
     comments: commentsFor_(client.code),
     updatedAt: new Date().toISOString(),
@@ -539,7 +551,7 @@ function statusOverrides_(code) {
 
 function setStatus_(client, body) {
   const status = String(body.status || '');
-  if (!Object.prototype.hasOwnProperty.call(SHEET_STATUS_LABELS, status)) throw new Error('Unknown status');
+  if (client.statuses.indexOf(status) === -1) throw new Error('Unknown status');
   const leadKey = String(body.leadKey || '').slice(0, 300);
   const section = SECTIONS.find(s => s.key === body.section);
   if (!leadKey || !section) throw new Error('Missing lead');
@@ -549,7 +561,7 @@ function setStatus_(client, body) {
   lock.waitLock(10000);
   try {
     const written = sources_(client.sheets[section.key])
-      .some(src => writeStatusToSheet_(src.id, leadKey, SHEET_STATUS_LABELS[status]));
+      .some(src => writeStatusToSheet_(src.id, leadKey, status in SHEET_STATUS_LABELS ? SHEET_STATUS_LABELS[status] : status));
     const cell = s => (/^[=+\-@]/.test(s) ? "'" + s : s);
     statusesSheet_().appendRow([new Date(), client.code, client.name, cell(leadKey),
       cell(String(body.leadName || '').slice(0, 120)), status, cell(author), written]);

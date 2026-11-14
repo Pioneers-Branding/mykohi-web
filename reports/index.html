@@ -306,14 +306,16 @@
         // Status colors pair with an icon + label, never color alone.
         const STATUS = {
             'Valid': { color: '#0ca30c', icon: '✓' },
+            'Attempted': { color: '#b7791f', icon: '↻' },
             'Client contacted': { color: '#0284c7', icon: '☎' },
             'Existing patient': { color: '#6250d6', icon: '↺' },
             'Out of location': { color: '#ec835a', icon: '⌖' },
             'Invalid': { color: '#d03b3b', icon: '✕' },
             'Not reviewed': { color: '#94a3b8', icon: '•' },
         };
-        // Statuses the client can set from the lead panel (the backend accepts only these).
-        const EDITABLE_STATUSES = ['Not reviewed', 'Client contacted', 'Valid', 'Invalid', 'Existing patient'];
+        // Statuses the client can set from the lead panel (the backend accepts only these); clients with
+        // extra statuses (e.g. "Attempted") get their own list from the backend.
+        let EDITABLE_STATUSES = ['Not reviewed', 'Client contacted', 'Valid', 'Invalid', 'Existing patient'];
         const KIND = {
             form: { label: 'Form leads', color: 'var(--series-form)' },
             call: { label: 'Phone calls', color: 'var(--series-call)' },
@@ -370,6 +372,7 @@
                 data = await api('load');
                 comments = {};
                 data.comments.forEach(c => (comments[c.leadKey] ||= []).push(c));
+                if (Array.isArray(data.client.statuses) && data.client.statuses.length) EDITABLE_STATUSES = data.client.statuses;
                 $('client-name').textContent = data.client.name || 'Your practice';
                 document.title = `${data.client.name || 'Lead'} Report | MyKohi`;
                 if (data.client.logo) {
