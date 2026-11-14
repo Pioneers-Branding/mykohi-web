@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zephyr Collective Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: zephyr-collective.com</h1>
+      <div class="meta mono">Zephyr Collective, psilocybin healing center, Centennial CO · Audited 15 Nov 2026 · 10 pages crawled</div>
+    </div>
+    <a class="dl" href="zephyr-collective-audit.pdf" download="Zephyr-Collective-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">41<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The site is fast and clean in code, but there is little for search engines to rank: 10 pages, no condition pages and no blog. Its first testimonial reads like a colleague's reference, it still says "Opening August 2026", the FAQ names the wrong licensing agency, and no analytics is installed.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">1</b></span>
+        <span><b class="chip h">High</b> <b class="mono">12</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">13</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:45%"></i></div><div class="v">45/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:50%"></i></div><div class="v">50/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:55%"></i></div><div class="v">55/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:55%"></i></div><div class="v">55/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Relabel or remove the first testimonial</b> and confirm every quote comes from an actual participant.</li>
+      <li><b>Update the launch wording.</b> Replace "Opening August 2026" and "Calendar coming soon" across the footer, schema and Programs page.</li>
+      <li><b>Correct the licensing statement</b> to name the Department of Revenue's Natural Medicine Division, and show the healing center license number.</li>
+      <li><b>Build pages people search for:</b> psilocybin therapy for depression, PTSD and end-of-life distress, Denver-area pages, and a blog.</li>
+      <li><b>Fix the plumbing:</b> force HTTPS on <code>http://www</code>, link to the trailing-slash URLs, and install analytics.</li>
+      <li><b>Show the full address and phone on every page,</b> and add the 988 crisis line.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The first homepage testimonial is labeled "Individual journey participant", but it describes working with Emily and Annmarie "in an acute outpatient setting" and their care "for their patients". That reads as a colleague's reference, and FTC endorsement rules require honest labels.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The launch wording is out of date. The homepage says "Now open as of August 2026", but the footer on all 10 pages and the schema say "Opening August 2026", and Programs still says "Calendar coming soon".</p></div>
+      <div class="row"><b class="chip h">High</b><p>The FAQ says the practice holds "a full licence issued by... DORA, which oversees all natural medicine health services". Colorado healing center licenses come from the Department of Revenue's Natural Medicine Division; DORA licenses facilitators. No license number is shown anywhere.</p></div>
+      <div class="row"><b class="chip h">High</b><p>There is no crisis number on a site discussing depression and PTSD. The FAQ only says "contact a mental health crisis line". <em>988 appears on 0 of 10 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>There is too little content to rank: no pages for depression, PTSD, anxiety, end-of-life distress or addiction, and no blog. <em>10 pages in total, 3 of them legal or contact pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>British spellings are used for a Colorado audience: "centre" (15 times), "licence", "practising", "specialises", "enquiry" and "legalised".</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The street address (6081 S Quebec St, Suite 103) appears only in hidden schema. Every page says just "Centennial, Colorado", and there is no map.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The phone number is hard to find. <em>720-432-9306 appears only on the Privacy and Terms pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The wider Denver market is barely targeted. <em>Denver and Greenwood Village appear once each, both on About, and in no title.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>There is no Google rating or link to reviews, and the on-site quotes cannot be verified.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>45/100</span></header>
+      <div class="row"><b class="chip h">High</b><p><code>http://www.zephyr-collective.com</code> serves the full site without redirecting to HTTPS, so an insecure duplicate of every page is live.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Every menu and footer link points to a URL without the trailing slash, which then redirects with a temporary 307. The real page URLs receive no direct internal links. <em>9 links on all 10 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>No analytics of any kind is installed, so consult bookings and enquiries cannot be measured or attributed.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p><code>robots.txt</code> contradicts itself. Cloudflare's managed block disallows GPTBot, ClaudeBot, Google-Extended and Applebot-Extended, and the site's own rules lower down allow them. Lighthouse marks the file invalid.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The sitemap has no last-modified dates, so Google cannot tell when pages change.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>50/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Line breaks in H1s have no spaces, so search engines read run-together words. <em>"Start theconversation.", "Discover the paththat's for you.", "Where clinical rigormeets the frontierof healing." 5 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>H1s don't say what the practice does or where it is. <em>"Psilocybin" is in 1 of 10 H1s, and the homepage H1 is "Where sacred meets science".</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The 21+ age-gate text comes first in every page's HTML ("Before you enter Are you 21 or older?") and can end up in search snippets.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The schema still says "opening August 2026", and the three founders have no Person or Physician pages of their own.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Privacy and Terms share the same meta description.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Images have no alt text. <em>5 on the homepage and 1 on The Journey.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>55/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The main homepage image takes too long to appear. Google's target is 2.5 s. <em>LCP is 7.2 s on the homepage and 4.1 s on Programs.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Images are served larger than they display. <em>983 KB could be saved on the homepage and 473 KB on Programs.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>55/100</span></header>
+      <div class="row"><b class="chip g">Medium</b><p>The enquiry form and consult calendar collect information about people seeking psychedelic therapy. Confirm both tools are covered by a HIPAA business associate agreement, as the site's Notice of Privacy Practices implies.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The HSTS header lasts only one day (<code>max-age=86400</code>), which gives weak HTTPS protection.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Text fails color contrast. <em>3 elements on each page tested.</em></p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a full crawl of all 10 sitemap URLs on 15 Nov 2026.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile scores were Performance 70, Accessibility 95, Best Practices 100 and SEO 93 on the homepage, and 86, 95, 100 and 93 on Programs. The server responds in about 120 ms, and pages load no third-party scripts. Every page has a unique title, a canonical, Open Graph tags and MedicalOrganization schema, and pricing is published. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, third-party reviews and real-user Core Web Vitals were not assessed. They need account or tool access and are not part of the score. Licensing, FTC and HIPAA points are flags for review, not legal advice.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>

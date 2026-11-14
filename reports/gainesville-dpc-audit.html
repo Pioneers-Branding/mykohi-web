@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gainesville DPC Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: gainesvilledpcmd.com</h1>
+      <div class="meta mono">Gainesville Direct Primary Care Physicians, Newberry FL · Audited 15 Nov 2026 · 22 pages crawled</div>
+    </div>
+    <a class="dl" href="gainesville-dpc-audit.pdf" download="Gainesville-DPC-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">31<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The blog stopped in November 2020, and its COVID advice is still live. A CBD Oil page makes health claims that a physician practice should not publish. Eight services in the menu have no pages of their own, the office in Newberry never appears in a title, and no Google Analytics is installed.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">2</b></span>
+        <span><b class="chip h">High</b> <b class="mono">15</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">14</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:20%"></i></div><div class="v">20/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:35%"></i></div><div class="v">35/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:45%"></i></div><div class="v">45/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Retire or update the 2019–2020 posts,</b> starting with the COVID articles, and publish regularly again.</li>
+      <li><b>Take down or rewrite the CBD Oil page,</b> removing the "safe" and "proven benefits" claims. Fix the aesthetics page that copies its title.</li>
+      <li><b>Give each service and each physician its own page:</b> weight loss, urgent care, pediatrics, functional medicine and the five doctors.</li>
+      <li><b>Add MedicalClinic and Physician schema</b> with the Newberry address, and target Newberry and Alachua in titles and copy.</li>
+      <li><b>Install Google Analytics</b> and track enrollments, and confirm that Google's crawler is not blocked by the site's bot protection.</li>
+      <li><b>Shorten titles,</b> add H1s to Contact, FAQ and the blog posts, and stop the Vimeo player loading on the homepage until clicked.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>20/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The blog is abandoned and outdated medical advice is still live. "Coronavirus: Should You Be Concerned?" and posts written for the 2020 holiday COVID surge remain indexed. <em>9 posts, the newest from 15 Nov 2020.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The CBD Oil page calls CBD "natural and safe" with "proven benefits" for anxiety, sleep and pain, and promotes one supplier's product. These are FDA and FTC risk claims for a physician practice. <em><code>/cbd-oil</code>, which has no internal links.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The Dysport and Restylane aesthetics page has no internal links and reuses the CBD page's title and description ("CBD OIL | Gainesville...").</p></div>
+      <div class="row"><b class="chip h">High</b><p>Eight menu services have no page of their own: pediatrics, adult and GYN, urgent care, in-house dispensary, lab and radiology, functional medicine, counseling, and weight loss. They are sections on just 2 pages.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Five physicians and two staff are listed in the menu, but none has a profile page. All share the About Us page, so no doctor can rank for their own name.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The TMS page lists "Anxiety" as an FDA-approved TMS indication. FDA clearance covers anxiety symptoms within depression, not anxiety disorders, and its outcome figures ("up to 30% remission, up to 80% improvement") have no source.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The main homepage content takes far too long to appear. Google's target is 2.5 s. <em>LCP is 10.4 s on the homepage and 4.9 s on Pricing.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The page freezes while scripts run. <em>Blocking time is 4.9 s on the homepage and 2.1 s on Pricing. Speed Index is 18.4 s.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The Vimeo player loads on the homepage before anyone presses play. <em>About 1.2 MB of player script and 233 KB of CSS.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Third-party widgets slow pages down. <em>UserWay and the vcita chat widget block the main thread for 1.6 s on Pricing.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Code and caching are wasteful. <em>127 KB of unused JavaScript, 50 KB of unused CSS and 30 files with short cache times.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>No business or doctor schema exists. There is no MedicalClinic, Physician or LocalBusiness markup on any page, and the homepage has only WebSite.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Many pages have no H1, and some have several. <em>11 pages have none: Contact, FAQ and all 9 blog posts. Pediatric Care has 3 and Aesthetics has 2.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Every main title is too long, because each ends in "Gainesville Direct Primary Care Physicians LLC". <em>76 to 95 characters on 11 of 12 main pages.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Titles and descriptions are duplicated: Home and Contact share both, and so do CBD Oil and Aesthetics.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Blog descriptions are the post's opening text cut at about 495 characters, three times the length Google shows.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Meta descriptions are thin and templated, such as "Call Direct Primary Care Physicians LLC in Gainesville, FL today!" There is also a typo: "for you pediatric care needs".</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>35/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The office is at 13575 NW 1st Lane, Newberry, but every title says "Gainesville, Florida". <em>Newberry is in 0 titles, and Alachua is on 0 pages.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>No patient reviews, star ratings or testimonials appear anywhere on the site.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Partners page links to 28 outside sites, including a plumber, a construction firm, pest control and a radio station, and 5 of those links are dead. This looks like a link list rather than a patient resource.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The business name varies: "Gainesville Direct Primary Care Physicians LLC", "Direct Primary Care Physicians LLC" and "Gainesville DPC Physicians".</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>40/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>No Google Analytics or Tag Manager is installed, so enrollments and calls from the site cannot be measured. <em>Only the site builder's own stats script loads.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The site's bot protection returned 403 to Google's Lighthouse test browser until it was run with a normal browser identity. Check that Googlebot is not affected using URL Inspection in Search Console.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Pages are cut off from the site's navigation. The Blog, CBD Oil and Aesthetics pages have no internal links, and the blog is not in the menu.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p><code>robots.txt</code> contains an unrecognized <code>Content-Signal</code> line, so Lighthouse marks the file as invalid.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Employers page links through an Outlook "safelinks" address copied from an email instead of the real URL.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Some outbound links are dead. <em>5 links, including <code>sedera.com/employers</code> (404) and a COVID risk tool (502).</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>45/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>A UserWay accessibility overlay is installed, but the basics still fail: images without alt text, unnamed links and low-contrast text. <em>2 images, 4 links and 2 contrast failures per page tested.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The vcita chat and booking widget can collect patient messages. Confirm vcita signs a HIPAA business associate agreement.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The 988 crisis line appears on only 1 page, although the site offers TMS for depression and counseling.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Third-party cookies are set on page load, and Chrome logs issues in the browser console.</p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a full crawl of all 21 sitemap URLs plus the root on 15 Nov 2026.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile scores were Performance 34, Accessibility 87, Best Practices 78 and SEO 79 on the homepage, and 43, 86, 78 and 79 on Pricing. Every page loads, HTTPS and the bare domain redirect in one hop, and canonicals are correct. Security headers (HSTS, X-Frame-Options, nosniff) are set, the phone and address are consistent, and membership prices are published. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, third-party reviews and real-user Core Web Vitals were not assessed. They need account or tool access and are not part of the score. Whether Googlebot itself is blocked was not tested. FDA, FTC and HIPAA points are flags for review, not legal advice.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>
