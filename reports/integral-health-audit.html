@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integral Health Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: integralhhinstitute.com</h1>
+      <div class="meta mono">Integral Health &amp; Healing, PLLC, telehealth psychiatry in FL, AZ, MA &amp; DC · Audited 17 Nov 2026 · 27 URLs crawled</div>
+    </div>
+    <a class="dl" href="integral-health-audit.pdf" download="Integral-Health-Healing-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">32<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">The About page never names the founder. Every blog post is "Coming Soon", and the four state pages are near-copies of the homepage. Every page is live at two URLs while the sitemap skips 11 real pages, and the privacy policy promises no third-party analytics while the booking widget loads several on every page.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">2</b></span>
+        <span><b class="chip h">High</b> <b class="mono">14</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">12</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:70%"></i></div><div class="v">70/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Name the clinician.</b> Put Tiana King, DNP, PMHNP-BC, with photo and state licenses, on About and the homepage.</li>
+      <li><b>Pick one URL per page.</b> Redirect <code>.html</code> to the clean URL, add canonicals, and rebuild the sitemap with all real pages.</li>
+      <li><b>Publish the blog</b> and launch or hide the "Coming Soon" Lifestyle program. Rewrite the four state pages so each is genuinely state-specific.</li>
+      <li><b>Make the privacy policy match the site,</b> or load the booking widget only when someone clicks "Request Appointment".</li>
+      <li><b>Add schema and meta descriptions:</b> MedicalBusiness, Person and FAQPage, plus descriptions for the 10 pages that have none.</li>
+      <li><b>Add a <code>robots.txt</code> and analytics,</b> and publish the Orlando intensive address.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The About page lists degrees, a DNP and PMHNP credentials, but never says whose they are. It refers only to "the founder" and "her journey". <em>The clinician's name, Tiana King, appears on just 2 of 27 pages: the forensic evaluation page and the medical disclaimer.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The blog has no articles: every post listed, including the featured one, is marked "Coming Soon". The Lifestyle Medicine Program in the main menu is also "Coming Soon".</p></div>
+      <div class="row"><b class="chip h">High</b><p>The state pages are near-copies of the homepage. Google may treat them as doorway pages. <em>Florida, Arizona, Massachusetts and DC are 95–98% word-for-word identical to the homepage, with the same H1.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The "Why Plant-Based?" page says animal products are "recognized as a key driver of depression, anxiety, cognitive decline, and even psychosis". That claim is overstated for a psychiatry practice. <em>4,163 words.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Resources page is 2,530 words of vegan restaurants, cookbooks and travel links. It pulls the site's topic away from psychiatry, and 4 of its links are dead.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The forensic page calls her "Dr. Tiana King" without saying the doctorate is in nursing. Make clear she is a nurse practitioner wherever "Dr." is used.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>25/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>In-person intensives in Orlando are promoted on 26 pages, but no address appears anywhere.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The site has no patient reviews, testimonials, Google rating or review link.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The state pages say nothing specific to their state. Insurance by state appears only on the Fees page.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The domain says "institute", but the practice name is "Integral Health &amp; Healing, PLLC", so the brand and the web address don't match.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Every page is live at two addresses, <code>/page.html</code> and <code>/page</code>, with identical content. The sitemap lists the <code>.html</code> copies, while the menu links to the other version. <em>24 of 27 URLs have no canonical tag, and the sitemap's <code>.html</code> pages get 0 internal links.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The sitemap leaves out 11 real pages: About, Services, Conditions, Insurance, FAQs, Blog, Who We Serve, Lifestyle, Why Plant-Based, Resources and Patient Portal.</p></div>
+      <div class="row"><b class="chip h">High</b><p>There is no <code>robots.txt</code>. The address returns a "Page not found" page, so crawlers get no sitemap pointer.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The practice has no analytics of its own, so appointment requests cannot be measured or traced to a source.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p><code>http://www</code> takes 2 redirects to reach the live site.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The sitemap has no last-modified dates.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>There is no structured data on any page: no MedicalBusiness, no Person schema for the clinician, and no FAQPage schema for the FAQ page.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Most menu pages have no meta description. <em>10 pages, including About, Services, Conditions, FAQs and Blog.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Five pages share the H1 "Healing That Honors the Whole You", and About and Resources have no H1 at all.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>No page has Open Graph tags, so links shared on social media show no image or summary.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Key page titles are only the page name plus the business name, such as "About | Integral Health &amp; Healing, PLLC", with no service or location.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The logo image has no alt text. <em>All 27 URLs.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>40/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The privacy policy says "We do not use tracking cookies, advertising pixels, or third-party analytics tools". Yet every page loads the SimplePractice booking widget, which brings Segment, Google Tag Manager, Bugsnag and Stripe and sets a third-party cookie.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Text fails color contrast. <em>26 elements on the homepage and 12 on Medication Management.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The site links to a Fullscript supplement shop ("save up to 20%") run by the clinician. State whether the practice earns from these sales.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Headings are out of order on both pages tested.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>70/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The booking widget and Stripe load on every page before anyone books. <em>Each page weighs 3.1–3.3 MB across 56 requests, mostly SimplePractice and Stripe code.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Render-blocking files delay first paint. <em>630–790 ms of savings available.</em></p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a crawl on 17 Nov 2026 of all 14 sitemap URLs, the 11 pages the sitemap leaves out, and 2 duplicate URLs.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile scores were Performance 93, Accessibility 94, Best Practices 74 and SEO 92 on the homepage, and 96, 93, 74 and 100 on Medication Management. HTTPS is enforced, the phone number is consistent, insurance is listed by state, and the 988 crisis line is in every footer. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, third-party reviews and real-user Core Web Vitals were not assessed. They need account or tool access and are not part of the score. Licensing and privacy points are flags for review, not legal advice.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>
