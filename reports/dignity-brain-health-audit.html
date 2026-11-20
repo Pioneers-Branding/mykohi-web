@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dignity Brain Health Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website &amp; On-Page SEO Audit: dignitybrainhealth.com</h1>
+      <div class="meta mono">Dignity Brain Health, psychiatry &amp; TMS, Brookline MA · Audited 20 Nov 2026 · 112 pages crawled</div>
+    </div>
+    <a class="dl" href="dignity-brain-health-audit.pdf" download="Dignity-Brain-Health-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono">42<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
+      </div>
+      <p class="verdict">Medication articles cite research links that don't exist, and some carry ChatGPT tracking tags. The Meta Pixel and Hotjar session recording run on the patient intake forms. Most blog posts are cut off from the rest of the site, and the homepage takes 9 seconds to fully appear on mobile.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">3</b></span>
+        <span><b class="chip h">High</b> <b class="mono">11</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">12</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:40%"></i></div><div class="v">40/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:55%"></i></div><div class="v">55/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:55%"></i></div><div class="v">55/100</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Check every citation on the medication articles.</b> Replace the 13 dead DOI links and strip the <code>utm_source=chatgpt.com</code> tags.</li>
+      <li><b>Remove the Meta Pixel and Hotjar from the intake forms and condition pages,</b> and review the remaining tracking with HIPAA counsel.</li>
+      <li><b>Name Dr. Omar Haque on About and Team,</b> and add a named clinician author or reviewer to every medical article.</li>
+      <li><b>Link the 56 cut-off blog posts</b> from related condition and treatment pages, and fix the 15 links that land on the homepage.</li>
+      <li><b>Clean up tracking:</b> one GA4 property, one Google Ads account, loaded once through Tag Manager.</li>
+      <li><b>Speed up mobile pages</b> by cutting the 2.1 s of render-blocking files and the duplicate Google tags.</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+
+    <section class="cat">
+      <header><h3>Content &amp; medical trust</h3><span>40/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Medication articles cite research that can't be found. 13 DOI links return "not found" at doi.org, one is cut off mid-number (<code>doi.org/10.1016/S0140</code>), and 21 links carry <code>utm_source=chatgpt.com</code>. This suggests AI-drafted references that were never checked. <em>11 articles, including "Best Medications for MDD" and the PMDD guide.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>About and Team credit "a Harvard Medical School–trained psychiatrist" founder but never give his name. The clinical team listed has no physician. <em>Dr. Omar Haque is named on 7 of 112 pages, none of them About or Team.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Medical articles have no named clinician. The author is "Dignity Brain Health", marked up as a Person, and no page carries a "reviewed by" line. <em>All 71 posts, many giving medication advice.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The 15 clinicians and staff on the Team page are names only, with no bios, photos or profile pages patients or Google can find.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Two post URLs contain stray "nbsp" text from copy-pasting: <code>/nbspwhat-is-the-difference-between-depression-and-anxiety/</code> and <code>/signs-that-you-have-treatmentnbsp-resistant-depression-trd/</code>.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Local SEO</h3><span>55/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The homepage schema claims a 4.8-star rating from 61 reviews with no source. Google treats self-published ratings for a business as ineligible for stars and may flag them.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The business schema points to the <code>www</code> address, which redirects. Its opening hours are blank and its price range is empty.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The "Texas" link on the Florida and Massachusetts therapy pages redirects to the homepage. The real Texas page is <code>/online-therapist-texas/</code>.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Florida, Massachusetts and Texas therapy pages have no business schema, and the first two get only 3 internal links each.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Technical &amp; crawl health</h3><span>40/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Most blog posts get no links from any main page. They are reachable only through older pages of the blog archive. <em>56 of 71 posts.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Posts link to old URLs that now redirect to the homepage, such as <code>/tms</code>, <code>/tmscontactus</code> and <code>/genetic-testing-information-for-psychiatric-medications</code>. <em>15 links from 7 old URLs.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>The three intake form pages are listed in the sitemap and open to indexing. Form pages add nothing for searchers.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Every page loads two GA4 properties and two Google Ads accounts, and one GA4 tag (<code>G-T71VX5G1Q0</code>) loads twice, so visits are likely double-counted.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Internal links still use <code>www</code> or no trailing slash, so they redirect. <em>Contact, Privacy and service links in posts.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>On-page SEO &amp; schema</h3><span>55/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>The homepage H1, "Find the right next step for your mental health", names no service and no location.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Titles are too long and will be cut off in results. <em>63 of 112, including 57 of 71 posts.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Meta descriptions are too long. <em>34 of 112 are over 160 characters.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Descriptions are duplicated. Privacy, Terms and Acceptable Use all read "Effective date: July 29, 2026", and two posts share one description.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Three posts have two H1s each, including the MDD medication and TMS side-effects guides.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The main homepage content takes far too long to appear. Google's target is 2.5 s. <em>LCP is 9.4 s on the homepage and 5.3 s on the TMS page.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Pages are slow to become usable, and render-blocking files delay them. <em>Usable at 19.4 s on the homepage, with about 2.1 s of render-blocking files.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>Six Google tag scripts load on every page, about 3 MB before compression. <em>759 KB of unused JavaScript.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Caching and images are wasteful. <em>77 files with short cache times and 168 KB of image savings.</em></p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The Meta Pixel and Hotjar session recording run on all three patient intake forms and on every condition page. HHS guidance treats this tracking on health pages as a HIPAA risk. Check field masking, and whether either vendor signs a BAA.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Accessibility basics fail on both pages tested: duplicate element IDs, a broken skip link, and low-contrast text. <em>6 contrast failures on the homepage and 9 on TMS.</em></p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Headings are out of order, and third-party cookies are set on page load.</p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is health information. Findings come from a full crawl of all 112 sitemap URLs (41 pages and 71 posts) on 20 Nov 2026, plus checks on 199 outbound links.</p>
+    </div>
+    <div>
+      <h2>Lab results and basics that passed</h2>
+      <p>Lighthouse mobile scores were Performance 39, Accessibility 90, Best Practices 78 and SEO 100 on the homepage, and 53, 86, 78 and 100 on TMS. Every URL loads, canonicals are correct, and the phone and address are consistent. Condition pages are 2,000+ words with FAQ schema, every image has alt text, and 988 appears on 15 pages. Speed was tested in one simulated run.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Keyword rankings, organic traffic, backlinks, Google Business Profile, third-party reviews and real-user Core Web Vitals were not assessed. They need account or tool access and are not part of the score. The intake form tool itself was not identified. HIPAA points are flags for review, not legal advice.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>
