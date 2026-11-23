@@ -1,0 +1,1970 @@
+﻿Section,Page,URL,Status,Page breakdown,Media & details needed from client,Notes
+Core pages,Home,/,Fix,"1. Hero: H1 naming the service and area (e.g. ""Online Psychiatrists in New York""), 1-line promise, Book and Call buttons
+2. Trust bar: insurance logos, years in practice, board certifications, Google rating
+3. Services grid: Psychiatric Evaluation, Medication Management, Psychotherapy, ADHD Testing
+4. Conditions we treat: 12 most-searched conditions linking to their pages, plus ""see all""
+5. Meet the doctors: provider cards with photos linking to profiles
+6. How it works: 3 steps from booking to first video visit
+7. Reviews carousel (real, sourced reviews only)
+8. Insurance and self-pay block, FAQ, latest 3 articles, 988 crisis line in the footer","• Final decision on Florida (licensed provider or remove all Florida claims)
+• Professional photos: each doctor, and if possible a home-office telehealth setup shot
+• Logo files (SVG/PNG) for every insurance plan accepted, with confirmation each is in-network
+• Google Business Profile link and permission to show review excerpts
+• Average time to first appointment, and session lengths
+• Brand colours, fonts and any taglines to keep","Today the H1 is ""Live without anxiety or exhaustion"" and Services goes to /#services."
+Core pages,About Us,/about-us/,Fix,"1. Who Mindcore is and why it was founded (founder story)
+2. Mission and approach to care (medication only when needed, collaboration with therapists)
+3. Leadership and clinical oversight (named medical director)
+4. Where we practice: states, telehealth model, licensing
+5. Values, accreditations and memberships
+6. Call to action to book or meet the doctors","• Founder name, story and photo
+• Year founded, company legal name, NPI/organisation details if public
+• Named medical director
+• Professional memberships, awards or press mentions
+• Any team photo",
+Core pages,Providers (hub),/providers/,Fix,"1. H1 ""Meet Our Psychiatrists"" (not ""About Mindcore"")
+2. Filter by condition, age group and state
+3. Provider cards: photo, credentials, specialties, states, Book button
+4. How we match you with a provider
+5. Join our team link","• Everything in the provider profile rows below, for every clinician
+• Which providers are accepting new patients","Current title duplicates the About page: ""About Mindcore MH: Expert Psychiatric Care…""."
+Core pages,"Dr. Noam Eitan, MD (profile)",/providers/noam-eitan-md/,New,"1. Name, credentials, photo, role and states licensed in (with license numbers)
+2. ""Treats"" list linking to condition pages, and ages seen
+3. Bio in the clinician's voice: training, board certification, approach to medication
+4. Video or quote: ""What patients can expect from me""
+5. Insurance accepted and next available appointment, Book button
+6. Physician / Person schema and links to articles they reviewed","• Professional headshot (min 1200 px, plain background) and an optional 30–60 s intro video
+• CV: medical school, residency, fellowships, board certifications, years in practice
+• License numbers and states (NY; Florida only if actively licensed)
+• Conditions and ages they want to see, and ones they do not treat
+• Short personal note or quote, languages spoken
+• Approval of the final bio by the clinician
+• Confirm adult and geriatric focus and Middletown, NY base
+• Note: Dr. Eitan also appears on yourlocalpsychiatrist.nyc; the bio must be written fresh, not copied",
+Core pages,"Dr. Mian Siddique, MD (profile)",/providers/mian-siddique-md/,New,"1. Name, credentials, photo, role and states licensed in (with license numbers)
+2. ""Treats"" list linking to condition pages, and ages seen
+3. Bio in the clinician's voice: training, board certification, approach to medication
+4. Video or quote: ""What patients can expect from me""
+5. Insurance accepted and next available appointment, Book button
+6. Physician / Person schema and links to articles they reviewed","• Professional headshot (min 1200 px, plain background) and an optional 30–60 s intro video
+• CV: medical school, residency, fellowships, board certifications, years in practice
+• License numbers and states (NY; Florida only if actively licensed)
+• Conditions and ages they want to see, and ones they do not treat
+• Short personal note or quote, languages spoken
+• Approval of the final bio by the clinician
+• Note: Dr. Siddique also appears on yourlocalpsychiatrist.nyc; the bio must be written fresh, not copied",
+Core pages,Provider profile template (each new clinician),/providers/[first-last-credential]/,New,"1. Name, credentials, photo, role and states licensed in (with license numbers)
+2. ""Treats"" list linking to condition pages, and ages seen
+3. Bio in the clinician's voice: training, board certification, approach to medication
+4. Video or quote: ""What patients can expect from me""
+5. Insurance accepted and next available appointment, Book button
+6. Physician / Person schema and links to articles they reviewed","• Professional headshot (min 1200 px, plain background) and an optional 30–60 s intro video
+• CV: medical school, residency, fellowships, board certifications, years in practice
+• License numbers and states (NY; Florida only if actively licensed)
+• Conditions and ages they want to see, and ones they do not treat
+• Short personal note or quote, languages spoken
+• Approval of the final bio by the clinician
+• List of any other clinicians (NPs, therapists) to add",
+Core pages,How Online Psychiatry Works,/how-it-works/,New,"1. Step-by-step: request, insurance check, intake forms, video visit, prescriptions, follow-ups
+2. Technology: platform used, what devices work, privacy
+3. Prescriptions: e-prescribing, controlled-medication rules for telehealth, pharmacy pickup
+4. Timeline graphic
+5. FAQ","• Telehealth platform name and screenshots
+• Intake steps and forms used
+• Policy on controlled substances by telehealth (stimulants, benzodiazepines)
+• Follow-up frequency and cancellation policy",
+Core pages,Your First Visit,/first-visit/,New,"1. What to prepare (ID, insurance card, medication list, previous records)
+2. What happens in the 60-minute evaluation
+3. After the visit: plan, prescriptions, next appointment
+4. Checklist download (PDF)","• Actual length of first and follow-up visits
+• Any pre-visit questionnaires (PHQ-9, GAD-7, ASRS)
+• Records-request process",
+Core pages,Book an Appointment,/book-appointment/,New,"1. Short booking form or embedded scheduler (HIPAA-compliant)
+2. What happens after you submit and response time
+3. Phone and email alternatives
+4. Insurance check note
+5. 988 crisis notice above the form","• Booking or EHR tool to embed and confirmation it is covered by a BAA
+• Who answers requests and promised response time
+• Fields the intake team needs","All ""Book Appointment"" buttons currently jump to a form on the homepage."
+Core pages,Contact,/contact/,New,"1. Phone, email, fax, hours
+2. Mailing or business address (for local trust and schema)
+3. Contact form (non-clinical questions)
+4. Map or service-area note
+5. Links for patients, referring providers and media","• Business or mailing address to publish
+• Hours for phone lines
+• Fax number for records
+• Which inbox receives the form","There is no Contact page today; the footer ""Contact"" link goes to the homepage form."
+Core pages,Patient Guide,/patient-guide/,Keep,"1. Keep current content
+2. Add links to forms, portal, first visit and medication policy pages","• Updated forms and policies, if any changed",
+Core pages,Patient Portal and Forms,/patient-portal/,New,"1. Portal login button and how to register
+2. Downloadable or online intake forms
+3. Records request and release forms
+4. Help contacts","• Portal URL and EHR name
+• All intake, consent and release forms (PDF or form links)",
+Core pages,FAQ,/faq/,New,"1. Grouped FAQs: getting started, insurance and cost, appointments, prescriptions, privacy
+2. FAQPage schema
+3. Links into the matching service and condition pages","• Top 20 questions the front desk hears every week
+• Answers approved by the medical director",
+Core pages,Fees and Self-Pay Rates,/fees/,New,"1. Self-pay prices for evaluation, follow-up, therapy, ADHD testing
+2. Payment methods, superbills, HSA/FSA
+3. Cancellation and no-show fees
+4. Good Faith Estimate notice (No Surprises Act)","• Current fee schedule
+• Cancellation policy
+• Whether superbills are provided",
+Core pages,Medication and Refill Policy,/medication-policy/,New,"1. Refill requests and turnaround
+2. Controlled medication rules and the national shortage notice (move from the site-wide popup)
+3. Pharmacy guidance
+4. Lab monitoring for certain medications","• Refill policy text
+• Stimulant/benzodiazepine prescribing policy
+• Current shortage message the doctors want shown",
+Core pages,Reviews,/reviews/,New,"1. Embedded Google reviews (sourced)
+2. Rating summary
+3. Invite to leave a review (same link for every patient)
+4. No staff quotes presented as patient reviews","• Google Business Profile access or review-widget account
+• Written consent for any testimonial quoted","The only testimonial today is a staff quote (""Megan, Mindcore MH"")."
+Core pages,Crisis and Emergency Resources,/crisis-resources/,New,"1. 988 call/text/chat, 911, Crisis Text Line
+2. NY and FL local crisis numbers
+3. What Mindcore can and cannot help with in an emergency
+4. Linked from the footer of every page","• Approval of wording by the medical director
+• After-hours policy for existing patients",
+Core pages,For Referring Providers,/referring-providers/,New,"1. Who we accept and how fast
+2. Referral form and fax
+3. How we communicate back to PCPs and therapists
+4. Downloadable referral pad","• Referral criteria and exclusions
+• Fax and secure email for referrals
+• Any PCP or therapist partners to mention",
+Core pages,Careers,/careers/,New,"1. Open roles
+2. Why work at Mindcore (remote, schedule, support)
+3. Application form","• Current openings and benefits
+• Hiring email",
+Services,Services (hub),/services/,New,"1. Overview of every service with short descriptions
+2. Who each service is for
+3. Links to conditions and booking",• Confirm the full list of services offered today,Replaces the /#services anchor used in the menu.
+Services,Psychiatry,/psychiatry/,Fix,"1. What a psychiatrist does vs a therapist
+2. Ages and conditions treated
+3. Evaluation → plan → follow-up
+4. Doctors who provide it
+5. Insurance, FAQ, Book",• Age range actually treated (current copy promises children and adolescents),
+Services,Psychiatric Evaluation,/psychiatric-evaluation/,New,"1. What the evaluation covers
+2. Length, cost and what you get afterwards
+3. Second-opinion evaluations
+4. FAQ, Book","• Evaluation length and price
+• Any rating scales used",
+Services,Medication Management,/medication-management/,New,"1. How medication management works by video
+2. Follow-up frequency
+3. Medication classes managed
+4. Safety monitoring, labs
+5. FAQ, Book","• Typical follow-up schedule
+• Medication classes the doctors manage",
+Services,Psychotherapy,/psychotherapy/,Fix,"1. Therapy types offered (CBT, DBT skills, supportive therapy)
+2. Who provides therapy and their credentials
+3. Combined medication + therapy care
+4. FAQ, Book","• Names and licenses of therapists, if any
+• Therapy types actually offered",
+Services,ADHD Testing,/adhd-testing/,Keep,"1. Keep content; add testing steps, tools used, cost, turnaround, and link to ADHD medication page",• Testing instruments used and report turnaround,
+Services,ADHD Medication Management,/adhd-medication-management/,New,"1. Stimulant and non-stimulant options
+2. Telehealth rules for stimulants
+3. Monitoring and refills
+4. FAQ, Book",• Stimulant prescribing policy for new telehealth patients,
+Services,Online Psychiatrist (Telepsychiatry),/telepsychiatry/,New,"1. What telepsychiatry is and who it suits
+2. States served and licensing
+3. Privacy and technology
+4. FAQ, Book",• States each doctor is licensed in,
+Services,Geriatric Psychiatry,/geriatric-psychiatry/,New,"1. Late-life depression, anxiety, memory concerns
+2. Careful prescribing for older adults
+3. Working with families and caregivers
+4. Medicare coverage
+5. FAQ, Book","• Confirm Dr. Eitan leads this service
+• Medicare participation status",
+Services,Women's Mental Health (hub),/womens-mental-health/,New,"1. Postpartum, PMDD, menopause and pregnancy-related care
+2. Medication safety in pregnancy and breastfeeding
+3. Links to the three existing condition pages",• Which clinicians see perinatal patients,
+Services,Child and Adolescent Psychiatry,/child-adolescent-psychiatry/,New,"1. Ages seen, parent involvement, school support
+2. Conditions treated in children and teens
+3. Provider
+4. FAQ, Book","• A child and adolescent clinician; without one, do not build this page and remove child claims",Build only if a clinician who sees under-18s joins; both current doctors are adult psychiatrists.
+Conditions,Conditions We Treat (hub),/conditions/,New,"1. A–Z list of every condition page, grouped by category
+2. Search or filter
+3. Short intro and Book button
+4. Linked from the main menu",• Confirm the full list of conditions treated,Today no page links to any of the 30 condition pages.
+Conditions,Cyclothymia,/cyclothymia-psychiatrist-in-new-york-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Bipolar Depression,/psychiatrist-for-bipolar-depression/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Dysthymia,/dysthymia-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Major Depressive Disorder,/major-depressive-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Bipolar Disorder,/psychiatrist-for-bipolar-disorder/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Depression,/psychiatrist-for-depression/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Treatment-Resistant Depression,/treatment-resistant-depression-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Seasonal Affective Disorder,/seasonal-affective-disorder-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Remove ""Florida"" from titles and copy unless a Florida-licensed clinician is added."
+Conditions,Panic Disorder,/panic-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,OCD,/ocd-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,Anxiety,/psychiatrist-for-anxiety/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,Generalized Anxiety Disorder,/generalized-anxiety-disorder-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,Social Anxiety Disorder,/social-anxiety-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,Health Anxiety,/health-anxiety-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Anxiety and OCD
+Conditions,Grief,/grief-psychiatrist-care-in-new-york-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Functional Neurological Disorder,/functional-neurological-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Narcissistic Abuse,/psychiatrist-for-narcissistic-abuse/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Dissociative Disorder,/dissociative-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Post Traumatic Stress Disorder,/post-traumatic-stress-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Trauma,/trauma-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people","Part of: Trauma, grief and dissociation"
+Conditions,Dependent Personality Disorder,/dependent-personality-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Personality conditions
+Conditions,Avoidant Personality Disorder,/avoidant-personality-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Personality conditions
+Conditions,BPD,/bpd-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Personality conditions
+Conditions,Psychosis,/psychosis-psychiatrist-in-nyc-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Whether new patients with active psychosis are accepted by telehealth, and the escalation plan
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Psychosis
+Conditions,Schizophrenia,/schizophrenia-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Whether new patients with active psychosis are accepted by telehealth, and the escalation plan
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Psychosis
+Conditions,Binge Eating Disorder,/binge-eating-disorder-psychiatrist-in-ny-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Eating and body image
+Conditions,Body Dysmorphia,/body-dysmorphia-psychiatrist-in-new-york-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Eating and body image
+Conditions,Eating Disorder,/eating-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Eating and body image
+Conditions,Menopause Depression,/menopause-depression-psychiatrist-in-nyc-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Medication safety stance for pregnancy and breastfeeding
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Women's mental health
+Conditions,Postpartum Depression,/postpartum-depression-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Medication safety stance for pregnancy and breastfeeding
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Women's mental health
+Conditions,Premenstrual Dysphoric Disorder,/premenstrual-dysphoric-disorder-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Medication safety stance for pregnancy and breastfeeding
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Women's mental health
+Conditions,Gender Identity,/gender-identity-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Conditions,Insomnia,/insomnia-psychiatrist-in-nyc-florida/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Conditions,Anger Issues,/psychiatrist-for-anger-issues/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Conditions,ADHD,/adhd-psychiatrist/,Fix,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Conditions,Burnout and Chronic Stress,/burnout-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Conditions,Adult ADHD (late diagnosis),/adult-adhd-psychiatrist/,New,"1. H1 naming the condition and service area (New York, online), plus a 2-line summary and Book button
+2. ""Is this what you're experiencing?"" symptom list written for patients
+3. How Mindcore treats it: evaluation, medication options, therapy, follow-up rhythm
+4. Which Mindcore clinician treats it (photo card linking to their profile)
+5. What the first telehealth visit looks like and how fast patients are seen
+6. Insurance and cost block linking to the plans page and self-pay rates
+7. FAQ (5–7 questions) with FAQPage schema
+8. Related conditions and 2–3 related blog posts (internal links)
+9. 988 crisis line box, clinician reviewer line with date, research citations","• Confirm Mindcore treats this condition today and for which ages
+• Name of the clinician who reviews the page (name, credentials, review date)
+• Typical treatment approach and medications the doctors are comfortable prescribing or avoiding
+• Real wait time from first contact to first visit
+• Any patient stories or outcomes the practice can share with written consent (no PHI)
+• Optional: one lifestyle or office photo per page; no stock photos of distressed people",Part of: Other conditions
+Locations,Areas We Serve (hub),/locations/,New,"1. Map of states and regions served
+2. Links to state and city pages
+3. Licensing statement",• Final list of states,
+Locations,Online Psychiatrist in New York (state page),/online-psychiatrist-new-york/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)",
+Locations,New York City,/online-psychiatrist-new-york-city/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Brooklyn,/online-psychiatrist-brooklyn/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Queens,/online-psychiatrist-queens/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Manhattan,/online-psychiatrist-manhattan/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,The Bronx,/online-psychiatrist-bronx/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Staten Island,/online-psychiatrist-staten-island/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Long Island,/online-psychiatrist-long-island/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Westchester,/online-psychiatrist-westchester/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Hudson Valley and Middletown,/online-psychiatrist-hudson-valley/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Albany,/online-psychiatrist-albany/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Buffalo,/online-psychiatrist-buffalo/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Rochester,/online-psychiatrist-rochester/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Syracuse,/online-psychiatrist-syracuse/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Write each page fresh; pages that only swap the city name will be treated as doorway pages",Part of: New York city and region pages
+Locations,Online Psychiatrist in Florida (state page),/online-psychiatrist-florida/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)
+• Florida license number of the treating clinician (required before this page goes live)",Conditional: build only once a Florida-licensed clinician is on staff.
+Locations,Miami,/online-psychiatrist-miami/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)","Conditional on Florida licensing, as above."
+Locations,Orlando,/online-psychiatrist-orlando/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)","Conditional on Florida licensing, as above."
+Locations,Tampa,/online-psychiatrist-tampa/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)","Conditional on Florida licensing, as above."
+Locations,Jacksonville,/online-psychiatrist-jacksonville/,New,"1. H1 ""Online Psychiatrist in [Area]"" and who is eligible (residents of the state)
+2. Local context written fresh for this area (commute, local insurers, nearby hospitals for emergencies)
+3. Doctors licensed for this state
+4. Top conditions treated, insurance accepted locally
+5. Local crisis resources
+6. FAQ, Book","• Confirm the area is served and which doctors are licensed there
+• Local insurers and plans most patients in that area use
+• Any real local ties (where doctors trained or live, community partners)","Conditional on Florida licensing, as above."
+Insurance,Insurance and Coverage (hub),/insurances/,Fix,"1. Plans accepted, grouped by state and plan type (commercial, Medicare, Medicaid)
+2. How to check your coverage, and what to do if you're out of network
+3. Self-pay link
+4. Logo grid linking to each plan page","• Current in-network list per state, with effective dates
+• Plans being dropped or added
+• Whether Medicaid and Medicare are accepted in each state",
+Insurance,Wellpoint,/insurances/psychiatrist-accepting-wellpoint/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Local 810 Magnacare,/insurances/psychiatrist-accepting-local-810-magnacare/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Aither Health,/insurances/psychiatrist-accepting-aither-health/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Nippon Life Benefits,/insurances/psychiatrist-accepting-nippon-life-benefits/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Allied,/insurances/psychiatrist-accepting-allied/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,NYCE PPO,/insurances/psychiatrist-accepting-nyce-ppo/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Wellfleet,/insurances/psychiatrist-accepting-wellfleet/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Affinity,/insurances/affinity-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Independent Health,/insurances/independent-health-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Amida Care,/insurances/amida-care-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,CDPHP,/insurances/cdphp-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,MVP,/insurances/mvp-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Devoted Health,/insurances/devoted-health-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Carefirst,/insurances/carefirst-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,All Savers,/insurances/all-savers-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Bright Health,/insurances/bright-health-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Tricare,/insurances/tricare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Priority Health,/insurances/priority-health-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Centene,/insurances/centene-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Tufts Health Plan,/insurances/tufts-health-plan-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Molina Healthcare,/insurances/molina-healthcare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,AARP Medicare Advantage,/insurances/aarp-medicare-advantage-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,UMR,/insurances/umr-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Multiplan,/insurances/multiplan-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Empire BCBS,/insurances/empire-bcbs-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Regence,/insurances/regence-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Carelon,/insurances/carelon-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Humana,/insurances/humana-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Amerigroup,/insurances/amerigroup-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Ucare,/insurances/ucare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Kaiser,/insurances/kaiser-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Magellan Healthcare,/insurances/magellan-healthcare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,1199seiu,/insurances/1199seiu-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Oxford Health Plans (rename: URL wrongly says Oxford Life Insurance),/insurances/oxford-life-insurance-company-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Medicaid,/insurances/medicaid-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Anthem,/insurances/anthem-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Intellicare,/insurances/intellicare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Wellcare,/insurances/wellcare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Optum,/insurances/optum-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,HIP,/insurances/hip-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,GHI,/insurances/ghi-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Fidelis Care,/insurances/fidelis-care-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Medicare,/insurances/medicare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Healthfirst,/insurances/healthfirst-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Empire → merge into Empire BCBS,/insurances/empire-psychiatrist/,Merge,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Unitedhealthcare,/insurances/unitedhealthcare-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Oscar,/insurances/oscar-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Aetna,/insurances/aetna-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Metroplus,/insurances/metroplus-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Emblem Health,/insurances/emblem-health-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Cigna,/insurances/cigna-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Insurance,Blue Cross Blue Shield,/insurances/blue-cross-blue-shield-psychiatrist/,Fix,"1. H1 ""Psychiatrist That Takes [Plan] in New York""
+2. Confirmed network status and the plan types covered (HMO, PPO, Medicare Advantage)
+3. Typical copay range and prior-authorisation notes
+4. Steps to book with this plan
+5. Doctors in-network for this plan
+6. FAQ, Book","• Confirm in-network status for each plan, or remove the page
+• Plan logos with permission
+• Copay or prior-authorisation notes the billing team can share","Pages for plans the practice is not in-network with should be removed, not left live."
+Resources and blog,Blog (hub),/blog/,Fix,"1. Featured articles
+2. Category filters
+3. Search
+4. Newsletter sign-up (optional)","• Newsletter tool, if any",
+Resources and blog,Depression,/blog/category/depression/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Anxiety,/blog/category/anxiety/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,ADHD,/blog/category/adhd/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Bipolar,/blog/category/bipolar/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Trauma PTSD,/blog/category/trauma-ptsd/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Medications,/blog/category/medications/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Womens Mental Health,/blog/category/womens-mental-health/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Telehealth,/blog/category/telehealth/,New,"1. Category intro paragraph
+2. Article list
+3. Link to the matching condition or service page",• Approve category names,"All 110 posts sit in ""Uncategorized"" today."
+Resources and blog,Medication Guides (hub),/medications/,New,"1. Intro: how Mindcore approaches medication
+2. Grid of medication guides
+3. Disclaimer and Book button",• Clinician to own and review this section,
+Resources and blog,"SSRIs (sertraline, escitalopram, fluoxetine)",/medications/ssris/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,"SNRIs (venlafaxine, duloxetine)",/medications/snris/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,Bupropion,/medications/bupropion/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,ADHD stimulants,/medications/adhd-stimulants/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,Non-stimulant ADHD medications,/medications/non-stimulant-adhd/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,"Mood stabilizers (lithium, lamotrigine)",/medications/mood-stabilizers/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,Atypical antipsychotics,/medications/antipsychotics/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,Sleep medications,/medications/sleep-medications/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,Anti-anxiety medications and benzodiazepine policy,/medications/anti-anxiety/,New,"1. What the medication is and what it treats
+2. How it is started and adjusted
+3. Common side effects and when to call
+4. Interactions and who should avoid it
+5. How Mindcore monitors it
+6. Clinician reviewer, date, citations (checked links)
+7. Book button","• Doctor's preferred first-line choices and monitoring
+• Reviewer name and credentials for each guide",Part of: Medication guide pages
+Resources and blog,,/blog/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Non Drug Treatments for ADHD Where to Get Started,/blog/non-drug-treatments-for-adhd-where-to-get-started/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Is Hypervigilance Affecting your Sleep and Relationships,/blog/is-hypervigilance-affecting-your-sleep-and-relationships/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Psychodynamic Therapy vs CBT Which is Better for Trauma,/blog/psychodynamic-therapy-vs-cbt-which-is-better-for-trauma/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Can Stress Cause a Nocturnal Panic Attack During Sleep,/blog/can-stress-cause-a-nocturnal-panic-attack-during-sleep/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How to Treat Attention Deficit Disorder Without Medication Safely,/blog/how-to-treat-attention-deficit-disorder-without-medication-safely/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Signs of Emotional Exhaustion 7 Warning Signals to Know,/blog/signs-of-emotional-exhaustion-7-warning-signals-to-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Similar But Different What OCD vs ADHD Really Looks Like,/blog/similar-but-different-what-ocd-vs-adhd-really-looks-like/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Why Am I So Irritable All the Time Possible Reasons Explained,/blog/why-am-i-so-irritable-all-the-time-possible-reasons-explained/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,High Functioning ADHD in Women Why It is Often Overlooked,/blog/high-functioning-adhd-in-women-why-it-is-often-overlooked/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,ADHD and Time Blindness is Losing Track of Time a Real Symptom,/blog/adhd-and-time-blindness-is-losing-track-of-time-a-real-symptom/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Finding Meaning Again After Existential Depression,/blog/finding-meaning-again-after-existential-depression/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Long Does ADHD Diagnosis Take and What Can Affect Timing,/blog/how-long-does-adhd-diagnosis-take-and-what-can-affect-timing/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Self Awareness and Emotional Intelligence Improving Emotional Regulation,/blog/self-awareness-and-emotional-intelligence-improving-emotional-regulation/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Emotional Volatility When to Seek Help From a Mental Health Doctor,/blog/emotional-volatility-when-to-seek-help-from-a-mental-health-doctor/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Hypomania vs Mania How Psychiatrists Diagnose Mood Episodes,/blog/hypomania-vs-mania-how-psychiatrists-diagnose-mood-episodes/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What is the Difference Between Bipolar 1 vs Bipolar 2 Disorders,/blog/what-is-the-difference-between-bipolar-1-vs-bipolar-2-disorders/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Common Relationship OCD Symptoms and How to Recognize Them,/blog/common-relationship-ocd-symptoms-and-how-to-recognize-them/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Existential Anxiety and the Search for Meaning What Helps,/blog/existential-anxiety-and-the-search-for-meaning-what-helps/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,From Racing Heart to Worry Panic Attack vs Anxiety Attack Guide,/blog/from-racing-heart-to-worry-panic-attack-vs-anxiety-attack-guide/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Steps to Overcome Health Anxiety and Regain Peace of Mind,/blog/steps-to-overcome-health-anxiety-and-regain-peace-of-mind/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Seasonal Affective Bipolar Disorder Symptoms That Often Go Unnoticed,/blog/seasonal-affective-bipolar-disorder-symptoms-that-often-go-unnoticed/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Why Emotional Numbness Happens and What You Can Do About It,/blog/why-emotional-numbness-happens-and-what-you-can-do-about-it/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Therapy Can Help with Emotional Blunting and Detachment,/blog/how-therapy-can-help-with-emotional-blunting-and-detachment/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Major Depression vs Persistent Depressive Disorder How to Recognize and Manage Each,/blog/major-depression-vs-persistent-depressive-disorder-how-to-recognize-and-manage-each/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Cant Get Organized Executive Dysfunction and ADHD May Be Why,/blog/cant-get-organized-executive-dysfunction-and-adhd-may-be-why/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Burnout Recovery Stages How Long Does Healing Really Take,/blog/burnout-recovery-stages-how-long-does-healing-really-take/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Link Between ADHD and Social Anxiety Why They Often Occur Together,/blog/the-link-between-adhd-and-social-anxiety-why-they-often-occur-together/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Why Rejection Sensitive Dysphoria is More Than Just Being Sensitive,/blog/why-rejection-sensitive-dysphoria-is-more-than-just-being-sensitive/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Psychiatrists in Brooklyn New York What to Expect in your First Appointment,/blog/psychiatrists-in-brooklyn-new-york-what-to-expect-in-your-first-appointment/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Mental Health Self Help Books the Best Reads for Inner Peace,/blog/mental-health-self-help-books-the-best-reads-for-inner-peace/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Social Anxiety vs Avoidant Personality Disorder How to Tell Them Apart,/blog/social-anxiety-vs-avoidant-personality-disorder-how-to-tell-them-apart/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,From Overwhelmed to Action Managing ADHD Task Paralysis,/blog/from-overwhelmed-to-action-managing-adhd-task-paralysis/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Anhedonia vs Depression When Joy Seems Out of Reach,/blog/anhedonia-vs-depression-when-joy-seems-out-of-reach/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Avoidant Personality Disorder Treatments Approaches That Help Heal,/blog/avoidant-personality-disorder-treatments-approaches-that-help-heal/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Communication Therapy for Couples Enhances Emotional Connection,/blog/how-communication-therapy-for-couples-enhances-emotional-connection/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,ADHD Assessment for Child How Long It Takes and Whats Involved,/blog/adhd-assessment-for-child-how-long-it-takes-and-whats-involved/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Does Running Help Mental Health How It Clears your Mind and Boosts Focus,/blog/does-running-help-mental-health-how-it-clears-your-mind-and-boosts-focus/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Rehab Specialist How They Guide You Through Mental Health Challenges,/blog/rehab-specialist-how-they-guide-you-through-mental-health-challenges/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Which Principle Underlies Cognitive Therapy How It Rewires your Thoughts,/blog/which-principle-underlies-cognitive-therapy-how-it-rewires-your-thoughts/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Army Mental Health Specialist Helping Military Personnel Thrive,/blog/army-mental-health-specialist-helping-military-personnel-thrive/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Peer Support Specialists Help Heal a Deeper Dive Into Their Work,/blog/how-peer-support-specialists-help-heal-a-deeper-dive-into-their-work/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Seeking An Infant Mental Health Specialist What to Expect in Early Care,/blog/seeking-an-infant-mental-health-specialist-what-to-expect-in-early-care/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Cognitive Behavioral Therapy for General Anxiety Disorder your Road to Calm,/blog/cognitive-behavioral-therapy-for-general-anxiety-disorder-your-road-to-calm/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Art of Silence Therapy When Silence Speaks Louder Than Words,/blog/the-art-of-silence-therapy-when-silence-speaks-louder-than-words/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Teletherapy vs in Person a Deep Dive Into Therapy Options,/blog/teletherapy-vs-in-person-a-deep-dive-into-therapy-options/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Mood Disorder vs Personality Disorder Treatment Approaches Compared,/blog/mood-disorder-vs-personality-disorder-treatment-approaches-compared/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,From CBT to Art Therapy Types of Therapy for Mental Health You Should Know,/blog/from-cbt-to-art-therapy-types-of-therapy-for-mental-health-you-should-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What is Teletherapy 5 Benefits You Didnt Know About Virtual Care,/blog/what-is-teletherapy-5-benefits-you-didnt-know-about-virtual-care/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Is PTSD a Disability How Veterans and Civilian Claims Differ,/blog/is-ptsd-a-disability-how-veterans-and-civilian-claims-differ/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Untreated ADHD Can Lead to Depression and Anxiety a Closer Look,/blog/how-untreated-adhd-can-lead-to-depression-and-anxiety-a-closer-look/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Can Music Help with Mental Health Healing Through Sound and Song,/blog/how-can-music-help-with-mental-health-healing-through-sound-and-song/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Overcoming the Echoes of Childhood Trauma and Finding Inner Peace,/blog/overcoming-the-echoes-of-childhood-trauma-and-finding-inner-peace/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Strength Through Struggle Residential Mental Health Treatment for Adults,/blog/strength-through-struggle-residential-mental-health-treatment-for-adults/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Breaking Negative Patterns Cognitive Behavioral Therapy for Teenagers,/blog/breaking-negative-patterns-cognitive-behavioral-therapy-for-teenagers/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What Research Reveals About New Treatments for Borderline Personality Disorder in Teens,/blog/what-research-reveals-about-new-treatments-for-borderline-personality-disorder-in-teens/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Understanding Levels of Care Where Mental Health Residential Treatment Fits in,/blog/understanding-levels-of-care-where-mental-health-residential-treatment-fits-in/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Who Can Benefit Most From Expressive Arts Therapy and Why,/blog/who-can-benefit-most-from-expressive-arts-therapy-and-why/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Why Many Adults Ask Can ADHD Cause Depression and Anxiety,/blog/why-many-adults-ask-can-adhd-cause-depression-and-anxiety/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Role of Integrated Psychiatric Services in Coordinated Medical Care,/blog/the-role-of-integrated-psychiatric-services-in-coordinated-medical-care/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Anxiety Burnout and Trust Issues Are These Symptoms of Childhood Trauma in Adulthood,/blog/anxiety-burnout-and-trust-issues-are-these-symptoms-of-childhood-trauma-in-adulthood/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What is Schizoaffective Disorder Exploring Causes Symptoms and Treatment Options,/blog/what-is-schizoaffective-disorder-exploring-causes-symptoms-and-treatment-options/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Link Between ADHD and Depression What You Should Know,/blog/the-link-between-adhd-and-depression-what-you-should-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Finding the Right Dissociative Identity Disorder Specialist for your Treatment,/blog/finding-the-right-dissociative-identity-disorder-specialist-for-your-treatment/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Are Therapists Specializing in ADHD the Key to your Success,/blog/are-therapists-specializing-in-adhd-the-key-to-your-success/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What Are the Signs and Symptoms of Binge Eating Disorders Expert Insights,/blog/what-are-the-signs-and-symptoms-of-binge-eating-disorders-expert-insights/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,ADHD Therapists Exploring the Different Approaches to Managing ADHD,/blog/adhd-therapists-exploring-the-different-approaches-to-managing-adhd/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Advantages of Group Therapy in Psychiatry You Might Not Know About,/blog/advantages-of-group-therapy-in-psychiatry-you-might-not-know-about/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Pediatric Psychiatrists Diagnose and Treat Complex Childhood Disorders,/blog/how-pediatric-psychiatrists-diagnose-and-treat-complex-childhood-disorders/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Sexual Disorders in Psychiatry How Emotional and Biological Factors Interact,/blog/sexual-disorders-in-psychiatry-how-emotional-and-biological-factors-interact/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Science Behind Healing Exploring Clinical Psychology and Psychotherapy,/blog/the-science-behind-healing-exploring-clinical-psychology-and-psychotherapy/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Proven Strategies for Structuring Effective Psychotherapy Treatment Plans,/blog/proven-strategies-for-structuring-effective-psychotherapy-treatment-plans/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Hidden Difference Between Psychotherapy and Therapy Most Patients Overlook,/blog/the-hidden-difference-between-psychotherapy-and-therapy-most-patients-overlook/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Why Mental Health Urgent Care is Essential for Immediate Support,/blog/why-mental-health-urgent-care-is-essential-for-immediate-support/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What It Takes to Succeed in Mental Health and Psychiatric Nursing,/blog/what-it-takes-to-succeed-in-mental-health-and-psychiatric-nursing/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Whats the Difference Between Therapy and Psychiatry Which is Right for You,/blog/whats-the-difference-between-therapy-and-psychiatry-which-is-right-for-you/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Cognitive Behavioral Therapy vs Psychotherapy a Look At the Science Behind Both,/blog/cognitive-behavioral-therapy-vs-psychotherapy-a-look-at-the-science-behind-both/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Families First Counseling and Psychiatry Compassionate Psychiatric Care for Every Generati,/blog/families-first-counseling-and-psychiatry-compassionate-psychiatric-care-for-every-generation/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,American Telepsychiatry the Benefits of Choosing Online Psychiatric Care,/blog/american-telepsychiatry-the-benefits-of-choosing-online-psychiatric-care/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Psychotherapy vs Counseling When to Seek Each Type of Help,/blog/psychotherapy-vs-counseling-when-to-seek-each-type-of-help/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,When Should You Seek Help From An Anxiety Specialist,/blog/when-should-you-seek-help-from-an-anxiety-specialist/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Types of Treatment of Borderline Personality Disorder Which One is Right for You,/blog/types-of-treatment-of-borderline-personality-disorder-which-one-is-right-for-you/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Can Therapy Really Help Understanding Antisocial Personality Disorder Treatments,/blog/can-therapy-really-help-understanding-antisocial-personality-disorder-treatments/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Tackling Social Anxiety and Treatment Finding the Right Approach for You,/blog/tackling-social-anxiety-and-treatment-finding-the-right-approach-for-you/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Truth About Psychotherapy vs Therapy Clarifying Common Myths,/blog/the-truth-about-psychotherapy-vs-therapy-clarifying-common-myths/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Benefits of Choosing Psychiatric Telemedicine for Convenient Mental Health Care,/blog/the-benefits-of-choosing-psychiatric-telemedicine-for-convenient-mental-health-care/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Understanding Borderline Personality Disorder Treatment Facilities your Guide to Recovery,/blog/understanding-borderline-personality-disorder-treatment-facilities-your-guide-to-recovery/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Choosing the Right Psychotherapist in Brooklyn a Step By Step Guide,/blog/choosing-the-right-psychotherapist-in-brooklyn-a-step-by-step-guide/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How to Improve Sleep with Professional Online Insomnia Treatment,/blog/how-to-improve-sleep-with-professional-online-insomnia-treatment/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Power of Therapy How Postpartum Depression Therapists Support New Moms,/blog/the-power-of-therapy-how-postpartum-depression-therapists-support-new-moms/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How Regular Mental Health Appointments Can Transform your Life,/blog/how-regular-mental-health-appointments-can-transform-your-life/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Choosing Between a Child Psychiatrist and Child Psychologist What Parents Need to Know,/blog/choosing-between-a-child-psychiatrist-and-child-psychologist-what-parents-need-to-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How a Psychiatrist for Adolescents Can Help your Teen Cope with Life Transitions,/blog/how-a-psychiatrist-for-adolescents-can-help-your-teen-cope-with-life-transitions/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How to Choose the Right Psychiatrist in Queens New York for your Mental Health Needs,/blog/how-to-choose-the-right-psychiatrist-in-queens-new-york-for-your-mental-health-needs/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Online Appointment with Psychiatrist What to Expect During your Virtual Visit,/blog/online-appointment-with-psychiatrist-what-to-expect-during-your-virtual-visit/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Choosing a Child Psychiatrist What Parents Should Know,/blog/choosing-a-child-psychiatrist-what-parents-should-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How a Telehealth Psychiatrist Can Help You Manage your Mental Health From Home,/blog/how-a-telehealth-psychiatrist-can-help-you-manage-your-mental-health-from-home/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Telepsychiatry Services Overcoming Barriers to Mental Health Treatment,/blog/telepsychiatry-services-overcoming-barriers-to-mental-health-treatment/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Psychiatric Assessment Understanding the Process and Its Benefits,/blog/psychiatric-assessment-understanding-the-process-and-its-benefits/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Anxiety vs ADHD Whats Really Going on in your Mind,/blog/anxiety-vs-adhd-whats-really-going-on-in-your-mind/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,The Benefits of Consulting a Trauma Psychiatrist for Long Term Healing,/blog/the-benefits-of-consulting-a-trauma-psychiatrist-for-long-term-healing/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Family First Counseling How to Navigate Difficult Family Dynamics,/blog/family-first-counseling-how-to-navigate-difficult-family-dynamics/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Psychotherapy vs CBT Decoding the Benefits of Both Approaches,/blog/psychotherapy-vs-cbt-decoding-the-benefits-of-both-approaches/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Benefits of Early Intervention with a Child Psychologist,/blog/benefits-of-early-intervention-with-a-child-psychologist/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,How to Find the Right Psychiatrist New York Offers for your Needs,/blog/how-to-find-the-right-psychiatrist-new-york-offers-for-your-needs/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Exploring New Treatments for ADHD What You Need to Know,/blog/exploring-new-treatments-for-adhd-what-you-need-to-know/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,What to Expect From Comprehensive Mental Health Services Today,/blog/what-to-expect-from-comprehensive-mental-health-services-today/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Recognizing Emotional Exhaustion Before Its Too Late,/blog/recognizing-emotional-exhaustion-before-its-too-late/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,Understanding and Overcoming Postpartum Sleep Deprivation,/blog/understanding-and-overcoming-postpartum-sleep-deprivation/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Resources and blog,A Comprehensive Guide to Adjustment Disorder vs PTSD,/blog/a-comprehensive-guide-to-adjustment-disorder-vs-ptsd/,Fix,"1. Add a named clinician author or reviewer and review date
+2. Assign one category each
+3. Add 2–3 links to the matching condition and service pages
+4. Fix 3 dead links (e.g. /services/psychiatric-evaluation)","• Which clinician reviews which topics
+• Author photo and bio for the reviewer",Part of: Existing blog posts
+Legal and trust,Privacy Policy,/privacy-policy/,Keep,1. Keep; update to list every tracking and form tool actually used,"• List of tools: analytics, ads, forms, scheduler",
+Legal and trust,Terms and Conditions,/terms-and-conditions/,Keep,1. Keep,• None,
+Legal and trust,Cookie Statement,/cookie-statement/,Keep,1. Keep; match the cookie banner choices,• None,
+Legal and trust,Notice of Privacy Practices (HIPAA),/notice-of-privacy-practices/,New,"1. Full HIPAA NPP text
+2. Privacy officer contact
+3. Effective date",• The practice's current NPP document and privacy officer,
+Legal and trust,No Surprises Act / Good Faith Estimate,/good-faith-estimate/,New,"1. Required notice for self-pay patients
+2. How to request an estimate",• Approved notice text,
+Legal and trust,Accessibility Statement,/accessibility/,New,"1. Commitment, standard followed (WCAG 2.2 AA)
+2. How to request help",• Contact for accessibility requests,
+Remove from sitemap,Theme templates,"/?uicore-tb=therapist-footer, /?uicore-tb=shortage-popup",Remove,1. Set to noindex and remove from the sitemap,• None (developer task),
+Remove from sitemap,Form post,/blog/metform-form/therapist-booking-form/,Remove,1. Noindex and remove from the sitemap,• None,
+Remove from sitemap,Attachment pages,602 /…/attachment/ URLs,Remove,1. Turn off attachment pages in the SEO plugin and drop the attachment sitemap,• None,
+Remove from sitemap,Dead sitemap URLs,"/blog/uicore-cd/ui-cd-wp/, /blog/uicore-cd/ui-cd-to/",Remove,1. Remove; both return 404,• None,

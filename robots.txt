@@ -6,5 +6,6 @@ Disallow: /thank-you.html
 Disallow: /admin-dashboard.html
 Disallow: /access-onboarding.html
 Disallow: /reports/*.pdf
+Disallow: /reports/*.csv
 
 Sitemap: https://mykohi.com/sitemap.xml
