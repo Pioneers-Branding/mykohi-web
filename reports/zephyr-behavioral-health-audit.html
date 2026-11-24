@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zephyr Behavioral Health Audit | MyKohi</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="/img/brain-bulb-logo.png">
+<style>
+:root {
+  /* MyKohi brand: Syne display, Inter body, Space Grotesk data, brand blues on the site's light ground. */
+  --bg: #f6f8fb; --sheet: #ffffff; --fg: #0f172a; --muted: #475569; --line: #e2e8f0; --track: #e0f2fe;
+  --brand: #0ea5e9; --accent: #0369a1; --accent-dark: #0c4a6e; --crit: #be123c; --crit-bg: #ffe4e6; --high: #92400e; --high-bg: #fef3c7; --med: #334155; --med-bg: #f1f5f9;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif; --display: "Syne", "Inter", Arial, sans-serif; --mono: "Space Grotesk", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/1.45 var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px; }
+.sheet { max-width: 1160px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 36px); display: grid; gap: 28px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; align-items: baseline; border-bottom: 2px solid var(--fg); padding-bottom: 12px; }
+h1 { font-size: 26px; font-weight: 800; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.meta { font-size: 12px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+.score { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.num { font-size: 96px; line-height: .85; font-weight: 800; letter-spacing: -.04em; color: var(--crit); }
+.num small { font-size: 22px; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.grade { display: grid; gap: 2px; padding-bottom: 2px; }
+.grade b { font-size: 17px; }
+.grade span { font-size: 12px; color: var(--muted); }
+.verdict { margin: 16px 0 0; font-size: 15px; max-width: 58ch; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.tally span { display: inline-flex; gap: 6px; align-items: center; }
+.meters { display: grid; gap: 11px; }
+.meters h2 { margin-bottom: 2px; }
+.m { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 62px; gap: 12px; align-items: center; font-size: 13px; }
+.m .w { color: var(--muted); font-size: 11px; font-family: var(--mono); margin-left: 4px; }
+.bar { height: 10px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.m .v { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+h2 { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0; }
+.fix ol { margin: 10px 0 0; padding: 0 0 0 20px; columns: 2 340px; column-gap: 36px; }
+.fix li { margin: 0 0 8px; break-inside: avoid; }
+.fix b { font-weight: 600; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 36px; align-items: start; }
+section.cat { min-width: 0; }
+.cat header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--fg); padding-bottom: 5px; }
+.cat h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.cat header span { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.chip { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 0; border-radius: 3px; text-align: center; height: max-content; }
+.c { color: var(--crit); background: var(--crit-bg); }
+.h { color: var(--high); background: var(--high-bg); }
+.g { color: var(--med); background: var(--med-bg); }
+.tally .chip { padding: 2px 7px; }
+.row p { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.row em { font-style: normal; color: var(--muted); }
+.row code { font-family: var(--mono); font-size: 12px; }
+footer.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--fg); padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+footer.notes h2 { color: var(--fg); margin-bottom: 6px; }
+footer.notes p { margin: 0; }
+@media (max-width: 860px) {
+  .summary, .findings, footer.notes { grid-template-columns: minmax(0, 1fr); }
+  .m { grid-template-columns: minmax(0, 150px) minmax(0, 1fr) 54px; gap: 8px; }
+  .num { font-size: 80px; }
+}
+
+/* MyKohi brand layer */
+.sheet { border-radius: 20px; box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+h1, .cat h3, .num, .grade b { font-family: var(--display); }
+h1 { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+header.top { align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--brand); gap: 16px 24px; padding-bottom: 16px; justify-content: flex-start; }
+.brand-logo { height: 76px; width: auto; flex: none; display: block; }
+.titles { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.dl { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 9999px; text-decoration: none; transition: background .15s; }
+.dl:hover { background: var(--accent-dark); }
+.dl:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
+.dl svg { width: 16px; height: 16px; }
+.bar { background: var(--track); }
+.bar i { background: var(--brand); }
+.m .v, .cat header span { color: var(--accent); }
+.cat header { border-bottom: 2px solid var(--brand); }
+.fix { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px 22px; }
+.fix h2 { color: var(--accent); }
+footer.notes { border-top: 2px solid var(--brand); }
+.brand-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.brand-foot b { font-family: var(--display); color: var(--accent); font-weight: 700; }
+.brand-foot a { color: var(--accent); text-decoration: none; }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; max-width: none; }
+  .dl { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="top">
+    <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
+    <div class="titles">
+      <h1>Website Access &amp; Visibility Audit: zephyrbehavioralhealthandwellness.com</h1>
+      <div class="meta mono">Zephyr Behavioral Health and Wellness, Greenwood Village CO · Checked 15 Nov and 24 Nov 2026 · 0 pages reachable</div>
+    </div>
+    <a class="dl" href="zephyr-behavioral-health-audit.pdf" download="Zephyr-Behavioral-Health-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="score">
+        <div class="num mono" style="font-size:64px">Blocked</div>
+        <div class="grade"><b>Not scorable</b><span>No page on the site could be loaded</span></div>
+      </div>
+      <p class="verdict">Every address on the site, including the homepage, <code>robots.txt</code> and the sitemap, returns a Cloudflare security challenge instead of the website. That challenge page tells search engines not to index it, and no pages from the domain appear in search results. Until the block is lifted, the site is close to invisible to new patients searching online.</p>
+      <div class="tally" aria-label="Findings by severity">
+        <span><b class="chip c">Critical</b> <b class="mono">2</b></span>
+        <span><b class="chip h">High</b> <b class="mono">4</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">4</b></span>
+      </div>
+    </div>
+    <div class="meters">
+      <h2>What could be checked</h2>
+      <div class="m"><div>Crawl access</div><div class="bar"><i style="width:2%"></i></div><div class="v">0/100</div></div>
+      <div class="m"><div>Search visibility</div><div class="bar"><i style="width:2%"></i></div><div class="v">0/100</div></div>
+      <div class="m"><div>Domain, DNS &amp; certificate</div><div class="bar"><i style="width:85%"></i></div><div class="v">85/100</div></div>
+      <div class="m"><div>On-page SEO, content, local, speed</div><div class="bar"><i style="width:0"></i></div><div class="v" style="font-size:11px">Not reachable</div></div>
+    </div>
+  </div>
+
+  <section class="fix">
+    <h2>Fix first</h2>
+    <ol>
+      <li><b>Log in to Cloudflare and turn off "I'm Under Attack" mode,</b> or lower the Security Level, under Security → Settings.</li>
+      <li><b>Check Security → WAF custom rules</b> for any rule that applies a Managed Challenge to all traffic, and remove or narrow it.</li>
+      <li><b>Under Bots, keep verified bots allowed,</b> so Googlebot, Bingbot and AdsBot are never challenged.</li>
+      <li><b>Test from a phone on mobile data</b> and with Google Search Console's URL Inspection. The live test must show the real homepage.</li>
+      <li><b>Submit the sitemap in Search Console</b> once pages load, and request indexing for the homepage.</li>
+      <li><b>Tell us when it's open,</b> and we'll run the full audit (on-page SEO, content, local SEO, speed and privacy).</li>
+    </ol>
+  </section>
+
+  <div class="findings">
+    <section class="cat">
+      <header><h3>Crawl access</h3><span>0/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Every request returns HTTP 403 with a Cloudflare "Just a moment..." challenge (<code>cf-mitigated: challenge</code>) instead of the site. <em>Homepage, www, <code>robots.txt</code>, <code>sitemap.xml</code> and <code>sitemap_index.xml</code>, on 15 and 24 Nov.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>A real Chrome browser was challenged too. Google's Lighthouse test only ever reached the challenge page, so some real patients, especially on privacy browsers, older phones or work networks, may be stuck at "Just a moment...".</p></div>
+      <div class="row"><b class="chip h">High</b><p>Search engines cannot read <code>robots.txt</code> or the sitemap, because both are behind the same challenge.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p><code>http://</code> addresses return 403 instead of redirecting to the secure <code>https://</code> site.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Search visibility</h3><span>0/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>The challenge page carries <code>&lt;meta name="robots" content="noindex,nofollow"&gt;</code>. Any crawler that gets challenged is told not to index the site.</p></div>
+      <div class="row"><b class="chip h">High</b><p>No pages from the domain appear in search results. Searches for the practice name return third-party listings such as Zocdoc and an NPI directory, not the website. <em>Checked 15 and 24 Nov.</em></p></div>
+      <div class="row"><b class="chip h">High</b><p>If the practice runs Google Ads, landing pages on this domain would fail Google's review while AdsBot is challenged.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Brand and local listings</h3><span>From public sources</span></header>
+      <div class="row"><b class="chip g">Medium</b><p>Several unrelated practices share the "Zephyr" name. One is Zephyr Collective, a psilocybin center in nearby Centennial, CO. With no website visible in search, patients can easily land on the wrong practice.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>The Zocdoc profile lists no individual providers, and the address (6200 S Syracuse Way, Ste 260, Greenwood Village) only appears on a third-party NPI site. Confirm the address and providers on Zocdoc and Google Business Profile.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Domain, DNS &amp; certificate</h3><span>85/100</span></header>
+      <div class="row"><b class="chip g">Medium</b><p>Email protection is only in monitor mode: the DMARC policy is <code>p=none</code>, so anyone can still send email that looks like it comes from the practice. Move to <code>p=quarantine</code> once reports look clean.</p></div>
+    </section>
+  </div>
+
+  <footer class="notes">
+    <div>
+      <h2>How it was checked</h2>
+      <p>Passed: Cloudflare DNS and CDN, a valid TLS certificate (Google Trust Services, valid to 23 Jan 2027), and Google Workspace email with SPF and DKIM. Checks made: direct requests to every standard address, response headers, DNS and certificate lookups, a Lighthouse run in real Chrome, and web searches for the domain and practice name, on 15 and 24 Nov 2026. Nothing was done to get around the block.</p>
+    </div>
+    <div>
+      <h2>Why there is no score</h2>
+      <p>Our audits grade on-page SEO, content, local SEO, speed and privacy from the site's own pages. None of those could be loaded, so a number would be a guess. The crawl and visibility results above are scored because they are fully evidenced.</p>
+    </div>
+    <div>
+      <h2>Not assessed</h2>
+      <p>Everything on the site itself: titles, content, providers, services, schema, speed, accessibility and tracking. Also not assessed: keyword rankings, traffic, backlinks and Google Business Profile, which need account access. Whether Googlebot itself is blocked can only be confirmed in Search Console.</p>
+    </div>
+  </footer>
+  <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
+</main>
+</body>
+</html>
