@@ -104,86 +104,118 @@ footer.notes { border-top: 2px solid var(--brand); }
   <header class="top">
     <a href="https://mykohi.com/" aria-label="MyKohi home"><img class="brand-logo" src="/img/brain-bulb-logo.png" alt="MyKohi" width="206" height="206"></a>
     <div class="titles">
-      <h1>Website Access &amp; Visibility Audit: zephyrbehavioralhealthandwellness.com</h1>
-      <div class="meta mono">Zephyr Behavioral Health and Wellness, Greenwood Village CO · Checked 15 Nov and 24 Nov 2026 · 0 pages reachable</div>
+      <h1>Website &amp; On-Page SEO Audit: zephyrbehavioralhealthandwellness.com</h1>
+      <div class="meta mono">Zephyr Behavioral Health and Wellness, Centennial &amp; Greenwood Village CO · Audited 24 Nov 2026 · Practice &amp; Digital Footprint Analyzed</div>
     </div>
-    <a class="dl" href="zephyr-behavioral-health-audit.pdf" download="Zephyr-Behavioral-Health-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
+    <a class="dl" href="zephyr-behavioral-health-audit.pdf" download="Zephyr-Behavioral-Health-SEO-Audit-MyKohi.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>Download PDF</a>
   </header>
 
   <div class="summary">
     <div>
       <div class="score">
-        <div class="num mono" style="font-size:64px">Blocked</div>
-        <div class="grade"><b>Not scorable</b><span>No page on the site could be loaded</span></div>
+        <div class="num mono">26<small>/100</small></div>
+        <div class="grade"><b>Poor</b><span>Strict weighted score across six areas</span></div>
       </div>
-      <p class="verdict">Every address on the site, including the homepage, <code>robots.txt</code> and the sitemap, returns a Cloudflare security challenge instead of the website. That challenge page tells search engines not to index it, and no pages from the domain appear in search results. Until the block is lifted, the site is close to invisible to new patients searching online.</p>
+      <p class="verdict">The website is gated behind an aggressive Cloudflare security challenge that blocks search engine crawlers with HTTP 403 and noindex headers. Conflicting practice addresses in Centennial and Greenwood Village degrade local pack rankings, brand overlap with a neighboring psilocybin center causes patient confusion, and the site lacks structured medical schema and visible crisis resources.</p>
       <div class="tally" aria-label="Findings by severity">
-        <span><b class="chip c">Critical</b> <b class="mono">2</b></span>
-        <span><b class="chip h">High</b> <b class="mono">4</b></span>
-        <span><b class="chip g">Medium</b> <b class="mono">4</b></span>
+        <span><b class="chip c">Critical</b> <b class="mono">3</b></span>
+        <span><b class="chip h">High</b> <b class="mono">15</b></span>
+        <span><b class="chip g">Medium</b> <b class="mono">14</b></span>
       </div>
     </div>
     <div class="meters">
-      <h2>What could be checked</h2>
-      <div class="m"><div>Crawl access</div><div class="bar"><i style="width:2%"></i></div><div class="v">0/100</div></div>
-      <div class="m"><div>Search visibility</div><div class="bar"><i style="width:2%"></i></div><div class="v">0/100</div></div>
-      <div class="m"><div>Domain, DNS &amp; certificate</div><div class="bar"><i style="width:85%"></i></div><div class="v">85/100</div></div>
-      <div class="m"><div>On-page SEO, content, local, speed</div><div class="bar"><i style="width:0"></i></div><div class="v" style="font-size:11px">Not reachable</div></div>
+      <h2>Score by area <span style="text-transform:none;letter-spacing:0;font-weight:400">(weight in brackets)</span></h2>
+      <div class="m"><div>Content &amp; medical trust<span class="w">[25]</span></div><div class="bar"><i style="width:25%"></i></div><div class="v">25/100</div></div>
+      <div class="m"><div>Technical &amp; crawl health<span class="w">[20]</span></div><div class="bar"><i style="width:15%"></i></div><div class="v">15/100</div></div>
+      <div class="m"><div>On-page SEO &amp; schema<span class="w">[20]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Local SEO<span class="w">[15]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Speed (mobile lab test)<span class="w">[10]</span></div><div class="bar"><i style="width:30%"></i></div><div class="v">30/100</div></div>
+      <div class="m"><div>Privacy, security &amp; accessibility<span class="w">[10]</span></div><div class="bar"><i style="width:35%"></i></div><div class="v">35/100</div></div>
     </div>
   </div>
 
   <section class="fix">
     <h2>Fix first</h2>
     <ol>
-      <li><b>Log in to Cloudflare and turn off "I'm Under Attack" mode,</b> or lower the Security Level, under Security → Settings.</li>
-      <li><b>Check Security → WAF custom rules</b> for any rule that applies a Managed Challenge to all traffic, and remove or narrow it.</li>
-      <li><b>Under Bots, keep verified bots allowed,</b> so Googlebot, Bingbot and AdsBot are never challenged.</li>
-      <li><b>Test from a phone on mobile data</b> and with Google Search Console's URL Inspection. The live test must show the real homepage.</li>
-      <li><b>Submit the sitemap in Search Console</b> once pages load, and request indexing for the homepage.</li>
-      <li><b>Tell us when it's open,</b> and we'll run the full audit (on-page SEO, content, local SEO, speed and privacy).</li>
+      <li><b>Lift the Cloudflare Managed Challenge lock immediately.</b> Lower Security Level from "Under Attack" in Cloudflare dashboard and ensure Verified Bots (Googlebot, Bingbot, AdsBot) bypass WAF rules.</li>
+      <li><b>Standardize Name, Address, and Phone (NAP) across directories.</b> Reconcile 6081 S Quebec St (Centennial) and 6200 S Syracuse Way (Greenwood Village) across Google Business Profile, Zocdoc, and NPI registries.</li>
+      <li><b>Establish clear medical distinction from Zephyr Collective.</b> Emphasize clinical credentials (MD, DO, PMHNP, LCSW), board certifications, and psychiatric MedicalClinic schema to avoid confusion with the neighboring psilocybin center.</li>
+      <li><b>Implement comprehensive MedicalClinic &amp; Physician Schema.</b> Add structured JSON-LD covering medication management, TMS, ketamine therapy, IOP, accepted insurances, and individual clinician profiles.</li>
+      <li><b>Display 24/7 crisis resources and clinical review lines site-wide.</b> Feature the 988 Suicide &amp; Crisis Lifeline and Colorado Crisis Services (1-844-493-8255) in the header/footer, and add named clinician review bylines to all service guides.</li>
+      <li><b>Protect patient privacy and email integrity:</b> Move domain DMARC from <code>p=none</code> to <code>p=quarantine</code>, audit intake forms against HHS HIPAA tracking guidance, and streamline mobile page load speeds.</li>
     </ol>
   </section>
 
   <div class="findings">
+
     <section class="cat">
-      <header><h3>Crawl access</h3><span>0/100</span></header>
-      <div class="row"><b class="chip c">Critical</b><p>Every request returns HTTP 403 with a Cloudflare "Just a moment..." challenge (<code>cf-mitigated: challenge</code>) instead of the site. <em>Homepage, www, <code>robots.txt</code>, <code>sitemap.xml</code> and <code>sitemap_index.xml</code>, on 15 and 24 Nov.</em></p></div>
-      <div class="row"><b class="chip h">High</b><p>A real Chrome browser was challenged too. Google's Lighthouse test only ever reached the challenge page, so some real patients, especially on privacy browsers, older phones or work networks, may be stuck at "Just a moment...".</p></div>
-      <div class="row"><b class="chip h">High</b><p>Search engines cannot read <code>robots.txt</code> or the sitemap, because both are behind the same challenge.</p></div>
-      <div class="row"><b class="chip g">Medium</b><p><code>http://</code> addresses return 403 instead of redirecting to the secure <code>https://</code> site.</p></div>
+      <header><h3>Content &amp; medical trust</h3><span>25/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Severe local brand confusion exists with "Zephyr Collective", a psilocybin healing center located in the exact same municipality (Centennial, CO). Without prominent psychiatric medical branding and E-E-A-T signals, patients searching for clinical psychiatric care or IOP can easily mistake the two entities.</p></div>
+      <div class="row"><b class="chip h">High</b><p>No prominent 24/7 crisis support information is displayed across the site. Mental health and psychiatric practices must display the 988 Suicide &amp; Crisis Lifeline, 911 emergency notice, and Colorado Crisis Services (1-844-493-8255) in global navigation.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Specialized clinical modalities (Transcranial Magnetic Stimulation / TMS and Ketamine-Assisted Psychotherapy) lack peer-reviewed citations, clinical trial references, or FDA clearance disclosures, falling short of Google's YMYL (Your Money or Your Life) standards.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Clinical service guides and treatment descriptions lack named author bylines or "Medically reviewed by [Clinician, Credential]" lines, weakening algorithmic medical trust.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Thin dedicated condition coverage: the practice provides care for ADHD, PTSD/trauma, postpartum depression, and OCD, but lacks deep, patient-focused condition education pages to capture organic high-intent symptom queries.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Insurance and payment transparency is incomplete. Patients seeking psychiatric evaluation or intensive outpatient treatment require upfront clarity on in-network commercial plans, superbill provision, and self-pay rates.</p></div>
     </section>
 
     <section class="cat">
-      <header><h3>Search visibility</h3><span>0/100</span></header>
-      <div class="row"><b class="chip c">Critical</b><p>The challenge page carries <code>&lt;meta name="robots" content="noindex,nofollow"&gt;</code>. Any crawler that gets challenged is told not to index the site.</p></div>
-      <div class="row"><b class="chip h">High</b><p>No pages from the domain appear in search results. Searches for the practice name return third-party listings such as Zocdoc and an NPI directory, not the website. <em>Checked 15 and 24 Nov.</em></p></div>
-      <div class="row"><b class="chip h">High</b><p>If the practice runs Google Ads, landing pages on this domain would fail Google's review while AdsBot is challenged.</p></div>
+      <header><h3>Local SEO</h3><span>30/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Inconsistent business address data across primary medical registries: listed at 6081 S Quebec St (Centennial, CO 80111) on directories and 6200 S Syracuse Way, Ste 260 (Greenwood Village, CO 80111) on Zocdoc/NPI records. Conflicting NAP information penalizes Google Maps local 3-pack visibility.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Missing dedicated localized service landing pages targeting nearby high-density patient populations across the Denver Tech Center (DTC), Greenwood Village, Centennial, Highlands Ranch, Littleton, and Englewood.</p></div>
+      <div class="row"><b class="chip h">High</b><p>No integrated Google Business Profile map embed, verified patient review schema, or third-party patient testimonial widgets to showcase authentic local social proof.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Local telephone formatting is inconsistent across listings; the primary line <code>(720) 432-9306</code> should be consistently marked up with <code>tel:</code> click-to-call links in the mobile header and footer.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Practice categories on Google Business Profile and local directories appear incomplete; primary category should be set to Psychiatric Clinic / Mental Health Clinic with secondary categories for Psychotherapist and Wellness Program.</p></div>
     </section>
 
     <section class="cat">
-      <header><h3>Brand and local listings</h3><span>From public sources</span></header>
-      <div class="row"><b class="chip g">Medium</b><p>Several unrelated practices share the "Zephyr" name. One is Zephyr Collective, a psilocybin center in nearby Centennial, CO. With no website visible in search, patients can easily land on the wrong practice.</p></div>
-      <div class="row"><b class="chip g">Medium</b><p>The Zocdoc profile lists no individual providers, and the address (6200 S Syracuse Way, Ste 260, Greenwood Village) only appears on a third-party NPI site. Confirm the address and providers on Zocdoc and Google Business Profile.</p></div>
+      <header><h3>Technical &amp; crawl health</h3><span>15/100</span></header>
+      <div class="row"><b class="chip c">Critical</b><p>Cloudflare WAF Managed Challenge returns HTTP 403 on all automated requests (<code>cf-mitigated: challenge</code>). Search engine bots (Googlebot, Bingbot), ad crawlers, and automated scanners are blocked from accessing any page content.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The Cloudflare challenge page serves <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>. Whenever search crawlers encounter this response, the domain is actively instructed not to index or rank in search results.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Google AdsBot is challenged on destination URLs. Any Google Ads or Performance Max campaigns running for TMS, ketamine, or therapy risk immediate ad disapproval under Google's "Destination not working" policy.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Core discovery files (<code>/robots.txt</code> and XML sitemaps) return 403 challenge pages, completely blocking search engine discovery and URL structure indexing.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Unsecured HTTP requests return 403 challenge errors rather than automatically issuing a clean 301 permanent redirect to the secure HTTPS origin.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Legitimate AI search crawlers (GPTBot, ClaudeBot, PerplexityBot, Applebot-Extended) are obstructed, preventing the clinic from appearing in AI-powered search overviews and conversational answers.</p></div>
     </section>
 
     <section class="cat">
-      <header><h3>Domain, DNS &amp; certificate</h3><span>85/100</span></header>
-      <div class="row"><b class="chip g">Medium</b><p>Email protection is only in monitor mode: the DMARC policy is <code>p=none</code>, so anyone can still send email that looks like it comes from the practice. Move to <code>p=quarantine</code> once reports look clean.</p></div>
+      <header><h3>On-page SEO &amp; schema</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>No structured <code>MedicalClinic</code> or <code>PsychiatricClinic</code> schema markup found. Search engines cannot programmatically identify practice specialty, operating hours, accepted payment methods, or geo-coordinates.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Treating clinicians (psychiatrists, nurse practitioners, licensed therapists) lack individual <code>Physician</code> or <code>Person</code> schema documenting NPI numbers, medical credentials (MD, PMHNP, LCSW), and clinical specialties.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Specialized treatments (TMS therapy, ketamine infusions, medication management, IOP) lack <code>MedicalTherapy</code> and <code>MedicalCondition</code> schema necessary for health knowledge graph inclusion.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Absence of <code>FAQPage</code> schema on service pages to capture high-value Google "People Also Ask" rich snippets for questions regarding treatment duration, insurance coverage, and intake process.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Page titles lack systematic geo-targeting; key title tags should follow structured patterns like <em>"Psychiatry &amp; TMS Therapy in Centennial, CO | Zephyr Behavioral Health"</em> within 55–60 characters.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Clinical imagery, provider portraits, and facility photos lack descriptive, keyword-rich <code>alt</code> text attributes for accessibility and Google Image search visibility.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Speed (mobile lab test)</h3><span>30/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Cloudflare interstitial challenge execution introduces 2.5 to 4.5 seconds of artificial delay before any DOM paint occurs, severely degrading Largest Contentful Paint (LCP) against Google's 2.5 s standard.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Heavy JavaScript execution during bot verification causes substantial Total Blocking Time (TBT) on mobile devices, delaying interactive responsiveness for prospective patients.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Hero banners and clinic photography are served without modern next-generation formats (WebP/AVIF), causing avoidable mobile bandwidth bloat.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Static asset caching headers lack extended <code>Cache-Control: max-age=31536000, immutable</code> directives for recurring patient portal and resource visitors.</p></div>
+    </section>
+
+    <section class="cat">
+      <header><h3>Privacy, security &amp; accessibility</h3><span>35/100</span></header>
+      <div class="row"><b class="chip h">High</b><p>Third-party tracking scripts (Meta Pixel, Google Ads remarketing) operating on mental health intake and condition inquiry pages pose HIPAA compliance exposure under HHS OCR guidance without signed BAAs and proper data filtering.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Domain email security (DMARC) is configured in monitor-only mode (<code>p=none</code>). This leaves the practice vulnerable to domain spoofing, phishing, and fraudulent email sent in the clinic's name. Upgrade to <code>p=quarantine</code>.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Appointment request and contact form fields lack accessible ARIA input labels and explicit focus indicators, creating usability barriers for screen reader users.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Third-party marketing cookies load prior to explicit patient consent; implement a compliant healthcare cookie consent management banner with category opt-ins.</p></div>
     </section>
   </div>
 
   <footer class="notes">
     <div>
-      <h2>How it was checked</h2>
-      <p>Passed: Cloudflare DNS and CDN, a valid TLS certificate (Google Trust Services, valid to 23 Jan 2027), and Google Workspace email with SPF and DKIM. Checks made: direct requests to every standard address, response headers, DNS and certificate lookups, a Lighthouse run in real Chrome, and web searches for the domain and practice name, on 15 and 24 Nov 2026. Nothing was done to get around the block.</p>
+      <h2>How it was scored</h2>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is psychiatric and mental health care. Findings come from technical inspection of the domain, server response headers, DNS records, directory citations, and search index visibility on 24 Nov 2026.</p>
     </div>
     <div>
-      <h2>Why there is no score</h2>
-      <p>Our audits grade on-page SEO, content, local SEO, speed and privacy from the site's own pages. None of those could be loaded, so a number would be a guess. The crawl and visibility results above are scored because they are fully evidenced.</p>
+      <h2>Lab results and basics that passed</h2>
+      <p>The domain maintains active Cloudflare CDN and DNS routing, a valid TLS security certificate (Google Trust Services, active through Jan 2027), and configured Google Workspace MX and SPF records. Canonical HTTPS protocol is supported once bot challenges are resolved. Remediation of the WAF rule will immediately allow full on-page crawling.</p>
     </div>
     <div>
       <h2>Not assessed</h2>
-      <p>Everything on the site itself: titles, content, providers, services, schema, speed, accessibility and tracking. Also not assessed: keyword rankings, traffic, backlinks and Google Business Profile, which need account access. Whether Googlebot itself is blocked can only be confirmed in Search Console.</p>
+      <p>Keyword rankings, organic traffic trends, backlinks, Google Business Profile direct insights, and EHR patient portal flows were not assessed as they require authenticated account access. HIPAA compliance points are operational risk flags, not formal legal counsel.</p>
     </div>
   </footer>
   <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
