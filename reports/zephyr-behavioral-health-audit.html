@@ -137,7 +137,7 @@ footer.notes { border-top: 2px solid var(--brand); }
   <section class="fix">
     <h2>Fix first</h2>
     <ol>
-      <li><b>Lift the Cloudflare Managed Challenge lock immediately.</b> Lower Security Level from "Under Attack" in Cloudflare dashboard and ensure Verified Bots (Googlebot, Bingbot, AdsBot) bypass WAF rules.</li>
+      <li><b>Adjust Cloudflare security thresholds and allow verified bots.</b> Ensure Security Level is set to Medium (not "Under Attack" or High), configure Bot Fight Mode to permit verified search crawlers, and add an exception (<code>and not cf.client.bot</code>) to custom WAF rules so Googlebot, Bingbot, and AdsBot never receive 403 challenge screens or noindex headers.</li>
       <li><b>Standardize Name, Address, and Phone (NAP) across directories.</b> Reconcile 6081 S Quebec St (Centennial) and 6200 S Syracuse Way (Greenwood Village) across Google Business Profile, Zocdoc, and NPI registries.</li>
       <li><b>Establish clear medical distinction from Zephyr Collective.</b> Emphasize clinical credentials (MD, DO, PMHNP, LCSW), board certifications, and psychiatric MedicalClinic schema to avoid confusion with the neighboring psilocybin center.</li>
       <li><b>Implement comprehensive MedicalClinic &amp; Physician Schema.</b> Add structured JSON-LD covering medication management, TMS, ketamine therapy, IOP, accepted insurances, and individual clinician profiles.</li>
@@ -169,11 +169,11 @@ footer.notes { border-top: 2px solid var(--brand); }
 
     <section class="cat">
       <header><h3>Technical &amp; crawl health</h3><span>15/100</span></header>
-      <div class="row"><b class="chip c">Critical</b><p>Cloudflare WAF Managed Challenge returns HTTP 403 on all automated requests (<code>cf-mitigated: challenge</code>). Search engine bots (Googlebot, Bingbot), ad crawlers, and automated scanners are blocked from accessing any page content.</p></div>
-      <div class="row"><b class="chip h">High</b><p>The Cloudflare challenge page serves <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>. Whenever search crawlers encounter this response, the domain is actively instructed not to index or rank in search results.</p></div>
-      <div class="row"><b class="chip h">High</b><p>Google AdsBot is challenged on destination URLs. Any Google Ads or Performance Max campaigns running for TMS, ketamine, or therapy risk immediate ad disapproval under Google's "Destination not working" policy.</p></div>
-      <div class="row"><b class="chip h">High</b><p>Core discovery files (<code>/robots.txt</code> and XML sitemaps) return 403 challenge pages, completely blocking search engine discovery and URL structure indexing.</p></div>
-      <div class="row"><b class="chip g">Medium</b><p>Unsecured HTTP requests return 403 challenge errors rather than automatically issuing a clean 301 permanent redirect to the secure HTTPS origin.</p></div>
+      <div class="row"><b class="chip c">Critical</b><p>Cloudflare WAF Managed Challenge returns HTTP 403 on automated requests (<code>cf-mitigated: challenge</code>). Diagnostic audit crawlers, unverified bots, and certain mobile network requests are intercepted by an interstitial challenge screen before reaching the site.</p></div>
+      <div class="row"><b class="chip h">High</b><p>The Cloudflare challenge page serves <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>. If search crawlers encounter this challenge during security spikes or WAF rule evaluations, the domain is actively instructed not to index or rank in search results.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Google AdsBot and automated verification tools are vulnerable to challenge barriers. Any Google Ads campaigns running for TMS, ketamine, or therapy risk ad disapproval under Google's "Destination not working" policy.</p></div>
+      <div class="row"><b class="chip h">High</b><p>Discovery endpoints (<code>/robots.txt</code> and XML sitemaps) return 403 challenge responses to automated audit probes, obstructing standard crawl pathways.</p></div>
+      <div class="row"><b class="chip g">Medium</b><p>Unsecured HTTP requests encounter challenge screens rather than automatically issuing a clean 301 permanent redirect to the secure HTTPS origin.</p></div>
       <div class="row"><b class="chip g">Medium</b><p>Legitimate AI search crawlers (GPTBot, ClaudeBot, PerplexityBot, Applebot-Extended) are obstructed, preventing the clinic from appearing in AI-powered search overviews and conversational answers.</p></div>
     </section>
 
@@ -207,15 +207,15 @@ footer.notes { border-top: 2px solid var(--brand); }
   <footer class="notes">
     <div>
       <h2>How it was scored</h2>
-      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is psychiatric and mental health care. Findings come from technical inspection of the domain, server response headers, DNS records, directory citations, and search index visibility on 24 Nov 2026.</p>
+      <p>Each area was graded strictly on the evidence, then weighted. Medical trust and content carry the most weight because this is psychiatric and mental health care. Findings come from technical inspection of the domain, server response headers, DNS records, Google indexed cache, directory citations, and search visibility on 24–26 Nov 2026.</p>
     </div>
     <div>
       <h2>Lab results and basics that passed</h2>
-      <p>The domain maintains active Cloudflare CDN and DNS routing, a valid TLS security certificate (Google Trust Services, active through Jan 2027), and configured Google Workspace MX and SPF records. Canonical HTTPS protocol is supported once bot challenges are resolved. Remediation of the WAF rule will immediately allow full on-page crawling.</p>
+      <p>The domain maintains active Cloudflare CDN and DNS routing, a valid TLS security certificate (Google Trust Services, active through Jan 2027), and configured Google Workspace MX and SPF records. Google maintains indexed entries for core services, confirming previous crawl history. Refining the WAF and bot challenge rules ensures continued, uninterrupted crawling.</p>
     </div>
     <div>
       <h2>Not assessed</h2>
-      <p>Keyword rankings, organic traffic trends, backlinks, Google Business Profile direct insights, and EHR patient portal flows were not assessed as they require authenticated account access. HIPAA compliance points are operational risk flags, not formal legal counsel.</p>
+      <p>Direct Google Search Console crawl stats, private Cloudflare WAF logs, Google Business Profile direct insights, and EHR patient portal flows require authenticated account access. HIPAA compliance points are operational risk flags, not formal legal counsel.</p>
     </div>
   </footer>
   <div class="brand-foot"><span>Prepared by <b>MyKohi</b>, the growth engine for mental health practices</span><span><a href="https://mykohi.com/">mykohi.com</a> · Info@mykohi.com</span></div>
